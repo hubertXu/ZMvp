@@ -8,11 +8,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.WindowManager;
 
 import com.hubert.xu.zmvp.R;
-import com.hubert.xu.zmvp.utils.ActivityManagerUtils;
-import com.hubert.xu.zmvp.utils.ToastUtils;
+import com.hubert.xu.zmvp.utils.ActivityManagerUtil;
 
 import java.util.Stack;
 
@@ -30,18 +28,27 @@ public abstract class BaseActivity extends AppCompatActivity {
     public static Stack<BaseActivity> activityManager = new Stack<>();
 
     private Toolbar mToolbar;
-    private ActivityManagerUtils mActivityManagerUtils;
+    private ActivityManagerUtil mActivityManagerUtils;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         activityManager.push(this);
+        setContentView(attachLayoutRes());
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
-        mActivityManagerUtils = ActivityManagerUtils.newInstance();
+        mActivityManagerUtils = ActivityManagerUtil.newInstance();
         mActivityManagerUtils.addToStack(this);
-        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         initToolbar();
+        initData();
+        initView();
     }
+
+    protected abstract int attachLayoutRes();
+
+    protected abstract void initData();
+
+    protected abstract void initView();
+
 
     private void initToolbar() {
         mToolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -78,12 +85,6 @@ public abstract class BaseActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-        ToastUtils.cancelToast();
-    }
 
     @Override
     protected void onDestroy() {

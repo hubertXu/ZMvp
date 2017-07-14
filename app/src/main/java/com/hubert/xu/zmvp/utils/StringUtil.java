@@ -6,9 +6,9 @@ package com.hubert.xu.zmvp.utils;
  * desc  :
  */
 
-public class StringUtils {
+public class StringUtil {
 
-    private StringUtils() {
+    private StringUtil() {
         throw new UnsupportedOperationException("u can't instantiate me...");
     }
 

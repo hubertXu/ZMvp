@@ -8,11 +8,11 @@ import android.content.Context;
  * desc  : Utils初始化相关
  */
 
-public class Utils {
+public class Util {
 
     private static Context context;
 
-    private Utils() {
+    private Util() {
         throw new UnsupportedOperationException("u can't instantiate me...");
     }
 
@@ -22,7 +22,7 @@ public class Utils {
      * @param context 上下文
      */
     public static void init(Context context) {
-        Utils.context = context.getApplicationContext();
+        Util.context = context.getApplicationContext();
     }
 
     /**

@@ -10,16 +10,16 @@ import java.util.Stack;
  * desc  :
  */
 
-public class ActivityManagerUtils {
+public class ActivityManagerUtil {
 
     private Stack<Activity> activityStack = new Stack<>();
 
 
     public static class ActivityManagerUtilsHolder {
-        public static ActivityManagerUtils instance = new ActivityManagerUtils();
+        public static ActivityManagerUtil instance = new ActivityManagerUtil();
     }
 
-    public static ActivityManagerUtils newInstance() {
+    public static ActivityManagerUtil newInstance() {
         return ActivityManagerUtilsHolder.instance;
     }
 

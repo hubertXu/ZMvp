@@ -6,9 +6,9 @@ package com.hubert.xu.zmvp.utils;
  * desc  : 常量相关工具类
  */
 
-public class ConstUtils {
+public class ConstUtil {
 
-    private ConstUtils() {
+    private ConstUtil() {
         throw new UnsupportedOperationException("u can't instantiate me...");
     }
 

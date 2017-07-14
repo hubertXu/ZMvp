@@ -11,7 +11,7 @@ import java.util.Map;
  * desc  :
  */
 
-public class SPUtils {
+public class SPUtil {
     private static SharedPreferences sp;
     private static SharedPreferences.Editor editor;
 

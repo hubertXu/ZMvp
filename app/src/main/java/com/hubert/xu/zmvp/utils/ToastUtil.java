@@ -11,26 +11,26 @@ import android.widget.Toast;
  * time  : 2016/12/17
  * desc  :
  */
-public class ToastUtils {
+public class ToastUtil {
     private static Context mContext;
     private static Toast mToast;
     private static Boolean mIsShowWhenMore = false;
     private static Handler mHandler = new Handler(Looper.getMainLooper());
 
-    public ToastUtils() {
+    public ToastUtil() {
         throw new UnsupportedOperationException("cannot be instantiated");
     }
 
-    public ToastUtils(Boolean isShowWhenMore) {
+    public ToastUtil(Boolean isShowWhenMore) {
         mIsShowWhenMore = isShowWhenMore;
     }
 
-    public static ToastUtils with(Boolean isShowWhenMore) {
-        return new ToastUtils(isShowWhenMore);
+    public static ToastUtil with(Boolean isShowWhenMore) {
+        return new ToastUtil(isShowWhenMore);
     }
 
     public static void init(Context context) {
-        ToastUtils.mContext = context;
+        ToastUtil.mContext = context;
     }
 
     /**
@@ -61,7 +61,7 @@ public class ToastUtils {
      * @param duration 时长
      */
     public static void showToast(int resId, int duration) {
-        showToast(Utils.getContext().getResources().getString(resId), duration);
+        showToast(Util.getContext().getResources().getString(resId), duration);
     }
 
     /**
@@ -168,7 +168,7 @@ public class ToastUtils {
      * @param message 文本
      */
     public static void showShortToastSafely(final CharSequence message) {
-//        mHandler.post(() -> showToast(message, Toast.LENGTH_SHORT));
+        mHandler.post(() -> showToast(message, Toast.LENGTH_SHORT));
     }
 
     /**
@@ -177,7 +177,7 @@ public class ToastUtils {
      * @param message 资源id
      */
     public static void showShortToastSafely(final int message) {
-//        mHandler.post(() -> showToast(message, Toast.LENGTH_SHORT));
+        mHandler.post(() -> showToast(message, Toast.LENGTH_SHORT));
     }
 
 
@@ -187,7 +187,7 @@ public class ToastUtils {
      * @param message 文本
      */
     public static void showSLongToastSafely(final CharSequence message) {
-//        mHandler.post(() -> showToast(message, Toast.LENGTH_LONG));
+        mHandler.post(() -> showToast(message, Toast.LENGTH_LONG));
     }
 
     /**
@@ -196,7 +196,7 @@ public class ToastUtils {
      * @param message 资源id
      */
     public static void showLongToastSafely(final int message) {
-//        mHandler.post(() -> showToast(message, Toast.LENGTH_LONG));
+        mHandler.post(() -> showToast(message, Toast.LENGTH_LONG));
     }
 
 }

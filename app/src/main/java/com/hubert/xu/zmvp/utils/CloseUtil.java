@@ -9,9 +9,9 @@ import java.io.IOException;
  * desc  :
  */
 
-public class CloseUtils {
+public class CloseUtil {
 
-    private CloseUtils() {
+    private CloseUtil() {
         throw new UnsupportedOperationException("u can't instantiate me...");
     }
 

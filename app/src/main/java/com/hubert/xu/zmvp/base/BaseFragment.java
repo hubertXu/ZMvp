@@ -37,9 +37,10 @@ public abstract class BaseFragment extends Fragment {
 
     public abstract View initViews(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState);
 
-    public abstract void init();
+    public abstract void initData();
 
-    public abstract void initListener();
+    public abstract void initView();
+
 
     @Override
     public void setUserVisibleHint(boolean isVisibleToUser) {
@@ -78,7 +79,7 @@ public abstract class BaseFragment extends Fragment {
             return;
         }
         isFirstLoad = false;
-        init();
-        initListener();
+        initData();
+        initView();
     }
 }
