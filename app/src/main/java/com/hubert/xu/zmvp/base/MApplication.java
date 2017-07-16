@@ -6,6 +6,7 @@ import android.graphics.Typeface;
 import com.hubert.xu.zmvp.utils.SPUtil;
 import com.hubert.xu.zmvp.utils.ToastUtil;
 import com.hubert.xu.zmvp.utils.Util;
+import com.hubert.xu.zmvp.utils.imageload.ImageLoaderManager;
 import com.orhanobut.logger.AndroidLogAdapter;
 import com.orhanobut.logger.Logger;
 import com.squareup.leakcanary.LeakCanary;
@@ -58,6 +59,7 @@ public class MApplication extends Application {
         LeakCanary.install(this);
         // Logger
         Logger.addLogAdapter(new AndroidLogAdapter());
+        ImageLoaderManager.getInstance().init(this);
     }
 
 
