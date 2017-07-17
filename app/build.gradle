@@ -80,4 +80,6 @@ dependencies {
     compile 'de.hdodenhof:circleimageview:2.1.0'
     // logger
     compile 'com.orhanobut:logger:2.1.1'
+    // BaseRecyclerViewAdapterHelper
+    compile 'com.github.CymChad:BaseRecyclerViewAdapterHelper:2.9.22'
 }
