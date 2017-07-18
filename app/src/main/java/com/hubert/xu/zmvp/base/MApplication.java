@@ -1,7 +1,6 @@
 package com.hubert.xu.zmvp.base;
 
 import android.app.Application;
-import android.graphics.Typeface;
 
 import com.hubert.xu.zmvp.utils.SPUtil;
 import com.hubert.xu.zmvp.utils.ToastUtil;
@@ -24,13 +23,6 @@ public class MApplication extends Application {
 
     public static MApplication getApplication() {
         return mAppContext;
-    }
-
-    //字体图标
-    private Typeface iconTypeFace;
-
-    public Typeface getIconTypeFace() {
-        return iconTypeFace;
     }
 
     @Override
@@ -64,10 +56,5 @@ public class MApplication extends Application {
 
 
     private void initData() {
-    }
-
-
-    private void initLeakCanary() {
-
     }
 }

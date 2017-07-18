@@ -4,13 +4,13 @@ import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.support.annotation.LayoutRes;
 import android.support.annotation.Nullable;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
 
 import com.hubert.xu.zmvp.R;
 import com.hubert.xu.zmvp.utils.ActivityManagerUtil;
+import com.trello.rxlifecycle2.components.support.RxAppCompatActivity;
 
 import java.util.Stack;
 
@@ -18,11 +18,11 @@ import butterknife.ButterKnife;
 
 
 /**
- * author: XQ
- * time  : 2016/2/22
- * desc  :
+ * Author: Hubert.Xu
+ * Date  : 2017/7/14
+ * Desc  :
  */
-public abstract class BaseActivity extends AppCompatActivity {
+public abstract class BaseActivity extends RxAppCompatActivity {
 
 
     public static Stack<BaseActivity> activityManager = new Stack<>();
@@ -52,7 +52,6 @@ public abstract class BaseActivity extends AppCompatActivity {
 
     private void initToolbar() {
         mToolbar = (Toolbar) findViewById(R.id.toolbar);
-
         if (mToolbar != null) {
             setSupportActionBar(mToolbar);
         }

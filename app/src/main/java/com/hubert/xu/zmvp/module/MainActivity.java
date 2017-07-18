@@ -1,4 +1,4 @@
-package com.hubert.xu.zmvp.ui.activity;
+package com.hubert.xu.zmvp.module;
 
 import com.hubert.xu.zmvp.R;
 import com.hubert.xu.zmvp.base.BaseActivity;

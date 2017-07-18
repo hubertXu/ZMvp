@@ -2,19 +2,20 @@ package com.hubert.xu.zmvp.base;
 
 import android.content.Context;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.trello.rxlifecycle2.components.RxFragment;
+
 import butterknife.ButterKnife;
 
 /**
- * author: XQ
- * time  : 2016/2/22
- * desc  :
+ * Author: Hubert.Xu
+ * Date  : 2017/7/14
+ * Desc  :
  */
-public abstract class BaseFragment extends Fragment {
+public abstract class BaseFragment extends RxFragment {
     public Context mContext;
     private boolean isFirstLoad = true;
     private boolean isPrepared;

@@ -1,4 +1,4 @@
-package com.hubert.xu.zmvp.base;
+package com.hubert.xu.zmvp.http;
 
 import java.io.Serializable;
 

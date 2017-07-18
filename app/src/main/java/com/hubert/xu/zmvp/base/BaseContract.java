@@ -5,7 +5,6 @@ package com.hubert.xu.zmvp.base;
  * Date  : 2017/7/14
  * Desc  :
  */
-
 public interface BaseContract {
     interface BasePresenter<T, M> {
 
