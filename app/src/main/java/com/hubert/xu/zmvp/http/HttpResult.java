@@ -8,7 +8,7 @@ import java.io.Serializable;
  * Desc  :
  */
 
-public class Result<T> implements Serializable {
+public class HttpResult<T> implements Serializable {
     private int code;
     private String msg;
     private T data;
@@ -39,7 +39,7 @@ public class Result<T> implements Serializable {
 
     @Override
     public String toString() {
-        return "Result{" +
+        return "HttpResult{" +
                 "msg='" + msg + '\'' +
                 ", state=" + code +
                 ", result=" + data +
