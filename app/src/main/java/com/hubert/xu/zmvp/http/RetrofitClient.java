@@ -32,7 +32,7 @@ public class RetrofitClient {
 
     private volatile static Retrofit retrofitInstance = null;
 
-    private static Retrofit getInstance() {
+    public static Retrofit getInstance() {
         if (null == retrofitInstance) {
             synchronized (Retrofit.class) {
                 if (null == retrofitInstance) {

@@ -4,18 +4,17 @@ import io.reactivex.disposables.Disposable;
 
 /**
  * Author: Hubert.Xu
- * Date  : 2017/7/20
- * Desc  : 定义请求结果处理接口
+ * Date  : 2017/7/21
+ * Desc  :
  */
 
-public interface ISubscriber<T extends HttpResult> {
+public interface ISubscriber<T> {
 
-    void onSubscribe(Disposable d);
+    void subscribe(Disposable d);
 
-    void onNext(T t);
+    void next(T t);
 
-    void onError(String errorMsg);
+    void error(Throwable e);
 
-    void onComplete();
-
+    void completed();
 }
