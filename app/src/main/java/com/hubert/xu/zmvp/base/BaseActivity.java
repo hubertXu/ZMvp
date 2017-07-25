@@ -33,6 +33,7 @@ public abstract class BaseActivity extends RxAppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setTheme(R.style.AppTheme);
         activityManager.push(this);
         setContentView(attachLayoutRes());
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
@@ -43,12 +44,12 @@ public abstract class BaseActivity extends RxAppCompatActivity {
         initView();
     }
 
-    protected abstract int attachLayoutRes();
 
     protected abstract void initData();
 
     protected abstract void initView();
 
+    protected abstract int attachLayoutRes();
 
     private void initToolbar() {
         mToolbar = (Toolbar) findViewById(R.id.toolbar);

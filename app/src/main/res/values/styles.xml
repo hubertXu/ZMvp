@@ -8,8 +8,10 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
-    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar"/>
-
-    <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light"/>
-
+    <style name="SplashTheme" parent="android:Theme">
+        <item name="android:windowBackground">@drawable/branded_launch_screens</item>
+        <item name="android:windowNoTitle">true</item>
+        <!--防止虚拟键遮挡-->
+        <item name="android:windowIsTranslucent">true</item>
+    </style>
 </resources>

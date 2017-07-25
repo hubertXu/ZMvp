@@ -1,10 +1,7 @@
 package com.hubert.xu.zmvp.http;
 
+import com.hubert.xu.zmvp.utils.NetworkUtils;
 import com.hubert.xu.zmvp.utils.ToastUtil;
-
-import java.net.ConnectException;
-import java.net.SocketTimeoutException;
-import java.net.UnknownHostException;
 
 import io.reactivex.Observer;
 import io.reactivex.annotations.NonNull;
@@ -24,6 +21,10 @@ public abstract class BaseObserver<T extends HttpResult> implements Observer<T>,
     @Override
     public void onSubscribe(@NonNull Disposable d) {
         subscribe(d);
+        if (!NetworkUtils.isAvailableByPing()) {
+            ToastUtil.showShort("无网络，读取缓存数据");
+            onComplete();
+        }
     }
 
     @Override
@@ -39,15 +40,7 @@ public abstract class BaseObserver<T extends HttpResult> implements Observer<T>,
 
     @Override
     public void onError(@NonNull Throwable e) {
-        if (e instanceof SocketTimeoutException) {
-            ToastUtil.showShort(ApiException.ERROR_MSG_SOCKETTIMEOUTEXCEPTION);
-        } else if (e instanceof ConnectException) {
-            ToastUtil.showShort(ApiException.ERROR_MSG_CONNECTEXCEPTION);
-        } else if (e instanceof UnknownHostException) {
-            ToastUtil.showShort(ApiException.ERROR_MSG_UNKONWNHOSTEXCEPTION);
-        } else {
-            ToastUtil.showShort(e.getMessage());
-        }
+        ToastUtil.showShort(ApiException.handleException(e).getMessage());
         error(e);
     }
 

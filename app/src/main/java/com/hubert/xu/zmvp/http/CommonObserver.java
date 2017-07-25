@@ -38,10 +38,6 @@ public abstract class CommonObserver<T extends HttpResult<T>> extends BaseObserv
     public void next(T t) {
         if (t.getCode() == 200) {
             onNext(t.getData());
-        } else if (t.getCode() == 401) {
-
-        } else {
-
         }
     }
 
