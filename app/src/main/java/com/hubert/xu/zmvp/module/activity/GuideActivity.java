@@ -13,6 +13,6 @@ public class GuideActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_guide);
-        SPUtil.putBoolean(Constants.IS_FIREST_START, true);
+        SPUtil.getInstance().put(Constants.IS_FIREST_START, true);
     }
 }

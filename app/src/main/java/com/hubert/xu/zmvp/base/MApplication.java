@@ -1,8 +1,8 @@
 package com.hubert.xu.zmvp.base;
 
 import android.app.Application;
+import android.content.Context;
 
-import com.hubert.xu.zmvp.utils.SPUtil;
 import com.hubert.xu.zmvp.utils.ToastUtil;
 import com.hubert.xu.zmvp.utils.Util;
 import com.hubert.xu.zmvp.utils.imageload.ImageLoaderManager;
@@ -18,25 +18,23 @@ import com.squareup.leakcanary.LeakCanary;
  */
 public class MApplication extends Application {
 
-    private String spName = "HubertXu_SP_Data";
-    private static MApplication mAppContext = null;
+    private static Context mAppContext = null;
 
-    public static MApplication getApplication() {
+    public static Context getApplication() {
         return mAppContext;
     }
 
     @Override
     public void onCreate() {
         super.onCreate();
-        mAppContext = this;
+        mAppContext = getApplicationContext();
         initUtils();
         initComplie();
         initData();
     }
 
     private void initUtils() {
-        Util.init(mAppContext);
-        SPUtil.init(mAppContext, spName);
+        Util.init(getApplicationContext());
         ToastUtil.init(this);
     }
 

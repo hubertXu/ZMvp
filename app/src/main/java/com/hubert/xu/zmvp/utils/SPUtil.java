@@ -2,8 +2,14 @@ package com.hubert.xu.zmvp.utils;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.support.annotation.NonNull;
+import android.support.v4.util.SimpleArrayMap;
 
+import com.hubert.xu.zmvp.base.MApplication;
+
+import java.util.Collections;
 import java.util.Map;
+import java.util.Set;
 
 /**
  * author: XQ
@@ -12,203 +18,265 @@ import java.util.Map;
  */
 
 public class SPUtil {
-    private static SharedPreferences sp;
-    private static SharedPreferences.Editor editor;
+    private static SimpleArrayMap<String, SPUtil> SP_UTILS_MAP = new SimpleArrayMap<>();
+    private SharedPreferences sp;
 
-    public static void init(Context context, String spName) {
-        sp = context.getSharedPreferences(spName, Context.MODE_PRIVATE);
-        editor = sp.edit();
+    /**
+     * 获取SP实例
+     *
+     * @return {@link SPUtil}
+     */
+    public static SPUtil getInstance() {
+        return getInstance("");
     }
 
     /**
-     * 保存数据
+     * 获取SP实例
      *
-     * @param key
-     * @param object
+     * @param spName sp名
+     * @return {@link SPUtil}
      */
-    public static void putData(String key, Object object) {
-        if (object instanceof String) {
-            editor.putString(key, (String) object);
-        } else if (object instanceof Boolean) {
-            editor.putBoolean(key, (Boolean) object);
-        } else if (object instanceof Integer) {
-            editor.putInt(key, (Integer) object);
-        } else if (object instanceof Long) {
-            editor.putLong(key, (Long) object);
-        } else if (object instanceof Float) {
-            editor.putFloat(key, (Float) object);
-        } else {
-            throw new IllegalArgumentException("not support object");
+    public static SPUtil getInstance(String spName) {
+        if (isSpace(spName)) spName = "HubertXu_SP_Data";
+        SPUtil spUtil = SP_UTILS_MAP.get(spName);
+        if (spUtil == null) {
+            spUtil = new SPUtil(spName);
+            SP_UTILS_MAP.put(spName, spUtil);
         }
-        editor.apply();
+        return spUtil;
+    }
+
+    private SPUtil(String spName) {
+        sp = MApplication.getApplication().getSharedPreferences(spName, Context.MODE_PRIVATE);
     }
 
     /**
-     * 获取数据，根据默认值，调用相应的方法
+     * SP中写入String
      *
-     * @param key
-     * @param defaultObject
-     * @return
+     * @param key   键
+     * @param value 值
      */
-    public static Object getData(String key, Object defaultObject) {
-        if (defaultObject instanceof String) {
-            return sp.getString(key, (String) defaultObject);
-        } else if (defaultObject instanceof Boolean) {
-            return sp.getBoolean(key, (Boolean) defaultObject);
-        } else if (defaultObject instanceof Integer) {
-            return sp.getInt(key, (Integer) defaultObject);
-        } else if (defaultObject instanceof Long) {
-            return sp.getLong(key, (Long) defaultObject);
-        } else if (defaultObject instanceof Float) {
-            return sp.getFloat(key, (Float) defaultObject);
-        } else {
-            throw new IllegalArgumentException("not support object");
-        }
-    }
-
-
-    /**
-     * 存储String类型
-     *
-     * @param key
-     * @param value
-     */
-    public static void putString(String key, String value) {
-        editor.putString(key, value);
-        editor.apply();
+    public void put(@NonNull final String key, @NonNull final String value) {
+        sp.edit().putString(key, value).apply();
     }
 
     /**
-     * 存储boolean类型
+     * SP中读取String
      *
-     * @param key
-     * @param value
+     * @param key 键
+     * @return 存在返回对应值，不存在返回默认值{@code ""}
      */
-    public static void putBoolean(String key, boolean value) {
-        editor.putBoolean(key, value);
-        editor.apply();
-    }
-
-
-    /**
-     * 存储int类型
-     *
-     * @param key
-     * @param value
-     */
-    public static void putInt(String key, int value) {
-        editor.putInt(key, value);
-        editor.apply();
+    public String getString(@NonNull final String key) {
+        return getString(key, "");
     }
 
     /**
-     * 存储long类型
+     * SP中读取String
      *
-     * @param key
-     * @param value
+     * @param key          键
+     * @param defaultValue 默认值
+     * @return 存在返回对应值，不存在返回默认值{@code defaultValue}
      */
-    public static void putLong(String key, long value) {
-        editor.putLong(key, value);
-        editor.apply();
-    }
-
-    /**
-     * 存储float类型
-     *
-     * @param key
-     * @param value
-     */
-    public static void putFloat(String key, float value) {
-        editor.putFloat(key, value);
-        editor.apply();
-    }
-
-    /**
-     * 获取String类型,不带默认值
-     *
-     * @param key
-     * @return
-     */
-    public static String getString(String key, String defaultValue) {
+    public String getString(@NonNull final String key, @NonNull final String defaultValue) {
         return sp.getString(key, defaultValue);
     }
 
     /**
-     * 获取boolean类型 不带默认值
+     * SP中写入int
      *
-     * @param key
-     * @return
+     * @param key   键
+     * @param value 值
      */
-    public static boolean getBoolean(String key, boolean defaultValue) {
-        return sp.getBoolean(key, defaultValue);
+    public void put(@NonNull final String key, final int value) {
+        sp.edit().putInt(key, value).apply();
     }
 
     /**
-     * 获取int类型 不带默认值
+     * SP中读取int
      *
-     * @param key
-     * @return
+     * @param key 键
+     * @return 存在返回对应值，不存在返回默认值-1
      */
-    public static int getInt(String key, int defaultValue) {
+    public int getInt(@NonNull final String key) {
+        return getInt(key, -1);
+    }
+
+    /**
+     * SP中读取int
+     *
+     * @param key          键
+     * @param defaultValue 默认值
+     * @return 存在返回对应值，不存在返回默认值{@code defaultValue}
+     */
+    public int getInt(@NonNull final String key, final int defaultValue) {
         return sp.getInt(key, defaultValue);
     }
 
     /**
-     * 获取long类型 不带默认值
+     * SP中写入long
      *
-     * @param key
-     * @return
+     * @param key   键
+     * @param value 值
      */
-    public static long getLong(String key, long defaultValue) {
+    public void put(@NonNull final String key, final long value) {
+        sp.edit().putLong(key, value).apply();
+    }
+
+    /**
+     * SP中读取long
+     *
+     * @param key 键
+     * @return 存在返回对应值，不存在返回默认值-1
+     */
+    public long getLong(@NonNull final String key) {
+        return getLong(key, -1L);
+    }
+
+    /**
+     * SP中读取long
+     *
+     * @param key          键
+     * @param defaultValue 默认值
+     * @return 存在返回对应值，不存在返回默认值{@code defaultValue}
+     */
+    public long getLong(@NonNull final String key, final long defaultValue) {
         return sp.getLong(key, defaultValue);
     }
 
+    /**
+     * SP中写入float
+     *
+     * @param key   键
+     * @param value 值
+     */
+    public void put(@NonNull final String key, final float value) {
+        sp.edit().putFloat(key, value).apply();
+    }
 
     /**
-     * 获取float类型 不带默认值
+     * SP中读取float
      *
-     * @param key
-     * @return
+     * @param key 键
+     * @return 存在返回对应值，不存在返回默认值-1
      */
-    public static float getFloat(String key, float defaultValue) {
+    public float getFloat(@NonNull final String key) {
+        return getFloat(key, -1f);
+    }
+
+    /**
+     * SP中读取float
+     *
+     * @param key          键
+     * @param defaultValue 默认值
+     * @return 存在返回对应值，不存在返回默认值{@code defaultValue}
+     */
+    public float getFloat(@NonNull final String key, final float defaultValue) {
         return sp.getFloat(key, defaultValue);
     }
 
-
     /**
-     * 清楚指定key的数据
+     * SP中写入boolean
      *
-     * @param key
+     * @param key   键
+     * @param value 值
      */
-    public static void remove(String key) {
-        editor.remove(key).apply();
+    public void put(@NonNull final String key, final boolean value) {
+        sp.edit().putBoolean(key, value).apply();
     }
 
     /**
-     * sp是否存在该key
+     * SP中读取boolean
      *
-     * @param key
-     * @return
+     * @param key 键
+     * @return 存在返回对应值，不存在返回默认值{@code false}
      */
-    public static boolean contains(String key) {
-        return sp.contains(key);
+    public boolean getBoolean(@NonNull final String key) {
+        return getBoolean(key, false);
     }
 
     /**
-     * 获取sp所有键值对
+     * SP中读取boolean
      *
-     * @return
+     * @param key          键
+     * @param defaultValue 默认值
+     * @return 存在返回对应值，不存在返回默认值{@code defaultValue}
      */
-    public static Map<String, ?> getAll() {
+    public boolean getBoolean(@NonNull final String key, final boolean defaultValue) {
+        return sp.getBoolean(key, defaultValue);
+    }
+
+    /**
+     * SP中写入String集合
+     *
+     * @param key    键
+     * @param values 值
+     */
+    public void put(@NonNull final String key, @NonNull final Set<String> values) {
+        sp.edit().putStringSet(key, values).apply();
+    }
+
+    /**
+     * SP中读取StringSet
+     *
+     * @param key 键
+     * @return 存在返回对应值，不存在返回默认值{@code Collections.<String>emptySet()}
+     */
+    public Set<String> getStringSet(@NonNull final String key) {
+        return getStringSet(key, Collections.<String>emptySet());
+    }
+
+    /**
+     * SP中读取StringSet
+     *
+     * @param key          键
+     * @param defaultValue 默认值
+     * @return 存在返回对应值，不存在返回默认值{@code defaultValue}
+     */
+    public Set<String> getStringSet(@NonNull final String key, @NonNull final Set<String> defaultValue) {
+        return sp.getStringSet(key, defaultValue);
+    }
+
+    /**
+     * SP中获取所有键值对
+     *
+     * @return Map对象
+     */
+    public Map<String, ?> getAll() {
         return sp.getAll();
     }
 
     /**
-     * 清除sp中所有数据
-     * commit() or apply() ?
-     * make change as needed,now use aply()
+     * SP中是否存在该key
+     *
+     * @param key 键
+     * @return {@code true}: 存在<br>{@code false}: 不存在
      */
-    public static boolean clear() {
-        return editor.clear().commit();
+    public boolean contains(@NonNull final String key) {
+        return sp.contains(key);
     }
-}
+
+    /**
+     * SP中移除该key
+     *
+     * @param key 键
+     */
+    public void remove(@NonNull final String key) {
+        sp.edit().remove(key).apply();
+    }
+
+    /**
+     * SP中清除所有数据
+     */
+    public void clear() {
+        sp.edit().clear().apply();
+    }
+
+    private static boolean isSpace(final String s) {
+        if (s == null) return true;
+        for (int i = 0, len = s.length(); i < len; ++i) {
+            if (!Character.isWhitespace(s.charAt(i))) {
+                return false;
+            }
+        }
+        return true;
+    }}

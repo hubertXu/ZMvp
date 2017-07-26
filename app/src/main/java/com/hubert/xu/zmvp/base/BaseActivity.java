@@ -12,8 +12,6 @@ import com.hubert.xu.zmvp.R;
 import com.hubert.xu.zmvp.utils.ActivityManagerUtil;
 import com.trello.rxlifecycle2.components.support.RxAppCompatActivity;
 
-import java.util.Stack;
-
 import butterknife.ButterKnife;
 
 
@@ -24,17 +22,12 @@ import butterknife.ButterKnife;
  */
 public abstract class BaseActivity extends RxAppCompatActivity {
 
-
-    public static Stack<BaseActivity> activityManager = new Stack<>();
-
     private Toolbar mToolbar;
-    private ActivityManagerUtil mActivityManagerUtils;
+    protected ActivityManagerUtil mActivityManagerUtils;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setTheme(R.style.AppTheme);
-        activityManager.push(this);
         setContentView(attachLayoutRes());
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         mActivityManagerUtils = ActivityManagerUtil.newInstance();

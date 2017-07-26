@@ -1,5 +1,6 @@
 package com.hubert.xu.zmvp.utils;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 
 /**
@@ -10,11 +11,8 @@ import android.content.Context;
 
 public class Util {
 
+    @SuppressLint("StaticFieldLeak")
     private static Context context;
-
-    private Util() {
-        throw new UnsupportedOperationException("u can't instantiate me...");
-    }
 
     /**
      * 初始化工具类
@@ -22,7 +20,7 @@ public class Util {
      * @param context 上下文
      */
     public static void init(Context context) {
-        Util.context = context.getApplicationContext();
+        Util.context = context;
     }
 
     /**
@@ -31,7 +29,10 @@ public class Util {
      * @return ApplicationContext
      */
     public static Context getContext() {
-        if (context != null) return context;
-        throw new NullPointerException("u should init first");
+        if (context != null) {
+            return context;
+        }else {
+            throw new NullPointerException("u should init first");
+        }
     }
 }
