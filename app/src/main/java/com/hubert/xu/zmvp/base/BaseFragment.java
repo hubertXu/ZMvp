@@ -2,11 +2,12 @@ package com.hubert.xu.zmvp.base;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.trello.rxlifecycle2.components.RxFragment;
+import com.trello.rxlifecycle2.components.support.RxFragment;
 
 import butterknife.ButterKnife;
 
@@ -20,6 +21,7 @@ public abstract class BaseFragment extends RxFragment {
     private boolean isFirstLoad = true;
     private boolean isPrepared;
     private boolean isVisible;
+    private View mView;
 
     @Override
     public void onAttach(Context context) {
@@ -29,14 +31,19 @@ public abstract class BaseFragment extends RxFragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = initViews(inflater, container, savedInstanceState);
-        ButterKnife.bind(this, view);
-        isPrepared = true;
-        lazyLoad();
-        return view;
+        mView = inflater.inflate(attachLayoutRes(), container, false);
+        ButterKnife.bind(this, mView);
+        return mView;
     }
 
-    public abstract View initViews(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState);
+    @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        isPrepared = true;
+        lazyLoad();
+    }
+
+    protected abstract int attachLayoutRes();
 
     public abstract void initData();
 

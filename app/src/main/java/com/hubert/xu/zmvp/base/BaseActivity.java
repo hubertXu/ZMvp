@@ -48,6 +48,7 @@ public abstract class BaseActivity extends RxAppCompatActivity {
         mToolbar = (Toolbar) findViewById(R.id.toolbar);
         if (mToolbar != null) {
             setSupportActionBar(mToolbar);
+            mToolbar.setTitleTextColor(getResources().getColor(android.R.color.white));
         }
     }
 

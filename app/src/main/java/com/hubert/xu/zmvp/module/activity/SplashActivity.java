@@ -1,4 +1,4 @@
-package com.hubert.xu.zmvp.module.splash;
+package com.hubert.xu.zmvp.module.activity;
 
 import android.content.Intent;
 import android.widget.TextView;
@@ -6,8 +6,6 @@ import android.widget.TextView;
 import com.hubert.xu.zmvp.R;
 import com.hubert.xu.zmvp.base.BaseActivity;
 import com.hubert.xu.zmvp.constant.Constants;
-import com.hubert.xu.zmvp.module.activity.GuideActivity;
-import com.hubert.xu.zmvp.module.activity.MainActivity;
 import com.hubert.xu.zmvp.utils.SPUtil;
 
 import java.util.concurrent.TimeUnit;
@@ -15,7 +13,10 @@ import java.util.concurrent.TimeUnit;
 import butterknife.BindView;
 import butterknife.OnClick;
 import io.reactivex.Observable;
+import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.annotations.NonNull;
+import io.reactivex.disposables.Disposable;
 
 /**
  * Author: Hubert.Xu
@@ -38,7 +39,27 @@ public class SplashActivity extends BaseActivity {
                 startActivity(intent);
                 finish();
                 return null;
-            }).subscribe();
+            }).subscribe(new Observer<Object>() {
+                @Override
+                public void onSubscribe(@NonNull Disposable d) {
+
+                }
+
+                @Override
+                public void onNext(@NonNull Object o) {
+
+                }
+
+                @Override
+                public void onError(@NonNull Throwable e) {
+
+                }
+
+                @Override
+                public void onComplete() {
+
+                }
+            });
         }
     }
 
