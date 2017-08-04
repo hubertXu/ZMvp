@@ -1,6 +1,8 @@
 package com.hubert.xu.zmvp.base;
 
+import android.app.Activity;
 import android.content.Context;
+import android.content.res.Resources;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
@@ -22,11 +24,17 @@ public abstract class BaseFragment extends RxFragment {
     private boolean isPrepared;
     private boolean isVisible;
     private View mView;
+    private Resources mResources;
+    private LayoutInflater mInflater;
+
 
     @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
-        mContext = getActivity();
+    public void onAttach(Activity activity) {
+        super.onAttach(activity);
+        this.mContext = activity;
+        this.mResources = mContext.getResources();
+        this.mInflater = LayoutInflater.from(mContext);
+
     }
 
     @Override

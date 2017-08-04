@@ -27,41 +27,43 @@ import io.reactivex.disposables.Disposable;
 public class SplashActivity extends BaseActivity {
     @BindView(R.id.tv_skip)
     TextView mTvSkip;
+    int countTime = 3;
+    private Disposable mDisposable;
 
     @Override
     protected void initData() {
         if (SPUtil.getInstance().getBoolean(Constants.IS_FIREST_START, false)) {
             startActivity(new Intent(SplashActivity.this, GuideActivity.class));
         } else {
-            Observable.timer(2, TimeUnit.SECONDS, AndroidSchedulers.mainThread()).map(aLong -> {
-                Intent intent = new Intent(SplashActivity.this, MainActivity.class);
-                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                startActivity(intent);
-                finish();
-                return null;
-            }).subscribe(new Observer<Object>() {
-                @Override
-                public void onSubscribe(@NonNull Disposable d) {
+            Observable.interval(0, 1, TimeUnit.SECONDS)
+                    .map(aLong -> countTime - aLong.intValue())
+                    .take(countTime + 1)
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribe(new Observer<Integer>() {
 
-                }
+                        @Override
+                        public void onSubscribe(@NonNull Disposable d) {
+                            mDisposable = d;
+                        }
 
-                @Override
-                public void onNext(@NonNull Object o) {
+                        @Override
+                        public void onNext(@NonNull Integer integer) {
+                            mTvSkip.setText(getString(R.string.skip) + " " + integer);
+                        }
 
-                }
+                        @Override
+                        public void onError(@NonNull Throwable e) {
 
-                @Override
-                public void onError(@NonNull Throwable e) {
+                        }
 
-                }
-
-                @Override
-                public void onComplete() {
-
-                }
-            });
+                        @Override
+                        public void onComplete() {
+                            skip();
+                        }
+                    });
         }
     }
+
 
     @Override
     protected void initView() {
@@ -75,5 +77,16 @@ public class SplashActivity extends BaseActivity {
 
     @OnClick(R.id.tv_skip)
     public void onViewClicked() {
+        mTvSkip.setClickable(false);
+        skip();
     }
+
+    private void skip() {
+        mDisposable.dispose();
+        Intent intent = new Intent(SplashActivity.this, MainActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        startActivity(intent);
+        finish();
+    }
+
 }

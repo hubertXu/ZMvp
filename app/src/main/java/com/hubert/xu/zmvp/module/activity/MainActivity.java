@@ -5,11 +5,11 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.view.KeyEvent;
-import android.widget.Toast;
 
 import com.hubert.xu.zmvp.R;
 import com.hubert.xu.zmvp.base.BaseActivity;
 import com.hubert.xu.zmvp.module.factory.MainFactory;
+import com.hubert.xu.zmvp.utils.ToastUtil;
 
 import butterknife.BindView;
 
@@ -47,6 +47,11 @@ public class MainActivity extends BaseActivity {
             }
         });
         mTablayoutMain.setupWithViewPager(mVpMain);
+        test();
+    }
+
+    private void test() {
+
     }
 
     @Override
@@ -58,7 +63,7 @@ public class MainActivity extends BaseActivity {
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         if (keyCode == KeyEvent.KEYCODE_BACK) {
             if ((System.currentTimeMillis() - mExitTime) > 3000) {
-                Toast.makeText(this, "再按一次退出程序", Toast.LENGTH_SHORT).show();
+                ToastUtil.showShort("再按一次退出应用");
                 mExitTime = System.currentTimeMillis();
             } else {
                 mActivityManagerUtils.exitApp();

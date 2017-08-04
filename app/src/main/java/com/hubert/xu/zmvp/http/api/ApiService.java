@@ -3,8 +3,10 @@ package com.hubert.xu.zmvp.http.api;
 /**
  * Author: Hubert.Xu
  * Date  : 2017/7/14
- * Desc  :
+ * Desc  : Api接口
  */
 
-public class Api {
+public interface ApiService {
+
+
 }
