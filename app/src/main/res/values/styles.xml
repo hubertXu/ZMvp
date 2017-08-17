@@ -1,4 +1,4 @@
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
 
     <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
@@ -12,5 +12,12 @@
     <style name="SplashTheme" parent="AppTheme">
         <item name="android:windowBackground">@drawable/splash</item>
         <item name="android:windowNoTitle">true</item>
+    </style>
+
+    <style name="CardViewStyle" parent="CardView.Light">
+        <item name="cardPreventCornerOverlap">true</item>
+        <item name="android:foreground">?attr/selectableItemBackground</item>
+        <item name="android:stateListAnimator" tools:targetApi="lollipop">@drawable/lift_on_touch</item>
+        <item name="cardUseCompatPadding">true</item>
     </style>
 </resources>

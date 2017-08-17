@@ -22,8 +22,9 @@ import butterknife.ButterKnife;
  */
 public abstract class BaseActivity extends RxAppCompatActivity {
 
-    private Toolbar mToolbar;
+    protected Toolbar mToolbar;
     protected ActivityManagerUtil mActivityManagerUtils;
+    private boolean isshowbackIcon = true;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -32,24 +33,31 @@ public abstract class BaseActivity extends RxAppCompatActivity {
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         mActivityManagerUtils = ActivityManagerUtil.newInstance();
         mActivityManagerUtils.addToStack(this);
-        initToolbar();
-        initData();
+        setToolbar();
         initView();
+        initData();
     }
 
+    protected abstract int attachLayoutRes();
 
     protected abstract void initData();
 
     protected abstract void initView();
 
-    protected abstract int attachLayoutRes();
 
-    private void initToolbar() {
+    private void setToolbar() {
         mToolbar = (Toolbar) findViewById(R.id.toolbar);
         if (mToolbar != null) {
+            mToolbar.setTitle(getTitle());
+            mToolbar.setNavigationIcon(R.mipmap.back);
             setSupportActionBar(mToolbar);
+            getSupportActionBar().setDisplayHomeAsUpEnabled(isShowBackIcon());
             mToolbar.setTitleTextColor(getResources().getColor(android.R.color.white));
         }
+    }
+
+    protected boolean isShowBackIcon() {
+        return isshowbackIcon;
     }
 
     @Override

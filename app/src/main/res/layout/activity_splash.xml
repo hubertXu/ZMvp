@@ -18,7 +18,7 @@
         android:layout_gravity="right"
         android:layout_marginBottom="8dp"
         android:layout_marginRight="8dp"
-        android:background="@drawable/bg_8radius_tran"
+        android:background="@drawable/bg_12radius_tran"
         android:gravity="center"
         android:paddingBottom="6dp"
         android:paddingLeft="12dp"

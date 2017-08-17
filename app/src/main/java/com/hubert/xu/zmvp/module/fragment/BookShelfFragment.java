@@ -6,7 +6,6 @@ import com.hubert.xu.zmvp.R;
 import com.hubert.xu.zmvp.base.BaseFragment;
 
 import butterknife.BindView;
-import butterknife.Unbinder;
 
 /**
  * Author: Hubert.Xu
@@ -18,7 +17,6 @@ public class BookShelfFragment extends BaseFragment {
 
     @BindView(R.id.rl_book_shelf)
     RecyclerView mRlBookShelf;
-    Unbinder unbinder;
 
     @Override
     protected int attachLayoutRes() {
@@ -27,17 +25,10 @@ public class BookShelfFragment extends BaseFragment {
 
     @Override
     public void initData() {
-
     }
 
     @Override
     public void initView() {
 
-    }
-
-    @Override
-    public void onDestroyView() {
-        super.onDestroyView();
-        unbinder.unbind();
     }
 }

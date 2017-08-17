@@ -28,8 +28,9 @@ public class MainActivity extends BaseActivity {
 
     @Override
     protected void initView() {
+        mVpMain.setOnTouchListener((v, event) -> true);
         mVpMain.setAdapter(new FragmentPagerAdapter(getSupportFragmentManager()) {
-            private String[] tabTitles = new String[]{"书架", "社区", "发现"};
+            private String[] tabTitles = new String[]{getString(R.string.bookshelf), getString(R.string.community), getString(R.string.find)};
 
             @Override
             public Fragment getItem(int position) {
@@ -47,23 +48,23 @@ public class MainActivity extends BaseActivity {
             }
         });
         mTablayoutMain.setupWithViewPager(mVpMain);
-        test();
     }
 
-    private void test() {
-
-    }
 
     @Override
     protected int attachLayoutRes() {
         return R.layout.activity_main;
     }
 
+    @Override
+    protected boolean isShowBackIcon() {
+        return false;
+    }
 
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         if (keyCode == KeyEvent.KEYCODE_BACK) {
             if ((System.currentTimeMillis() - mExitTime) > 3000) {
-                ToastUtil.showShort("再按一次退出应用");
+                ToastUtil.showShort(getString(R.string.exit_app_msg));
                 mExitTime = System.currentTimeMillis();
             } else {
                 mActivityManagerUtils.exitApp();
