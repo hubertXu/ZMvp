@@ -16,7 +16,7 @@ public class BaseRxPresenter<V extends BaseView, M extends BaseModel> implements
     private M mModler;
     private CompositeDisposable mCompositeDisposable;
 
-    @Override
+/*    @Override
     public void attachView(V view, M modler) {
         mView = view;
         mModler = modler;
@@ -26,7 +26,7 @@ public class BaseRxPresenter<V extends BaseView, M extends BaseModel> implements
     public void detachView() {
         mView = null;
         unSubscribe();
-    }
+    }*/
 
     protected void addSubscrebe(Disposable subscription) {
         if (mCompositeDisposable == null) {

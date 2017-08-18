@@ -5,6 +5,8 @@ import android.support.v7.widget.RecyclerView;
 
 import com.hubert.xu.zmvp.R;
 import com.hubert.xu.zmvp.base.BaseFragment;
+import com.hubert.xu.zmvp.module.contract.OriginalContract;
+import com.hubert.xu.zmvp.module.presenter.OriginalPresenter;
 
 import butterknife.BindView;
 
@@ -14,9 +16,10 @@ import butterknife.BindView;
  * Desc  :
  */
 
-public class OriginalFragment extends BaseFragment {
+public class OriginalFragment extends BaseFragment implements OriginalContract.View<OriginalPresenter> {
     @BindView(R.id.rv_original)
     RecyclerView mRvOriginal;
+    private OriginalPresenter mPresenter;
 
     public static OriginalFragment newInstance() {
         Bundle args = new Bundle();
@@ -37,6 +40,22 @@ public class OriginalFragment extends BaseFragment {
 
     @Override
     public void initView() {
+        mPresenter = new OriginalPresenter(this, this);
+    }
+
+
+    @Override
+    public void setPresenter(Object presenter) {
+
+    }
+
+    @Override
+    public void showError() {
+
+    }
+
+    @Override
+    public void complete() {
 
     }
 }

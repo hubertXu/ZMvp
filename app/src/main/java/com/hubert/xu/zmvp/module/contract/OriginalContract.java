@@ -10,7 +10,7 @@ import com.hubert.xu.zmvp.base.BaseContract;
 
 public interface OriginalContract extends BaseContract {
 
-    interface View extends BaseView {
+    interface View<Presenter>extends BaseView {
 
     }
 
