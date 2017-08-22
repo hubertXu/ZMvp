@@ -70,7 +70,7 @@ public class NetworkUtils {
      * @return {@code true}: 可用<br>{@code false}: 不可用
      */
     public static boolean isAvailableByPing() {
-        return isAvailableByPing();
+        return isAvailableByPing(null);
     }
 
     /**

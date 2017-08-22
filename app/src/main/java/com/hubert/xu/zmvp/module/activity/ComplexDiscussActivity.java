@@ -11,6 +11,7 @@ import com.hubert.xu.zmvp.module.fragment.FineFragment;
 import com.hubert.xu.zmvp.module.fragment.OriginalFragment;
 
 import butterknife.BindView;
+import butterknife.OnClick;
 
 /**
  * Author: Hubert.Xu
@@ -23,6 +24,7 @@ public class ComplexDiscussActivity extends BaseActivity {
     TabLayout mTablayoutComplexDiscuss;
     @BindView(R.id.vp_complex_discuss)
     ViewPager mVpComplexDiscuss;
+
 
     @Override
     protected void initView() {
@@ -55,5 +57,10 @@ public class ComplexDiscussActivity extends BaseActivity {
     @Override
     protected int attachLayoutRes() {
         return R.layout.activity_complex_discuss;
+    }
+
+
+    @OnClick(R.id.tv_sorting)
+    public void onViewClicked() {
     }
 }

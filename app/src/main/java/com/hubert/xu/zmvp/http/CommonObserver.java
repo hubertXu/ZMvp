@@ -12,7 +12,7 @@ import io.reactivex.disposables.Disposable;
  * Desc  :
  */
 
-public abstract class CommonObserver<T extends HttpResult<T>> extends BaseObserver<T> {
+public abstract class CommonObserver<T extends HttpResult> extends BaseObserver<T> {
 
     private MaterialDialog mDialog;
 
@@ -34,12 +34,14 @@ public abstract class CommonObserver<T extends HttpResult<T>> extends BaseObserv
         onSubscribe(d);
     }
 
-    @Override
+
+
+ /*   @Override
     public void next(T t) {
         if (t.getCode() == 200) {
             onNext(t.getData());
         }
-    }
+    }*/
 
     @Override
     public void error(Throwable e) {

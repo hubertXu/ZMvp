@@ -24,6 +24,7 @@ public class MainActivity extends BaseActivity {
     @Override
     protected void initData() {
 
+
     }
 
     @Override

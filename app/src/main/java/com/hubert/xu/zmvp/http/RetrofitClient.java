@@ -4,6 +4,7 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonDeserializer;
 import com.hubert.xu.zmvp.R;
+import com.hubert.xu.zmvp.constant.Constants;
 import com.hubert.xu.zmvp.utils.AppUtil;
 import com.hubert.xu.zmvp.utils.ResourceUtil;
 
@@ -36,7 +37,8 @@ public class RetrofitClient {
         if (null == retrofitInstance) {
             synchronized (Retrofit.class) {
                 if (null == retrofitInstance) {
-                    new Retrofit.Builder().baseUrl(BuildConfig.API_SERVER_URL)
+                    retrofitInstance = new Retrofit.Builder()
+                            .baseUrl(Constants.API_BASE_URL)
                             .client(initOkhttp())
                             .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                             .addConverterFactory(buildGsonConverterFactory())

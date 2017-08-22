@@ -16,7 +16,7 @@ import butterknife.BindView;
  * Desc  :
  */
 
-public class OriginalFragment extends BaseFragment implements OriginalContract.View<OriginalPresenter> {
+public class OriginalFragment extends BaseFragment implements OriginalContract.View {
     @BindView(R.id.rv_original)
     RecyclerView mRvOriginal;
     private OriginalPresenter mPresenter;
@@ -40,7 +40,8 @@ public class OriginalFragment extends BaseFragment implements OriginalContract.V
 
     @Override
     public void initView() {
-        mPresenter = new OriginalPresenter(this, this);
+        mPresenter = new OriginalPresenter(getActivity(), this);
+        mPresenter.getData();
     }
 
 

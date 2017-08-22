@@ -10,12 +10,12 @@ import com.hubert.xu.zmvp.base.BaseContract;
 
 public interface OriginalContract extends BaseContract {
 
-    interface View<Presenter>extends BaseView {
+    interface View extends BaseView {
 
     }
 
 
     interface Presenter extends BasePresenter {
-
+        void getData();
     }
 }
