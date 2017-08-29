@@ -5,6 +5,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.view.KeyEvent;
+import android.view.View;
 
 import com.hubert.xu.zmvp.R;
 import com.hubert.xu.zmvp.base.BaseActivity;
@@ -29,6 +30,8 @@ public class MainActivity extends BaseActivity {
 
     @Override
     protected void initView() {
+        mIbBack.setVisibility(View.GONE);
+        mViewdividingLine.setVisibility(View.GONE);
         mVpMain.setOnTouchListener((v, event) -> true);
         mVpMain.setAdapter(new FragmentPagerAdapter(getSupportFragmentManager()) {
             private String[] tabTitles = new String[]{getString(R.string.bookshelf), getString(R.string.community), getString(R.string.find)};
@@ -55,11 +58,6 @@ public class MainActivity extends BaseActivity {
     @Override
     protected int attachLayoutRes() {
         return R.layout.activity_main;
-    }
-
-    @Override
-    protected boolean isShowBackIcon() {
-        return false;
     }
 
     public boolean onKeyDown(int keyCode, KeyEvent event) {

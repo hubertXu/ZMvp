@@ -29,6 +29,5 @@ public class OriginalManager {
         Retrofit instance = RetrofitClient.getInstance();
         ApiService apiService = instance.create(ApiService.class);
         apiService.getComplexDiscussList(block, "all", sort, "all", start + "", limit + "", distillate).subscribeOn(Schedulers.io()) .observeOn(AndroidSchedulers.mainThread()).subscribe(observer);
-
     }
 }

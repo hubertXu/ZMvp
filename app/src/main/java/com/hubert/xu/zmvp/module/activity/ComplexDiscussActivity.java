@@ -4,6 +4,7 @@ import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.view.View;
 
 import com.hubert.xu.zmvp.R;
 import com.hubert.xu.zmvp.base.BaseActivity;
@@ -11,15 +12,15 @@ import com.hubert.xu.zmvp.module.fragment.FineFragment;
 import com.hubert.xu.zmvp.module.fragment.OriginalFragment;
 
 import butterknife.BindView;
-import butterknife.OnClick;
 
 /**
  * Author: Hubert.Xu
  * Date  : 2017/8/16
- * Desc  :
+ * Desc  : 综合讨论Activity
  */
 
 public class ComplexDiscussActivity extends BaseActivity {
+
     @BindView(R.id.tablayout_complex_discuss)
     TabLayout mTablayoutComplexDiscuss;
     @BindView(R.id.vp_complex_discuss)
@@ -28,7 +29,9 @@ public class ComplexDiscussActivity extends BaseActivity {
 
     @Override
     protected void initView() {
+        mIbOther.setVisibility(View.VISIBLE);
         mVpComplexDiscuss.setAdapter(new FragmentPagerAdapter(getSupportFragmentManager()) {
+
             private String[] tabTitles = new String[]{getString(R.string.original), getString(R.string.fine)};
 
             @Override
@@ -59,8 +62,4 @@ public class ComplexDiscussActivity extends BaseActivity {
         return R.layout.activity_complex_discuss;
     }
 
-
-    @OnClick(R.id.tv_sorting)
-    public void onViewClicked() {
-    }
 }

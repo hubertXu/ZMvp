@@ -5,8 +5,9 @@ import android.os.Bundle;
 import android.support.annotation.LayoutRes;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.Toolbar;
-import android.view.MenuItem;
 import android.view.View;
+import android.widget.ImageButton;
+import android.widget.TextView;
 
 import com.hubert.xu.zmvp.R;
 import com.hubert.xu.zmvp.utils.ActivityManagerUtil;
@@ -24,7 +25,10 @@ public abstract class BaseActivity extends RxAppCompatActivity {
 
     protected Toolbar mToolbar;
     protected ActivityManagerUtil mActivityManagerUtils;
-    private boolean isshowbackIcon = true;
+    protected View mViewdividingLine;
+    protected ImageButton mIbBack;
+    protected TextView mTvTitle;
+    protected ImageButton mIbOther;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -48,16 +52,16 @@ public abstract class BaseActivity extends RxAppCompatActivity {
     private void setToolbar() {
         mToolbar = (Toolbar) findViewById(R.id.toolbar);
         if (mToolbar != null) {
-            mToolbar.setTitle(getTitle());
-            mToolbar.setNavigationIcon(R.mipmap.back);
+            mTvTitle = (TextView) mToolbar.findViewById(R.id.tv_title);
+            mIbBack = (ImageButton) mToolbar.findViewById(R.id.ib_back);
+            mViewdividingLine = mToolbar.findViewById(R.id.view_dividing_line);
+            mIbOther = (ImageButton) mToolbar.findViewById(R.id.ib_other);
+            mTvTitle.setText(getTitle());
+            mIbBack.setImageResource(R.drawable.ic_action_back);
             setSupportActionBar(mToolbar);
-            getSupportActionBar().setDisplayHomeAsUpEnabled(isShowBackIcon());
-            mToolbar.setTitleTextColor(getResources().getColor(android.R.color.white));
+            // 返回按钮点击事件
+            mIbBack.setOnClickListener(v -> finish());
         }
-    }
-
-    protected boolean isShowBackIcon() {
-        return isshowbackIcon;
     }
 
     @Override
@@ -70,21 +74,6 @@ public abstract class BaseActivity extends RxAppCompatActivity {
     public void setContentView(View view) {
         super.setContentView(view);
         ButterKnife.bind(this);
-    }
-
-    /**
-     * 返回按钮点击事件
-     *
-     * @param item
-     * @return
-     */
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        if (item.getItemId() == android.R.id.home) {
-            finish();
-            return true;
-        }
-        return super.onOptionsItemSelected(item);
     }
 
 

@@ -5,8 +5,55 @@
                                    android:layout_width="match_parent"
                                    android:layout_height="?attr/actionBarSize"
                                    android:background="@color/colorPrimary"
-                                   android:orientation="vertical"
-                                   app:navigationIcon="@mipmap/back"
-                                   app:contentInsetStart="0dp">
+                                   app:contentInsetStart="0dp"
+    >
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        >
+
+        <ImageButton
+            android:id="@+id/ib_back"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:background="?attr/selectableItemBackground"
+            android:paddingLeft="12dp"
+            android:paddingRight="12dp"
+            android:src="@drawable/ic_action_back"
+            />
+
+        <View
+            android:id="@+id/view_dividing_line"
+            android:layout_width="1px"
+            android:layout_height="match_parent"
+            android:layout_marginBottom="16dp"
+            android:layout_marginTop="16dp"
+            android:background="@color/colorPrimaryLight"
+            />
+
+        <TextView
+            android:id="@+id/tv_title"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="12dp"
+            android:layout_weight="1"
+            android:gravity="center_vertical"
+            android:textColor="@color/white"
+            android:textSize="@dimen/title_20sp"
+            />
+
+        <ImageButton
+            android:id="@+id/ib_other"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:background="?attr/selectableItemBackground"
+            android:paddingLeft="12dp"
+            android:paddingRight="12dp"
+            android:src="@drawable/ic_action_sort"
+            android:visibility="gone"
+            />
+    </LinearLayout>
 </android.support.v7.widget.Toolbar>

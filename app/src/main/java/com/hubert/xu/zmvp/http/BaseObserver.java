@@ -6,7 +6,6 @@ import android.net.ParseException;
 import com.google.gson.JsonParseException;
 import com.google.gson.JsonSyntaxException;
 import com.hubert.xu.zmvp.utils.LogUtil;
-import com.hubert.xu.zmvp.utils.NetworkUtils;
 import com.hubert.xu.zmvp.utils.ToastUtil;
 
 import org.json.JSONException;
@@ -27,7 +26,7 @@ import io.reactivex.disposables.Disposable;
  * Desc  :
  */
 
-public abstract class BaseObserver<T extends HttpResult> implements Observer<T>, ISubscriber<T> {
+public abstract class BaseObserver<T extends BookBaseBean> implements Observer<T>, ISubscriber<T> {
 
     protected BaseObserver() {
     }
@@ -35,23 +34,19 @@ public abstract class BaseObserver<T extends HttpResult> implements Observer<T>,
     @Override
     public void onSubscribe(@NonNull Disposable d) {
         subscribe(d);
-        if (!NetworkUtils.isAvailableByPing()) {
+       /* if (!NetworkUtils.isAvailableByPing()) {
             ToastUtil.showShort("无网络，读取缓存数据");
             onComplete();
-        }
+        }*/
     }
 
     @Override
     public void onNext(@NonNull T t) {
-        LogUtil.info(t.toString());
-        if (t.getCode() == 200) {
+        if (t.ok) {
             next(t);
-        } else if (t.getCode() == 400) {
-
         } else {
-            ToastUtil.showShort(t.getMsg());
+            ToastUtil.showShort("");
         }
-
     }
 
     @Override
