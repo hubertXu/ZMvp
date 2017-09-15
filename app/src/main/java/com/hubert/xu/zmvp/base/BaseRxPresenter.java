@@ -9,11 +9,9 @@ import io.reactivex.disposables.Disposable;
  * Desc  :
  */
 
-public class BaseRxPresenter<V extends BaseView, M extends BaseModel> implements BaseContract.BasePresenter<V, M> {
+public class BaseRxPresenter implements BaseContract.BasePresenter {
 
 
-    private V mView;
-    private M mModler;
     private CompositeDisposable mCompositeDisposable;
 
 /*    @Override

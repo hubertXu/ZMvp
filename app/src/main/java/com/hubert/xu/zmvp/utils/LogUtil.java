@@ -18,6 +18,7 @@ public class LogUtil {
         Logger.d(msg);
     }
 
+
     /**
      * 打印debug信息
      *
@@ -47,6 +48,17 @@ public class LogUtil {
     }
 
     /**
+     * 打印Info信息
+     *
+     * @param tag 信息标签
+     * @param msg 信息内容
+     */
+    public static void info(String tag, String msg) {
+        Logger.i(tag, msg);
+    }
+
+
+    /**
      * 打印Warn信息
      *
      * @param msg 信息内容
@@ -56,12 +68,32 @@ public class LogUtil {
     }
 
     /**
+     * 打印Warn信息
+     *
+     * @param msg 信息内容
+     * @param tag 信息标签
+     */
+    public static void warn(String tag, String msg) {
+        Logger.w(tag, msg);
+    }
+
+    /**
      * 打印Error信息
      *
      * @param msg 信息内容
      */
     public static void error(String msg) {
         Logger.e(msg);
+    }
+
+    /**
+     * 打印Error信息
+     *
+     * @param msg 信息内容
+     * @param tag 信息标签
+     */
+    public static void error(String tag, String msg) {
+        Logger.e(tag, msg);
     }
 
     /**

@@ -1,12 +1,17 @@
 package com.hubert.xu.zmvp.module.fragment;
 
 import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 
 import com.hubert.xu.zmvp.R;
 import com.hubert.xu.zmvp.base.BaseFragment;
+import com.hubert.xu.zmvp.entity.DiscussBean;
+import com.hubert.xu.zmvp.module.adapter.DiscussAdapter;
 import com.hubert.xu.zmvp.module.contract.OriginalContract;
 import com.hubert.xu.zmvp.module.presenter.OriginalPresenter;
+
+import java.util.List;
 
 import butterknife.BindView;
 
@@ -58,5 +63,13 @@ public class OriginalFragment extends BaseFragment implements OriginalContract.V
     @Override
     public void complete() {
 
+    }
+
+
+    @Override
+    public void setData(Object o) {
+        List<DiscussBean.PostsBean> data = (List<DiscussBean.PostsBean>) o;
+        mRvOriginal.setLayoutManager(new LinearLayoutManager(mContext));
+        mRvOriginal.setAdapter(new DiscussAdapter(R.layout.item_discuss,data));
     }
 }

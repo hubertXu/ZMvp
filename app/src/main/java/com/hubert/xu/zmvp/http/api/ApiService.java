@@ -1,10 +1,12 @@
 package com.hubert.xu.zmvp.http.api;
 
-import com.hubert.xu.zmvp.entity.TTBean;
+import com.hubert.xu.zmvp.entity.DiscussBean;
+
+import java.util.Map;
 
 import io.reactivex.Observable;
 import retrofit2.http.GET;
-import retrofit2.http.Query;
+import retrofit2.http.QueryMap;
 
 /**
  * Author: Hubert.Xu
@@ -17,18 +19,19 @@ public interface ApiService {
     /**
      * 获取综合讨论区帖子列表
      *
-     * @param block      remale:综合讨论区
+     * @param map
+     *        block      remale:综合讨论区
      *                   original:原创区
-     * @param duration   all
-     * @param sort       updated:默认排序
+     *        duration   all
+     *        sort       updated:默认排序
      *                   created:最新发布
      *                   coment-count:最多评论
-     * @param type       all
-     * @param start      0
-     * @param limit      20
-     * @param distillate true|false(是否精品)
+     *        type       all
+     *        start      0
+     *        limit      20
+     *        distillate true|false(是否精品)
      * @return
      */
     @GET("/post/by-block")
-    Observable<TTBean> getComplexDiscussList(@Query("block") String block, @Query("duration") String duration, @Query("sort") String sort, @Query("type") String type, @Query("start") String start, @Query("limit") String limit, @Query("distillate") String distillate);
+    Observable<DiscussBean> getDiscussList(@QueryMap Map<String,String> map);
 }

@@ -6,11 +6,14 @@ package com.hubert.xu.zmvp.base;
  * Desc  :
  */
 public interface BaseContract {
-    interface BasePresenter<T, M> {
+    interface BasePresenter<V extends BaseView> {
 
-//        void attachView(T view, M modler);
+        //        void attachView(T view, M modler);
 //
 //        void detachView();
+//        void attachView(V view);
+
+//        void detachView(boolean retainInstance);
     }
 
 
