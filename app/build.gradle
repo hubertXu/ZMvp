@@ -85,4 +85,5 @@ dependencies {
     debugCompile 'com.squareup.leakcanary:leakcanary-android:1.5.1'
     releaseCompile 'com.squareup.leakcanary:leakcanary-android-no-op:1.5.1'
     retrolambdaConfig 'net.orfjackal.retrolambda:retrolambda:+'
+    compile 'de.hdodenhof:circleimageview:2.1.0'
 }

@@ -13,5 +13,5 @@ public class Constants {
     public static final String API_BASE_URL = "http://api.zhuishushenqi.com";
 
     // SPConstants
-    public static final String IS_FIREST_START = "is_firest_start";
+    public static final String IS_FIREST_START = "is_first_start";
 }
