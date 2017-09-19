@@ -20,7 +20,7 @@ public interface ApiService {
      * 获取综合讨论区帖子列表
      *
      * @param map
-     *        block      remale:综合讨论区
+     *        block      ramble:综合讨论区
      *                   original:原创区
      *        duration   all
      *        sort       updated:默认排序

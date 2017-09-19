@@ -54,7 +54,7 @@ public class OriginalFragment extends BaseFragment implements OriginalContract.V
     @Override
     public void initView() {
         mSwipeLayout.setOnRefreshListener(this);
-        mPresenter = new OriginalPresenter(getActivity(), this);
+        mPresenter = new OriginalPresenter(this);
         mRvOriginal.setLayoutManager(new LinearLayoutManager(mContext));
         mDiscussAdapter = new DiscussAdapter(R.layout.item_discuss, mData);
         mRvOriginal.setAdapter(mDiscussAdapter);
@@ -71,6 +71,7 @@ public class OriginalFragment extends BaseFragment implements OriginalContract.V
 
     @Override
     public void showError() {
+        mSwipeLayout.setRefreshing(false);
         mDiscussAdapter.loadMoreFail();
     }
 
@@ -97,6 +98,7 @@ public class OriginalFragment extends BaseFragment implements OriginalContract.V
     public void setData(DiscussBean data, boolean isRefresh) {
         List<DiscussBean.PostsBean> list = data.getPosts();
         if (isRefresh) {
+            if (mData != null) mData.clear();
             mData = list;
             start = 0;
         } else {

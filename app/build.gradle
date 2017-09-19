@@ -86,4 +86,6 @@ dependencies {
     releaseCompile 'com.squareup.leakcanary:leakcanary-android-no-op:1.5.1'
     retrolambdaConfig 'net.orfjackal.retrolambda:retrolambda:+'
     compile 'de.hdodenhof:circleimageview:2.1.0'
+    compile 'com.getbase:floatingactionbutton:1.10.1'
+
 }

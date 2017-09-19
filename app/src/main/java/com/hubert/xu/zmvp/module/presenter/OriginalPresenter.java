@@ -1,7 +1,5 @@
 package com.hubert.xu.zmvp.module.presenter;
 
-import android.content.Context;
-
 import com.hubert.xu.zmvp.entity.DiscussBean;
 import com.hubert.xu.zmvp.http.BaseObserver;
 import com.hubert.xu.zmvp.module.contract.OriginalContract;
@@ -19,11 +17,12 @@ import io.reactivex.disposables.Disposable;
 
 public class OriginalPresenter implements OriginalContract.Presenter {
 
-    private int limit = 20;
+    private int mLimit = 20;
     private OriginalContract.View view;
-    private boolean isRefresh;
+    private boolean mIsRefresh;
+    private int mMostCommentedStart = 0;
 
-    public OriginalPresenter(Context context, OriginalContract.View view) {
+    public OriginalPresenter(OriginalContract.View view) {
         view.setPresenter(this);
         this.view = view;
     }
@@ -31,23 +30,25 @@ public class OriginalPresenter implements OriginalContract.Presenter {
 
     @Override
     public void getData(int start) {
+        // 最新创建
         HashMap<String, String> defaultParamsMap = new HashMap<>();
         defaultParamsMap.put("block", "ramble");
         defaultParamsMap.put("duration", "all");
-        defaultParamsMap.put("sort", "updated");
+        defaultParamsMap.put("sort", "created");
         defaultParamsMap.put("tyep", "all");
         defaultParamsMap.put("start", start + "");
-        defaultParamsMap.put("limit", limit + "");
+        defaultParamsMap.put("mLimit", mLimit + "");
         defaultParamsMap.put("distillate", "false");
+        // 最多评论
         HashMap<String, String> fineParamsMap = new HashMap<>();
         fineParamsMap.put("block", "ramble");
         fineParamsMap.put("duration", "all");
-        fineParamsMap.put("sort", "updated");
+        fineParamsMap.put("sort", "coment-count");
         fineParamsMap.put("tyep", "all");
-        fineParamsMap.put("start", start + "");
-        fineParamsMap.put("limit", 5 + "");
+        fineParamsMap.put("start", mMostCommentedStart + "");
+        fineParamsMap.put("mLimit", 5 + "");
         fineParamsMap.put("distillate", "true");
-        OriginalManager.getInstance().getOriginalList(fineParamsMap, defaultParamsMap, new BaseObserver<DiscussBean>() {
+        OriginalManager.getInstance().getOriginalList(defaultParamsMap, new BaseObserver<DiscussBean>() {
             @Override
             public void subscribe(Disposable d) {
 
@@ -55,8 +56,8 @@ public class OriginalPresenter implements OriginalContract.Presenter {
 
             @Override
             public void next(DiscussBean data) {
-                isRefresh = start == 0;
-                view.setData(data, isRefresh);
+                mIsRefresh = start == 0;
+                view.setData(data, mIsRefresh);
             }
 
             @Override
