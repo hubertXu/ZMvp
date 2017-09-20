@@ -1,4 +1,4 @@
-package com.hubert.xu.zmvp.module.model;
+package com.hubert.xu.zmvp.mvp.model;
 
 import com.hubert.xu.zmvp.http.BaseObserver;
 import com.hubert.xu.zmvp.http.RetrofitClient;

@@ -1,15 +1,16 @@
-package com.hubert.xu.zmvp.module.activity;
+package com.hubert.xu.zmvp.mvp.module.activity;
 
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
-import android.view.View;
+import android.view.Menu;
 
 import com.hubert.xu.zmvp.R;
 import com.hubert.xu.zmvp.base.BaseActivity;
-import com.hubert.xu.zmvp.module.fragment.FineFragment;
-import com.hubert.xu.zmvp.module.fragment.OriginalFragment;
+import com.hubert.xu.zmvp.constant.Constants;
+import com.hubert.xu.zmvp.mvp.module.fragment.FineFragment;
+import com.hubert.xu.zmvp.mvp.module.fragment.OriginalFragment;
 
 import butterknife.BindView;
 
@@ -27,9 +28,14 @@ public class ComplexDiscussActivity extends BaseActivity {
     ViewPager mVpComplexDiscuss;
 
 
+    public interface DiscussSortLisenter {
+
+        void refreshComplexDiscussData(String sortType);
+
+    }
+
     @Override
     protected void initView() {
-        mIbOther.setVisibility(View.VISIBLE);
         mVpComplexDiscuss.setAdapter(new FragmentPagerAdapter(getSupportFragmentManager()) {
 
             private String[] tabTitles = new String[]{getString(R.string.original), getString(R.string.fine)};
@@ -50,6 +56,26 @@ public class ComplexDiscussActivity extends BaseActivity {
             }
         });
         mTablayoutComplexDiscuss.setupWithViewPager(mVpComplexDiscuss);
+        mToolbar.setOnMenuItemClickListener(item -> {
+            switch (item.getItemId()) {
+                case R.id.action_default_sort:
+                    mSortLisenter.refreshComplexDiscussData(Constants.TYPE_DEFAULT_SORT);
+                    break;
+                case R.id.action_latest_sort:
+                    mSortLisenter.refreshComplexDiscussData(Constants.TYPE_LATEST_SORT);
+                    break;
+                case R.id.action_most_sort:
+                    mSortLisenter.refreshComplexDiscussData(Constants.TYPE_MOST_SORT);
+                    break;
+            }
+            return true;
+        });
+    }
+
+    public DiscussSortLisenter mSortLisenter;
+
+    public void setDiscussSortLisenter(DiscussSortLisenter discussSortLisenter) {
+        this.mSortLisenter = discussSortLisenter;
     }
 
     @Override
@@ -60,6 +86,12 @@ public class ComplexDiscussActivity extends BaseActivity {
     @Override
     protected int attachLayoutRes() {
         return R.layout.activity_complex_discuss;
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_discuss, menu);
+        return true;
     }
 
 }

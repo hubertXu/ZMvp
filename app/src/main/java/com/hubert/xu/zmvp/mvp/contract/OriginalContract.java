@@ -1,4 +1,4 @@
-package com.hubert.xu.zmvp.module.contract;
+package com.hubert.xu.zmvp.mvp.contract;
 
 import com.hubert.xu.zmvp.base.BaseContract;
 
@@ -16,6 +16,6 @@ public interface OriginalContract extends BaseContract {
 
 
     interface Presenter extends BasePresenter {
-        void getData(int i);
+        void getData(int start, String type);
     }
 }

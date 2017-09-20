@@ -15,4 +15,10 @@ public class Constants {
     // SPConstants
     public static final String IS_FIREST_START = "is_first_start";
 
+    // complex discuss sort type
+    public static final String TYPE_DEFAULT_SORT = "updated";
+
+    public static final String TYPE_LATEST_SORT = "created";
+
+    public static final String TYPE_MOST_SORT = "coment-count";
 }

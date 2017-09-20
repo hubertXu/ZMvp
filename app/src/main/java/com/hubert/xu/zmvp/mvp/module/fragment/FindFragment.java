@@ -1,4 +1,4 @@
-package com.hubert.xu.zmvp.module.fragment;
+package com.hubert.xu.zmvp.mvp.module.fragment;
 
 import com.hubert.xu.zmvp.R;
 import com.hubert.xu.zmvp.base.BaseFragment;

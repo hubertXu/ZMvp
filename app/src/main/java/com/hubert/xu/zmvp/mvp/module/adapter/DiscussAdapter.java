@@ -1,10 +1,11 @@
-package com.hubert.xu.zmvp.module.adapter;
+package com.hubert.xu.zmvp.mvp.module.adapter;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.hubert.xu.zmvp.R;
 import com.hubert.xu.zmvp.constant.Constants;
 import com.hubert.xu.zmvp.entity.DiscussBean;
+import com.hubert.xu.zmvp.utils.TimeFormatUtil;
 import com.hubert.xu.zmvp.utils.imageload.GlideImageLoader;
 
 import java.util.List;
@@ -25,9 +26,10 @@ public class DiscussAdapter extends BaseQuickAdapter<DiscussBean.PostsBean, Base
 
     @Override
     protected void convert(BaseViewHolder helper, DiscussBean.PostsBean item) {
+        String s = TimeFormatUtil.formatTime(item.getUpdated());
         helper.setText(R.id.tv_user_name, item.getAuthor().getNickname())
                 .setText(R.id.tv_discuss_content, item.getTitle())
-                .setText(R.id.tv_last_updated, item.getUpdated())
+                .setText(R.id.tv_updated_time, s)
                 .setText(R.id.tv_comment_count, item.getCommentCount() + "")
                 .setText(R.id.tv_like_count, item.getLikeCount() + "");
         new GlideImageLoader().getRequestManager(mContext).load(Constants.API_BASE_URL + item.getAuthor().getAvatar()).into((CircleImageView) helper.getView(R.id.cv_avatar));

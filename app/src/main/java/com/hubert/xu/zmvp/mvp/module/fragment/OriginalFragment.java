@@ -1,5 +1,6 @@
-package com.hubert.xu.zmvp.module.fragment;
+package com.hubert.xu.zmvp.mvp.module.fragment;
 
+import android.app.Activity;
 import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
@@ -8,10 +9,12 @@ import android.support.v7.widget.RecyclerView;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.hubert.xu.zmvp.R;
 import com.hubert.xu.zmvp.base.BaseFragment;
+import com.hubert.xu.zmvp.constant.Constants;
 import com.hubert.xu.zmvp.entity.DiscussBean;
-import com.hubert.xu.zmvp.module.adapter.DiscussAdapter;
-import com.hubert.xu.zmvp.module.contract.OriginalContract;
-import com.hubert.xu.zmvp.module.presenter.OriginalPresenter;
+import com.hubert.xu.zmvp.mvp.contract.OriginalContract;
+import com.hubert.xu.zmvp.mvp.module.activity.ComplexDiscussActivity;
+import com.hubert.xu.zmvp.mvp.module.adapter.DiscussAdapter;
+import com.hubert.xu.zmvp.mvp.presenter.OriginalPresenter;
 
 import java.util.List;
 
@@ -33,6 +36,14 @@ public class OriginalFragment extends BaseFragment implements OriginalContract.V
     private List<DiscussBean.PostsBean> mData;
     private DiscussAdapter mDiscussAdapter;
     private int start;
+    private ComplexDiscussActivity mDiscussActivity;
+    private String mSortType = Constants.TYPE_DEFAULT_SORT;
+
+    @Override
+    public void onAttach(Activity activity) {
+        super.onAttach(activity);
+        mDiscussActivity = (ComplexDiscussActivity) activity;
+    }
 
     public static OriginalFragment newInstance() {
         Bundle args = new Bundle();
@@ -61,6 +72,11 @@ public class OriginalFragment extends BaseFragment implements OriginalContract.V
         mDiscussAdapter.setOnLoadMoreListener(this);
         mDiscussAdapter.openLoadAnimation();
         onRefresh();
+        mDiscussActivity.setDiscussSortLisenter(sortType -> {
+            mSortType = sortType;
+            start = 0;
+            onRefresh();
+        });
     }
 
 
@@ -85,13 +101,13 @@ public class OriginalFragment extends BaseFragment implements OriginalContract.V
     @Override
     public void onRefresh() {
         mSwipeLayout.setRefreshing(true);
-        mPresenter.getData(0);
+        mPresenter.getData(0, mSortType);
     }
 
     @Override
     public void onLoadMoreRequested() {
         mSwipeLayout.setEnabled(false);
-        mPresenter.getData(start);
+        mPresenter.getData(start, mSortType);
     }
 
     @Override

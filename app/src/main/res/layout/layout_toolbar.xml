@@ -1,11 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.v7.widget.Toolbar xmlns:android="http://schemas.android.com/apk/res/android"
                                    xmlns:app="http://schemas.android.com/apk/res-auto"
+                                   xmlns:toolbar="http://schemas.android.com/tools"
                                    android:id="@+id/toolbar"
                                    android:layout_width="match_parent"
                                    android:layout_height="?attr/actionBarSize"
                                    android:background="@color/colorPrimary"
                                    app:contentInsetStart="0dp"
+                                   app:popupTheme="@style/ToolbarPopupTheme"
     >
 
     <LinearLayout
@@ -52,7 +54,6 @@
             android:background="?attr/selectableItemBackground"
             android:paddingLeft="12dp"
             android:paddingRight="12dp"
-            android:src="@drawable/ic_action_sort"
             android:visibility="gone"
             />
     </LinearLayout>

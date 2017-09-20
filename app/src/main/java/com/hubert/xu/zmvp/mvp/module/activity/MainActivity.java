@@ -1,4 +1,4 @@
-package com.hubert.xu.zmvp.module.activity;
+package com.hubert.xu.zmvp.mvp.module.activity;
 
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
@@ -9,7 +9,7 @@ import android.view.View;
 
 import com.hubert.xu.zmvp.R;
 import com.hubert.xu.zmvp.base.BaseActivity;
-import com.hubert.xu.zmvp.module.factory.MainFactory;
+import com.hubert.xu.zmvp.mvp.module.factory.MainFactory;
 import com.hubert.xu.zmvp.utils.ToastUtil;
 
 import butterknife.BindView;

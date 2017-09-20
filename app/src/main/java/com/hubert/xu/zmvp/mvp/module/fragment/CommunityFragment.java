@@ -1,11 +1,11 @@
-package com.hubert.xu.zmvp.module.fragment;
+package com.hubert.xu.zmvp.mvp.module.fragment;
 
 import android.content.Intent;
 import android.view.View;
 
 import com.hubert.xu.zmvp.R;
 import com.hubert.xu.zmvp.base.BaseFragment;
-import com.hubert.xu.zmvp.module.activity.ComplexDiscussActivity;
+import com.hubert.xu.zmvp.mvp.module.activity.ComplexDiscussActivity;
 
 import butterknife.OnClick;
 

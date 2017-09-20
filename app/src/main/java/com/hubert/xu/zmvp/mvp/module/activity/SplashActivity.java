@@ -1,4 +1,4 @@
-package com.hubert.xu.zmvp.module.activity;
+package com.hubert.xu.zmvp.mvp.module.activity;
 
 import android.content.Intent;
 import android.widget.TextView;

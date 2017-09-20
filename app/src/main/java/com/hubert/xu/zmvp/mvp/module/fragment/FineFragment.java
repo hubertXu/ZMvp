@@ -1,4 +1,4 @@
-package com.hubert.xu.zmvp.module.fragment;
+package com.hubert.xu.zmvp.mvp.module.fragment;
 
 import android.os.Bundle;
 

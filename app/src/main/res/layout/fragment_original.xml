@@ -4,7 +4,7 @@
                                                  xmlns:tools="http://schemas.android.com/tools"
                                                  android:layout_width="match_parent"
                                                  android:layout_height="match_parent"
-                                                 tools:context="com.hubert.xu.zmvp.module.fragment.OriginalFragment">
+                                                 tools:context=".mvp.module.fragment.OriginalFragment">
 
     <android.support.v4.widget.SwipeRefreshLayout
         android:id="@+id/swipeLayout"
@@ -16,53 +16,4 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"/>
     </android.support.v4.widget.SwipeRefreshLayout>
-
-    <!-- <android.support.design.widget.FloatingActionButton
-         android:layout_width="56dp"
-         android:layout_height="56dp"
-         android:layout_gravity="bottom|right"
-         android:layout_margin="16dp"
-         android:clickable="true"
-         app:backgroundTint="@color/white"
-         android:src="@drawable/ic_add"
-         app:layout_behavior="com.hubert.xu.zmvp.behavior.FabScrollBehavior"
-         />-->
-    <com.getbase.floatingactionbutton.FloatingActionsMenu
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom|right"
-        android:layout_marginBottom="16dp"
-        android:layout_marginRight="16dp"
-        android:background="@drawable/fab_label_bg"
-        app:fab_addButtonColorNormal="@color/white"
-        app:fab_addButtonColorPressed="@color/gray"
-        app:fab_labelStyle="@id/fab_expand_menu_button"
-        app:fab_labelsPosition="left"
-        >
-
-        <com.getbase.floatingactionbutton.FloatingActionButton
-            android:id="@+id/action_a"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:fab_size="mini"
-            fab:fab_colorNormal="@color/white"
-            fab:fab_colorPressed="@color/white_pressed"
-            fab:fab_title="Action A"/>
-
-        <com.getbase.floatingactionbutton.FloatingActionButton
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:fab_size="mini"
-            fab:fab_colorNormal="@color/white"
-            fab:fab_colorPressed="@color/white_pressed"
-            />
-
-        <com.getbase.floatingactionbutton.FloatingActionButton
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:fab_size="mini"
-            fab:fab_colorNormal="@color/white"
-            fab:fab_colorPressed="@color/white_pressed"
-            />
-    </com.getbase.floatingactionbutton.FloatingActionsMenu>
 </android.support.design.widget.CoordinatorLayout>
