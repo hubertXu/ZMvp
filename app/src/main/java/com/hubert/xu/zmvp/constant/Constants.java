@@ -15,10 +15,24 @@ public class Constants {
     // SPConstants
     public static final String IS_FIREST_START = "is_first_start";
 
+
     // complex discuss sort type
-    public static final String TYPE_DEFAULT_SORT = "updated";
+    public static final String TYPE_SORT_DEFAULT = "updated";
 
-    public static final String TYPE_LATEST_SORT = "created";
+    public static final String TYPE_SORT_LATEST = "created";
 
-    public static final String TYPE_MOST_SORT = "coment-count";
+    public static final String TYPE_SORT_MOST = "coment-count";
+    // book type
+    public static final String TYPE_BOOKE_ALL = "all";
+
+    public static final String TYPE_BOOKE_XHQH = "xhqh";
+    public static final String TYPE_BOOKE_XWXX = "wxxx";
+    public static final String TYPE_BOOKE_DXYN = "dxyn";
+    public static final String TYPE_BOOKE_YXJJ = "yxjj";
+    public static final String TYPE_BOOKE_KHLY = "khly";
+    public static final String TYPE_BOOKE_CYJK = "cyjk";
+    public static final String TYPE_BOOKE_HMZC = "hmzc";
+    public static final String TYPE_BOOKE_XDYQ = "xdyq";
+    public static final String TYPE_BOOKE_HXYQ = "hxyq";
+    public static final String TYPE_BOOKE_DMTR = "dmtr";
 }

@@ -1,4 +1,4 @@
-package com.hubert.xu.zmvp.mvp.module.fragment;
+package com.hubert.xu.zmvp.mvp.view.fragment;
 
 import android.support.v7.widget.RecyclerView;
 

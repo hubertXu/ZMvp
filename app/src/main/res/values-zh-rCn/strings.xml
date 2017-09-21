@@ -11,4 +11,17 @@
     <string name="find">发现</string>
     <string name="original">原创</string>
     <string name="fine">精品</string>
+    <string name="all_type">全部类型</string>
+    <string name="xuanhuanqihuanwuxiaxianxia">玄幻奇幻</string>
+    <string name="wuxiaxianxia">武侠仙侠</string>
+    <string name="dushiyineng">都市异能</string>
+    <string name="lishijunshi">历史军事</string>
+    <string name="youxijingji">游戏竞技</string>
+    <string name="kehuanlingyi">科幻灵异</string>
+    <string name="chuanyuejiakong">穿越架空</string>
+    <string name="haomenzongcai">豪门总裁</string>
+    <string name="xiandaiyanqing">现代言情</string>
+    <string name="gudaiyanqing">古代言情</string>
+    <string name="huanxiangyanqing">幻想言情</string>
+    <string name="danmeitognren">耽美同人</string>
 </resources>

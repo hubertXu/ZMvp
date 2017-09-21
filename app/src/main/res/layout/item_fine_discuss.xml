@@ -47,16 +47,17 @@
             android:textSize="@dimen/body_14sp"
             />
 
-        <TextView
-            android:id="@+id/tv_updated_time"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+        <Button
+            android:layout_width="32dp"
+            android:layout_height="16dp"
             android:layout_alignParentRight="true"
             android:layout_alignTop="@id/cv_avatar"
-            android:layout_marginRight="12dp"
-            android:text="一小时前"
-            android:textColor="@color/colorPrimary"
-            android:textSize="@dimen/sp_12"
+            android:layout_marginRight="8dp"
+            android:background="@drawable/bg_2radius_blue"
+            android:clickable="false"
+            android:text="精品"
+            android:textColor="@color/white"
+            android:textSize="@dimen/capition_10sp"
             />
 
         <TextView
@@ -66,7 +67,10 @@
             android:layout_alignParentRight="true"
             android:layout_below="@id/tv_discuss_content"
             android:gravity="center"
-            android:padding="4dp"
+            android:paddingBottom="4dp"
+            android:paddingLeft="4dp"
+            android:paddingRight="8dp"
+            android:paddingTop="4dp"
             android:text="0"
             android:textColor="@color/colorPrimary"
             android:textSize="@dimen/sp_12"/>

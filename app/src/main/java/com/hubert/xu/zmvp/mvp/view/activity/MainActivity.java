@@ -1,15 +1,16 @@
-package com.hubert.xu.zmvp.mvp.module.activity;
+package com.hubert.xu.zmvp.mvp.view.activity;
 
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.view.KeyEvent;
+import android.view.Menu;
 import android.view.View;
 
 import com.hubert.xu.zmvp.R;
 import com.hubert.xu.zmvp.base.BaseActivity;
-import com.hubert.xu.zmvp.mvp.module.factory.MainFactory;
+import com.hubert.xu.zmvp.mvp.view.factory.MainFactory;
 import com.hubert.xu.zmvp.utils.ToastUtil;
 
 import butterknife.BindView;
@@ -71,5 +72,11 @@ public class MainActivity extends BaseActivity {
             return true;
         }
         return super.onKeyDown(keyCode, event);
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_main, menu);
+        return true;
     }
 }

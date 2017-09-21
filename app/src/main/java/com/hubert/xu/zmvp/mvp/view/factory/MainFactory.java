@@ -1,11 +1,11 @@
-package com.hubert.xu.zmvp.mvp.module.factory;
+package com.hubert.xu.zmvp.mvp.view.factory;
 
 import android.util.SparseArray;
 
 import com.hubert.xu.zmvp.base.BaseFragment;
-import com.hubert.xu.zmvp.mvp.module.fragment.BookShelfFragment;
-import com.hubert.xu.zmvp.mvp.module.fragment.CommunityFragment;
-import com.hubert.xu.zmvp.mvp.module.fragment.FindFragment;
+import com.hubert.xu.zmvp.mvp.view.fragment.BookShelfFragment;
+import com.hubert.xu.zmvp.mvp.view.fragment.CommunityFragment;
+import com.hubert.xu.zmvp.mvp.view.fragment.FindFragment;
 
 /**
  * Author: Hubert.Xu

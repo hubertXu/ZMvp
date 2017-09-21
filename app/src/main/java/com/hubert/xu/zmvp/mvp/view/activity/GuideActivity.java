@@ -1,4 +1,4 @@
-package com.hubert.xu.zmvp.mvp.module.activity;
+package com.hubert.xu.zmvp.mvp.view.activity;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;

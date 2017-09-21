@@ -1,4 +1,4 @@
-package com.hubert.xu.zmvp.mvp.module.fragment;
+package com.hubert.xu.zmvp.mvp.view.fragment;
 
 import android.app.Activity;
 import android.os.Bundle;
@@ -10,10 +10,10 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.hubert.xu.zmvp.R;
 import com.hubert.xu.zmvp.base.BaseFragment;
 import com.hubert.xu.zmvp.constant.Constants;
-import com.hubert.xu.zmvp.entity.DiscussBean;
+import com.hubert.xu.zmvp.entity.DiscussListBean;
 import com.hubert.xu.zmvp.mvp.contract.OriginalContract;
-import com.hubert.xu.zmvp.mvp.module.activity.ComplexDiscussActivity;
-import com.hubert.xu.zmvp.mvp.module.adapter.DiscussAdapter;
+import com.hubert.xu.zmvp.mvp.view.activity.ComplexDiscussActivity;
+import com.hubert.xu.zmvp.mvp.view.adapter.DiscussAdapter;
 import com.hubert.xu.zmvp.mvp.presenter.OriginalPresenter;
 
 import java.util.List;
@@ -26,18 +26,18 @@ import butterknife.BindView;
  * Desc  :
  */
 
-public class OriginalFragment extends BaseFragment implements OriginalContract.View<DiscussBean>, SwipeRefreshLayout.OnRefreshListener, BaseQuickAdapter.RequestLoadMoreListener {
+public class OriginalFragment extends BaseFragment implements OriginalContract.View<DiscussListBean>, SwipeRefreshLayout.OnRefreshListener, BaseQuickAdapter.RequestLoadMoreListener {
     @BindView(R.id.rv_original)
     RecyclerView mRvOriginal;
-    @BindView(R.id.swipeLayout)
-    SwipeRefreshLayout mSwipeLayout;
+    @BindView(R.id.swipe_original)
+    SwipeRefreshLayout mSwipeOriginal;
 
     private OriginalPresenter mPresenter;
-    private List<DiscussBean.PostsBean> mData;
+    private List<DiscussListBean.PostsBean> mData;
     private DiscussAdapter mDiscussAdapter;
     private int start;
     private ComplexDiscussActivity mDiscussActivity;
-    private String mSortType = Constants.TYPE_DEFAULT_SORT;
+    private String mSortType = Constants.TYPE_SORT_DEFAULT;
 
     @Override
     public void onAttach(Activity activity) {
@@ -64,10 +64,10 @@ public class OriginalFragment extends BaseFragment implements OriginalContract.V
 
     @Override
     public void initView() {
-        mSwipeLayout.setOnRefreshListener(this);
+        mSwipeOriginal.setOnRefreshListener(this);
         mPresenter = new OriginalPresenter(this);
         mRvOriginal.setLayoutManager(new LinearLayoutManager(mContext));
-        mDiscussAdapter = new DiscussAdapter(R.layout.item_discuss, mData);
+        mDiscussAdapter = new DiscussAdapter(R.layout.item_original_discuss, mData);
         mRvOriginal.setAdapter(mDiscussAdapter);
         mDiscussAdapter.setOnLoadMoreListener(this);
         mDiscussAdapter.openLoadAnimation();
@@ -80,49 +80,47 @@ public class OriginalFragment extends BaseFragment implements OriginalContract.V
     }
 
 
-    @Override
-    public void setPresenter(Object presenter) {
 
-    }
 
     @Override
     public void showError() {
-        mSwipeLayout.setRefreshing(false);
+        mSwipeOriginal.setRefreshing(false);
         mDiscussAdapter.loadMoreFail();
     }
 
     @Override
     public void complete() {
-        mSwipeLayout.setRefreshing(false);
+        mSwipeOriginal.setRefreshing(false);
         mDiscussAdapter.setEnableLoadMore(false);
     }
 
 
     @Override
     public void onRefresh() {
-        mSwipeLayout.setRefreshing(true);
-        mPresenter.getData(0, mSortType);
-    }
-
-    @Override
-    public void onLoadMoreRequested() {
-        mSwipeLayout.setEnabled(false);
+        mSwipeOriginal.setRefreshing(true);
         mPresenter.getData(start, mSortType);
     }
 
     @Override
-    public void setData(DiscussBean data, boolean isRefresh) {
-        List<DiscussBean.PostsBean> list = data.getPosts();
+    public void onLoadMoreRequested() {
+        mSwipeOriginal.setEnabled(false);
+        mPresenter.getData(start, mSortType);
+    }
+
+    @Override
+    public void setData(DiscussListBean data, boolean isRefresh) {
+        List<DiscussListBean.PostsBean> list = data.getPosts();
         if (isRefresh) {
             if (mData != null) mData.clear();
             mData = list;
             start = 0;
+            mRvOriginal.scrollToPosition(0);
         } else {
             mData.addAll(list);
         }
         mDiscussAdapter.setNewData(mData);
-        mSwipeLayout.setRefreshing(false);
-        mSwipeLayout.setEnabled(true);
+        mSwipeOriginal.setRefreshing(false);
+        mSwipeOriginal.setEnabled(true);
         mDiscussAdapter.setEnableLoadMore(true);
         start = start + list.size();
     }

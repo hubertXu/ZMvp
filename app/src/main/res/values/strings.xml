@@ -15,4 +15,18 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="original">原创</string>
     <string name="fine">精品</string>
+    <array name="booke_type">
+        <item>全部类型</item>
+        <item>玄幻奇幻</item>
+        <item>武侠仙侠</item>
+        <item>历史军事</item>
+        <item>游戏竞技</item>
+        <item>科幻灵异</item>
+        <item>穿越架空</item>
+        <item>豪门总裁</item>
+        <item>现代言情</item>
+        <item>古代言情</item>
+        <item>幻想言情</item>
+        <item>耽美同人</item>
+    </array>
 </resources>

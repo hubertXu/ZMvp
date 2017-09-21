@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+      xmlns:app="http://schemas.android.com/apk/res-auto"
+
+    >
+
+    <item
+        android:id="@+id/action_type_select"
+        android:icon="@drawable/ic_action_type_select"
+        android:title="类型选择"
+        app:showAsAction="always"/>
+
+    <item
+        android:id="@+id/action_fine"
+        android:icon="@drawable/ic_action_fine_normal"
+        android:title="精品"
+        app:showAsAction="always"/>
+
+    <item
+        android:id="@+id/action_default_sort"
+        android:title="默认排序"
+        app:showAsAction="never"
+        />
+
+    <item
+        android:id="@+id/action_latest_sort"
+        android:title="最新发布"
+        app:showAsAction="never"
+        />
+    <item
+        android:id="@+id/action_most_sort"
+        android:title="最多评论"
+        app:showAsAction="never"
+        />
+
+</menu>

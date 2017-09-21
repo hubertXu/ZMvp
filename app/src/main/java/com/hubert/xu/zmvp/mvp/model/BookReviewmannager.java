@@ -11,23 +11,18 @@ import io.reactivex.schedulers.Schedulers;
 
 /**
  * Author: Hubert.Xu
- * Date  : 2017/8/18
+ * Date  : 2017/9/21
  * Desc  :
  */
 
-public class OriginalManager {
+public class BookReviewmannager {
+    private static final BookReviewmannager ourInstance = new BookReviewmannager();
 
-    private static final OriginalManager ourInstance = new OriginalManager();
-
-    public static OriginalManager getInstance() {
+    public static BookReviewmannager getInstance() {
         return ourInstance;
     }
-
-    private OriginalManager() {
-    }
-
-    public void getOriginalList(HashMap defaultParamsMap, BaseObserver observer) {
+    public void getBookReviewList(HashMap defaultParamsMap, BaseObserver observer) {
         ApiService apiService = RetrofitClient.getInstance().create(ApiService.class);
-        apiService.getDiscussList(defaultParamsMap).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).subscribe(observer);
+        apiService.getBookeReviewList(defaultParamsMap).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).subscribe(observer);
     }
 }

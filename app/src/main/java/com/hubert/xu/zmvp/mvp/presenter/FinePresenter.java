@@ -2,6 +2,7 @@ package com.hubert.xu.zmvp.mvp.presenter;
 
 import com.hubert.xu.zmvp.entity.DiscussListBean;
 import com.hubert.xu.zmvp.http.BaseObserver;
+import com.hubert.xu.zmvp.mvp.contract.FineContract;
 import com.hubert.xu.zmvp.mvp.contract.OriginalContract;
 import com.hubert.xu.zmvp.mvp.model.ComplexDiscussManager;
 
@@ -15,13 +16,13 @@ import io.reactivex.disposables.Disposable;
  * Desc  :
  */
 
-public class OriginalPresenter implements OriginalContract.Presenter {
+public class FinePresenter implements OriginalContract.Presenter {
 
     private int mLimit = 20;
-    private OriginalContract.View view;
+    private FineContract.View view;
     private boolean mIsRefresh;
 
-    public OriginalPresenter(OriginalContract.View view) {
+    public FinePresenter(FineContract.View view) {
         this.view = view;
     }
 
@@ -36,7 +37,7 @@ public class OriginalPresenter implements OriginalContract.Presenter {
         defaultParamsMap.put("type", "all");
         defaultParamsMap.put("start", start + "");
         defaultParamsMap.put("limit", mLimit + "");
-        defaultParamsMap.put("distillate", "false");
+        defaultParamsMap.put("distillate", "true");
         ComplexDiscussManager.getInstance().getOriginalList(defaultParamsMap, new BaseObserver<DiscussListBean>() {
             @Override
             public void subscribe(Disposable d) {

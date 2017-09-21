@@ -1,5 +1,6 @@
 <resources>
     <!--TextSize-->
+    <dimen name="capition_10sp">10sp</dimen>
     <dimen name="capition_12sp">12sp</dimen>
     <dimen name="body_14sp">14sp</dimen>
     <dimen name="subhead_16sp">16sp</dimen>

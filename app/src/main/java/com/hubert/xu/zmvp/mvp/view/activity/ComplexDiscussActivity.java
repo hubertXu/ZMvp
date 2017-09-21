@@ -1,4 +1,4 @@
-package com.hubert.xu.zmvp.mvp.module.activity;
+package com.hubert.xu.zmvp.mvp.view.activity;
 
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
@@ -9,8 +9,8 @@ import android.view.Menu;
 import com.hubert.xu.zmvp.R;
 import com.hubert.xu.zmvp.base.BaseActivity;
 import com.hubert.xu.zmvp.constant.Constants;
-import com.hubert.xu.zmvp.mvp.module.fragment.FineFragment;
-import com.hubert.xu.zmvp.mvp.module.fragment.OriginalFragment;
+import com.hubert.xu.zmvp.mvp.view.fragment.FineFragment;
+import com.hubert.xu.zmvp.mvp.view.fragment.OriginalFragment;
 
 import butterknife.BindView;
 
@@ -59,13 +59,13 @@ public class ComplexDiscussActivity extends BaseActivity {
         mToolbar.setOnMenuItemClickListener(item -> {
             switch (item.getItemId()) {
                 case R.id.action_default_sort:
-                    mSortLisenter.refreshComplexDiscussData(Constants.TYPE_DEFAULT_SORT);
+                    mSortLisenter.refreshComplexDiscussData(Constants.TYPE_SORT_DEFAULT);
                     break;
                 case R.id.action_latest_sort:
-                    mSortLisenter.refreshComplexDiscussData(Constants.TYPE_LATEST_SORT);
+                    mSortLisenter.refreshComplexDiscussData(Constants.TYPE_SORT_LATEST);
                     break;
                 case R.id.action_most_sort:
-                    mSortLisenter.refreshComplexDiscussData(Constants.TYPE_MOST_SORT);
+                    mSortLisenter.refreshComplexDiscussData(Constants.TYPE_SORT_MOST);
                     break;
             }
             return true;

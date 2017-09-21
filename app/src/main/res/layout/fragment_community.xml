@@ -12,7 +12,7 @@
         android:id="@+id/card_complex_discuss"
         style="@style/CardViewStyle"
         android:layout_width="match_parent"
-        android:layout_height="48dp"
+        android:layout_height="56dp"
         app:cardCornerRadius="4dp"
         app:cardElevation="2dp"
         >
@@ -30,7 +30,7 @@
         android:id="@+id/card_book_review"
         style="@style/CardViewStyle"
         android:layout_width="match_parent"
-        android:layout_height="48dp"
+        android:layout_height="56dp"
         app:cardCornerRadius="4dp"
         app:cardElevation="2dp"
         >
@@ -48,7 +48,7 @@
         android:id="@+id/card_book_shortage"
         style="@style/CardViewStyle"
         android:layout_width="match_parent"
-        android:layout_height="48dp"
+        android:layout_height="56dp"
         app:cardCornerRadius="4dp"
         app:cardElevation="2dp"
         >
@@ -66,7 +66,7 @@
         android:id="@+id/card_female"
         style="@style/CardViewStyle"
         android:layout_width="match_parent"
-        android:layout_height="48dp"
+        android:layout_height="56dp"
         app:cardCornerRadius="4dp"
         app:cardElevation="2dp"
         >
@@ -84,7 +84,7 @@
         android:id="@+id/card_original"
         style="@style/CardViewStyle"
         android:layout_width="match_parent"
-        android:layout_height="48dp"
+        android:layout_height="56dp"
         app:cardCornerRadius="4dp"
         app:cardElevation="2dp"
         >

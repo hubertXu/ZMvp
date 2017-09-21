@@ -4,10 +4,10 @@
                                                  xmlns:tools="http://schemas.android.com/tools"
                                                  android:layout_width="match_parent"
                                                  android:layout_height="match_parent"
-                                                 tools:context=".mvp.module.fragment.OriginalFragment">
+                                                 tools:context=".mvp.view.fragment.OriginalFragment">
 
     <android.support.v4.widget.SwipeRefreshLayout
-        android:id="@+id/swipeLayout"
+        android:id="@+id/swipe_original"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 

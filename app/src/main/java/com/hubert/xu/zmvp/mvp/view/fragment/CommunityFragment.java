@@ -1,11 +1,12 @@
-package com.hubert.xu.zmvp.mvp.module.fragment;
+package com.hubert.xu.zmvp.mvp.view.fragment;
 
 import android.content.Intent;
 import android.view.View;
 
 import com.hubert.xu.zmvp.R;
 import com.hubert.xu.zmvp.base.BaseFragment;
-import com.hubert.xu.zmvp.mvp.module.activity.ComplexDiscussActivity;
+import com.hubert.xu.zmvp.mvp.view.activity.BookReviewActivity;
+import com.hubert.xu.zmvp.mvp.view.activity.ComplexDiscussActivity;
 
 import butterknife.OnClick;
 
@@ -38,6 +39,7 @@ public class CommunityFragment extends BaseFragment {
                 startActivity(new Intent(getActivity(), ComplexDiscussActivity.class));
                 break;
             case R.id.card_book_review:
+                startActivity(new Intent(getActivity(), BookReviewActivity.class));
                 break;
             case R.id.card_book_shortage:
                 break;
