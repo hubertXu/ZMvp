@@ -80,8 +80,6 @@ public class OriginalFragment extends BaseFragment implements OriginalContract.V
     }
 
 
-
-
     @Override
     public void showError() {
         mSwipeOriginal.setRefreshing(false);
@@ -98,6 +96,7 @@ public class OriginalFragment extends BaseFragment implements OriginalContract.V
     @Override
     public void onRefresh() {
         mSwipeOriginal.setRefreshing(true);
+        start = 0;
         mPresenter.getData(start, mSortType);
     }
 
@@ -113,7 +112,6 @@ public class OriginalFragment extends BaseFragment implements OriginalContract.V
         if (isRefresh) {
             if (mData != null) mData.clear();
             mData = list;
-            start = 0;
             mRvOriginal.scrollToPosition(0);
         } else {
             mData.addAll(list);

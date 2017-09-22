@@ -1,7 +1,9 @@
 package com.hubert.xu.zmvp.http.api;
 
+import com.hubert.xu.zmvp.entity.BookHelpListBean;
 import com.hubert.xu.zmvp.entity.BookReviewListBean;
 import com.hubert.xu.zmvp.entity.DiscussListBean;
+import com.hubert.xu.zmvp.entity.GirlBookListBean;
 
 import java.util.Map;
 
@@ -52,4 +54,40 @@ public interface ApiService {
      */
     @GET("/post/review")
     Observable<BookReviewListBean> getBookeReviewList(@QueryMap Map<String, String> map);
+
+    /**
+     * 获取书荒区帖子列表
+     * 全部、默认排序  http://api.zhuishushenqi.com/post/help?duration=all&sort=updated&start=0&limit=20&distillate=
+     * 精品、默认排序  http://api.zhuishushenqi.com/post/help?duration=all&sort=updated&start=0&limit=20&distillate=true
+     *
+     *  duration   all
+     *  sort       updated(默认排序)
+     *                   created(最新发布)
+     *                   comment-count(最多评论)
+     *  start      0
+     *  limit      20
+     *  distillate true(精品) 、空字符（全部）
+     * @return
+     */
+    @GET("/post/help")
+    Observable<BookHelpListBean> getBookHelpList(@QueryMap Map<String, String> map);
+
+    /**
+     * 获取综合讨论区帖子列表
+     *
+     * @param map block      ramble:综合讨论区
+     *            original:原创区
+     *            duration   all girl 女生区
+     *            sort       updated:默认排序
+     *            created:最新发布
+     *            coment-count:最多评论
+     *            type       all
+     *            start      0
+     *            limit      20
+     *            distillate true|false(是否精品)
+     * @return
+     */
+    @GET("/post/by-block")
+    Observable<GirlBookListBean> getGirlBookList(@QueryMap Map<String, String> map);
+
 }

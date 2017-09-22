@@ -30,17 +30,8 @@ public class BookReviewActivity extends BaseActivity implements BookReviewContra
     private BookReviewPresenter mBookReviewPresenter;
     private int start = 0;
     private String sortType = Constants.TYPE_SORT_DEFAULT;
-    private boolean isFine = false;
+    private String mBookState = "";
     private String type = Constants.TYPE_BOOKE_ALL;
-
-    String[] types = {Constants.TYPE_BOOKE_ALL, Constants.TYPE_BOOKE_XHQH,
-            Constants.TYPE_BOOKE_XWXX, Constants.TYPE_BOOKE_DXYN,
-            Constants.TYPE_BOOKE_YXJJ, Constants.TYPE_BOOKE_KHLY,
-            Constants.TYPE_BOOKE_CYJK, Constants.TYPE_BOOKE_HMZC,
-            Constants.TYPE_BOOKE_XDYQ, Constants.TYPE_BOOKE_HXYQ,
-            Constants.TYPE_BOOKE_DMTR
-
-    };
     private List<BookReviewListBean.ReviewsBean> mBookReviewData;
 
     @Override
@@ -63,14 +54,16 @@ public class BookReviewActivity extends BaseActivity implements BookReviewContra
                             .items(R.array.booke_type)
                             .itemsCallback((dialog, itemView, position, text) -> {
                                 dialog.dismiss();
-                                type = types[position];
+                                type = Constants.bookTypeList.get(position);
                                 ToastUtil.showShortToastSafely(text);
+                                onRefresh();
                             }).show();
                     break;
                 case R.id.action_fine:
                     item.setChecked(!item.isChecked());
                     item.setIcon(item.isChecked() ? R.drawable.ic_action_fine_select : R.drawable.ic_action_fine_normal);
-                    isFine = item.isChecked();
+                    mBookState = item.isChecked() ? true + "" : "";
+                    onRefresh();
                     break;
                 case R.id.action_default_sort:
                     ToastUtil.showShortToastSafely("默认排序");
@@ -107,14 +100,15 @@ public class BookReviewActivity extends BaseActivity implements BookReviewContra
 
     @Override
     public void onRefresh() {
+        start = 0;
         mSwipeBookReview.setRefreshing(true);
-        mBookReviewPresenter.getData(start, sortType, isFine, type);
+        mBookReviewPresenter.getData(start, sortType, mBookState, type);
     }
 
     @Override
     public void onLoadMoreRequested() {
         mSwipeBookReview.setEnabled(false);
-        mBookReviewPresenter.getData(start, sortType, isFine, type);
+        mBookReviewPresenter.getData(start, sortType, mBookState, type);
     }
 
 
@@ -135,7 +129,6 @@ public class BookReviewActivity extends BaseActivity implements BookReviewContra
         if (isRefresh) {
             if (mBookReviewData != null) mBookReviewData.clear();
             mBookReviewData = data.getReviews();
-            start = 0;
             mRvBookReview.scrollToPosition(0);
         } else {
             mBookReviewData.addAll(data.getReviews());

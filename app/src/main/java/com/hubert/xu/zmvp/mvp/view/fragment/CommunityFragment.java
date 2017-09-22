@@ -5,8 +5,10 @@ import android.view.View;
 
 import com.hubert.xu.zmvp.R;
 import com.hubert.xu.zmvp.base.BaseFragment;
+import com.hubert.xu.zmvp.mvp.view.activity.BookHelpActivity;
 import com.hubert.xu.zmvp.mvp.view.activity.BookReviewActivity;
 import com.hubert.xu.zmvp.mvp.view.activity.ComplexDiscussActivity;
+import com.hubert.xu.zmvp.mvp.view.activity.GirlBooKActivity;
 
 import butterknife.OnClick;
 
@@ -42,8 +44,10 @@ public class CommunityFragment extends BaseFragment {
                 startActivity(new Intent(getActivity(), BookReviewActivity.class));
                 break;
             case R.id.card_book_shortage:
+                startActivity(new Intent(getActivity(), BookHelpActivity.class));
                 break;
             case R.id.card_female:
+                startActivity(new Intent(getActivity(), GirlBooKActivity.class));
                 break;
             case R.id.card_original:
                 break;

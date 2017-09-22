@@ -15,14 +15,13 @@ import io.reactivex.schedulers.Schedulers;
  * Desc  :
  */
 
-public class BookReviewmannager {
+public class BookHelpMannager {
+    private static final BookHelpMannager ourInstance = new BookHelpMannager();
 
-    private static final BookReviewmannager ourInstance = new BookReviewmannager();
-
-    public static BookReviewmannager getInstance() {
+    public static BookHelpMannager getInstance() {
         return ourInstance;
     }
-    public void getBookReviewList(HashMap defaultParamsMap, BaseObserver observer) {
+    public void getBookHelpList(HashMap defaultParamsMap, BaseObserver observer) {
         ApiService apiService = RetrofitClient.getInstance().create(ApiService.class);
         apiService.getBookHelpList(defaultParamsMap).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).subscribe(observer);
     }

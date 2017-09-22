@@ -15,10 +15,10 @@
 
         <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/cv_avatar"
-            android:layout_width="48dp"
-            android:layout_height="48dp"
+            android:layout_width="56dp"
+            android:layout_height="56dp"
             android:layout_margin="8dp"
-            android:src="@color/colorPrimary"
+            android:src="@drawable/cover_default"
             />
 
         <TextView
@@ -27,13 +27,13 @@
             android:layout_height="wrap_content"
             android:layout_alignTop="@id/cv_avatar"
             android:layout_toRightOf="@id/cv_avatar"
-            android:text="用户名"
+            android:text="名&amp;类型"
             android:textColor="@color/colorPrimaryDark"
             android:textSize="@dimen/sp_12"
             />
 
         <TextView
-            android:id="@+id/tv_discuss_content"
+            android:id="@+id/tv_review_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignLeft="@id/tv_user_name"
@@ -47,6 +47,7 @@
             />
 
         <Button
+            android:id="@+id/btn_type_fine"
             android:layout_width="32dp"
             android:layout_height="16dp"
             android:layout_alignParentRight="true"
@@ -57,6 +58,19 @@
             android:text="精品"
             android:textColor="@color/white"
             android:textSize="@dimen/capition_10sp"
+            android:visibility="gone"
+            />
+
+        <TextView
+            android:id="@+id/tv_updated_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_alignTop="@id/cv_avatar"
+            android:paddingRight="8dp"
+            android:text="一小时前"
+            android:textColor="@color/colorPrimary"
+            android:textSize="@dimen/sp_12"
             />
 
         <TextView
@@ -64,7 +78,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
-            android:layout_below="@id/tv_discuss_content"
+            android:layout_below="@id/tv_review_title"
             android:gravity="center"
             android:paddingBottom="4dp"
             android:paddingLeft="4dp"
@@ -75,7 +89,7 @@
             android:textSize="@dimen/sp_12"/>
 
         <ImageView
-            android:id="@+id/iv_comment"
+            android:id="@+id/iv_helpfuless"
             android:layout_width="16dp"
             android:layout_height="16dp"
             android:layout_alignBottom="@id/tv_comment_count"
@@ -89,7 +103,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignBottom="@id/tv_comment_count"
-            android:layout_toLeftOf="@id/iv_comment"
+            android:layout_toLeftOf="@id/iv_helpfuless"
             android:gravity="center"
             android:padding="4dp"
             android:text="0"
@@ -99,7 +113,7 @@
         <ImageView
             android:layout_width="16dp"
             android:layout_height="16dp"
-            android:layout_alignBottom="@id/tv_comment_count"
+            android:layout_alignBottom="@id/tv_like_count"
             android:layout_marginBottom="4dp"
             android:layout_toLeftOf="@id/tv_like_count"
             android:background="@drawable/ic_like"

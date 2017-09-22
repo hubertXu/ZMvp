@@ -81,6 +81,7 @@ public class FineFragment extends BaseFragment implements FineContract.View<Disc
 
     @Override
     public void onRefresh() {
+        start=0;
         mSwipeFine.setRefreshing(true);
         mFinePresenter.getData(start, sortType);
     }
@@ -91,7 +92,6 @@ public class FineFragment extends BaseFragment implements FineContract.View<Disc
         if (isRefresh) {
             if (mData != null) mData.clear();
             mData = list;
-            start = 0;
             mRvFineDiscuss.scrollToPosition(0);
         } else {
             mData.addAll(list);

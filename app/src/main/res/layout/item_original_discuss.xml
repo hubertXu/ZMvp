@@ -17,8 +17,7 @@
             android:id="@+id/cv_avatar"
             android:layout_width="48dp"
             android:layout_height="48dp"
-            android:layout_marginLeft="12dp"
-            android:layout_marginTop="8dp"
+            android:layout_margin="8dp"
             android:src="@color/colorPrimary"
             />
 
@@ -27,9 +26,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignTop="@id/cv_avatar"
-            android:layout_marginLeft="12dp"
             android:layout_toRightOf="@id/cv_avatar"
             android:text="用户名"
+            android:textColor="@color/colorPrimaryDark"
             android:textSize="@dimen/sp_12"
             />
 
@@ -43,7 +42,7 @@
             android:paddingRight="8dp"
             android:paddingTop="8dp"
             android:text="啊啊啊啊啊啊啊"
-            android:textColor="@color/colorPrimaryDark"
+            android:textColor="@color/colorPrimary"
             android:textSize="@dimen/body_14sp"
             />
 

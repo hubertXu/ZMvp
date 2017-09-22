@@ -16,6 +16,6 @@ public interface BookReviewContract extends BaseContract {
 
 
     interface Presenter extends BasePresenter {
-        void getData(int start, String sortType,boolean isFine,String type);
+        void getData(int start, String sortType, String bookState, String type);
     }
 }
