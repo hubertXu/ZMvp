@@ -8,7 +8,7 @@ import com.hubert.xu.zmvp.base.BaseFragment;
 import com.hubert.xu.zmvp.mvp.view.activity.BookHelpActivity;
 import com.hubert.xu.zmvp.mvp.view.activity.BookReviewActivity;
 import com.hubert.xu.zmvp.mvp.view.activity.ComplexDiscussActivity;
-import com.hubert.xu.zmvp.mvp.view.activity.GirlBooKActivity;
+import com.hubert.xu.zmvp.mvp.view.activity.GirlBookActivity;
 
 import butterknife.OnClick;
 
@@ -47,7 +47,7 @@ public class CommunityFragment extends BaseFragment {
                 startActivity(new Intent(getActivity(), BookHelpActivity.class));
                 break;
             case R.id.card_female:
-                startActivity(new Intent(getActivity(), GirlBooKActivity.class));
+                startActivity(new Intent(getActivity(), GirlBookActivity.class));
                 break;
             case R.id.card_original:
                 break;

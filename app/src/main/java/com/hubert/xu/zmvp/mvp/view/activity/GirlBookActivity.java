@@ -13,6 +13,7 @@ import com.hubert.xu.zmvp.entity.GirlBookListBean;
 import com.hubert.xu.zmvp.mvp.contract.GirlBookContract;
 import com.hubert.xu.zmvp.mvp.presenter.GirlBookPresenter;
 import com.hubert.xu.zmvp.mvp.view.adapter.GirBookAdapter;
+import com.hubert.xu.zmvp.utils.LogUtil;
 import com.hubert.xu.zmvp.utils.ToastUtil;
 
 import java.util.List;
@@ -25,7 +26,7 @@ import butterknife.BindView;
  * Desc  :
  */
 
-public class GirlBooKActivity extends BaseActivity implements SwipeRefreshLayout.OnRefreshListener, GirlBookContract.View<GirlBookListBean.PostsBean>, BaseQuickAdapter.RequestLoadMoreListener {
+public class GirlBookActivity extends BaseActivity implements SwipeRefreshLayout.OnRefreshListener, GirlBookContract.View<GirlBookListBean.PostsBean>, BaseQuickAdapter.RequestLoadMoreListener {
     @BindView(R.id.rv_girl_book)
     RecyclerView mRvGirlBook;
     @BindView(R.id.swipe_girl_book)
@@ -92,6 +93,7 @@ public class GirlBooKActivity extends BaseActivity implements SwipeRefreshLayout
     public void onRefresh() {
         mSwipeGirlBook.setRefreshing(true);
         start = 0;
+        LogUtil.info(mBookState);
         mGirlBookPresenter.getData(start, sortType, mBookState);
     }
 

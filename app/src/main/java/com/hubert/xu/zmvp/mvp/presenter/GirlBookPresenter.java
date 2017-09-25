@@ -36,7 +36,7 @@ public class GirlBookPresenter implements GirlBookContract.Presenter {
         defaultParamsMap.put("type", "all");
         defaultParamsMap.put("start", start + "");
         defaultParamsMap.put("limit", mLimit + "");
-        defaultParamsMap.put("distillate", "false");
+        defaultParamsMap.put("distillate", bookState);
         GirlBookListManager.getInstance().getGirlBookList(defaultParamsMap, new BaseObserver<GirlBookListBean>() {
             @Override
             public void subscribe(Disposable d) {
