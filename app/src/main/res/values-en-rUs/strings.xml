@@ -24,4 +24,8 @@
     <string name="gudaiyanqing">古代言情</string>
     <string name="huanxiangyanqing">幻想言情</string>
     <string name="danmeitognren">耽美同人</string>
+    <string name="complex_discuss">讨论</string>
+    <string name="book_review">书评</string>
+    <string name="book_help">书荒</string>
+    <string name="girl">女生</string>
 </resources>

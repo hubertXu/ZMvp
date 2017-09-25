@@ -30,4 +30,14 @@
         <item>幻想言情</item>
         <item>耽美同人</item>
     </array>
+    <string name="title_activity_main2">Main2Activity</string>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
+    <string name="action_settings">Settings</string>
+    <string name="complex_discuss">讨论</string>
+    <string name="book_review">书评</string>
+    <string name="book_help">书荒</string>
+    <string name="girl">女生</string>
 </resources>

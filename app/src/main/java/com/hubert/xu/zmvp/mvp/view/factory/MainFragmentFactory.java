@@ -13,7 +13,7 @@ import com.hubert.xu.zmvp.mvp.view.fragment.FindFragment;
  * Desc  :
  */
 
-public class MainFactory {
+public class MainFragmentFactory {
     private static SparseArray<BaseFragment> fragmentMaps = new SparseArray<>(3);
 
     public static BaseFragment getFragment(int position) {

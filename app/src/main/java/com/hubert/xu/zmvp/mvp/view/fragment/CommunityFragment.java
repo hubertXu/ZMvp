@@ -1,16 +1,17 @@
 package com.hubert.xu.zmvp.mvp.view.fragment;
 
-import android.content.Intent;
-import android.view.View;
+import android.support.design.widget.TabLayout;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v4.view.ViewPager;
+import android.view.Menu;
+import android.view.MenuInflater;
 
 import com.hubert.xu.zmvp.R;
 import com.hubert.xu.zmvp.base.BaseFragment;
-import com.hubert.xu.zmvp.mvp.view.activity.BookHelpActivity;
-import com.hubert.xu.zmvp.mvp.view.activity.BookReviewActivity;
-import com.hubert.xu.zmvp.mvp.view.activity.ComplexDiscussActivity;
-import com.hubert.xu.zmvp.mvp.view.activity.GirlBookActivity;
+import com.hubert.xu.zmvp.mvp.view.factory.CommunityFragmentFactory;
 
-import butterknife.OnClick;
+import butterknife.BindView;
 
 /**
  * Author: Hubert.Xu
@@ -20,6 +21,12 @@ import butterknife.OnClick;
 
 public class CommunityFragment extends BaseFragment {
 
+    @BindView(R.id.tablayout_community)
+    TabLayout mTablayoutCommunity;
+    @BindView(R.id.vp_community)
+    ViewPager mVpCommunity;
+
+
     @Override
     protected int attachLayoutRes() {
         return R.layout.fragment_community;
@@ -27,30 +34,34 @@ public class CommunityFragment extends BaseFragment {
 
     @Override
     public void initData() {
+
     }
 
     @Override
     public void initView() {
+        mVpCommunity.setAdapter(new FragmentPagerAdapter(getChildFragmentManager()) {
+            String[] titles = {getString(R.string.complex_discuss), getString(R.string.book_help), getString(R.string.girl), getString(R.string.book_review)};
 
+            @Override
+            public Fragment getItem(int position) {
+                return CommunityFragmentFactory.getFragment(position);
+            }
+
+            @Override
+            public int getCount() {
+                return titles.length;
+            }
+
+            @Override
+            public CharSequence getPageTitle(int position) {
+                return titles[position];
+            }
+        });
+        mTablayoutCommunity.setupWithViewPager(mVpCommunity);
     }
 
-    @OnClick({R.id.card_complex_discuss, R.id.card_book_review, R.id.card_book_shortage, R.id.card_female, R.id.card_original})
-    public void onViewClicked(View view) {
-        switch (view.getId()) {
-            case R.id.card_complex_discuss:
-                startActivity(new Intent(getActivity(), ComplexDiscussActivity.class));
-                break;
-            case R.id.card_book_review:
-                startActivity(new Intent(getActivity(), BookReviewActivity.class));
-                break;
-            case R.id.card_book_shortage:
-                startActivity(new Intent(getActivity(), BookHelpActivity.class));
-                break;
-            case R.id.card_female:
-                startActivity(new Intent(getActivity(), GirlBookActivity.class));
-                break;
-            case R.id.card_original:
-                break;
-        }
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        super.onCreateOptionsMenu(menu, inflater);
     }
 }

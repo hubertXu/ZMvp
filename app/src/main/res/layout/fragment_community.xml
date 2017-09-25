@@ -8,93 +8,53 @@
               android:orientation="vertical"
     >
 
-    <android.support.v7.widget.CardView
-        android:id="@+id/card_complex_discuss"
-        style="@style/CardViewStyle"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="56dp"
-        app:cardCornerRadius="4dp"
-        app:cardElevation="2dp"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:orientation="horizontal"
         >
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:gravity="center"
-            android:text="@string/complex_discuss_area"
-            android:textSize="@dimen/title_20sp"
+        <android.support.design.widget.TabLayout
+            android:id="@+id/tablayout_community"
+            android:layout_width="0dp"
+            android:layout_height="40dp"
+            android:layout_weight="1"
+            app:tabIndicatorColor="@color/colorPrimary"
+            app:tabIndicatorHeight="1dp"
+            app:tabMode="fixed"
+            app:tabSelectedTextColor="@color/colorPrimaryDark"
+            app:tabTextAppearance="@style/TextAppearance.AppCompat.Medium"
+            app:tabTextColor="@color/colorPrimaryLight"
             />
-    </android.support.v7.widget.CardView>
 
-    <android.support.v7.widget.CardView
-        android:id="@+id/card_book_review"
-        style="@style/CardViewStyle"
+        <Button
+            android:layout_width="40dp"
+            android:layout_height="match_parent"
+            android:padding="4dp"
+            android:background="@drawable/ic_action_type_select"
+            android:foreground="?attr/selectableItemBackground"
+            />
+
+        <Button
+            android:layout_width="40dp"
+            android:layout_height="match_parent"
+            android:background="@drawable/ic_action_sort_type"
+            android:foreground="?attr/selectableItemBackground"
+            />
+
+        <Button
+            android:id="@+id/imageView"
+            android:layout_width="40dp"
+            android:layout_height="match_parent"
+            android:background="@drawable/ic_action_sort_type"
+            android:foreground="?attr/selectableItemBackground"
+            />
+    </LinearLayout>
+
+    <android.support.v4.view.ViewPager
+        android:id="@+id/vp_community"
         android:layout_width="match_parent"
-        android:layout_height="56dp"
-        app:cardCornerRadius="4dp"
-        app:cardElevation="2dp"
-        >
+        android:layout_height="match_parent"/>
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:gravity="center"
-            android:text="@string/book_review_area"
-            android:textSize="@dimen/title_20sp"
-            />
-    </android.support.v7.widget.CardView>
-
-    <android.support.v7.widget.CardView
-        android:id="@+id/card_book_shortage"
-        style="@style/CardViewStyle"
-        android:layout_width="match_parent"
-        android:layout_height="56dp"
-        app:cardCornerRadius="4dp"
-        app:cardElevation="2dp"
-        >
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:gravity="center"
-            android:text="@string/book_help_area"
-            android:textSize="@dimen/title_20sp"
-            />
-    </android.support.v7.widget.CardView>
-
-    <android.support.v7.widget.CardView
-        android:id="@+id/card_female"
-        style="@style/CardViewStyle"
-        android:layout_width="match_parent"
-        android:layout_height="56dp"
-        app:cardCornerRadius="4dp"
-        app:cardElevation="2dp"
-        >
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:gravity="center"
-            android:text="@string/female_area"
-            android:textSize="@dimen/title_20sp"
-            />
-    </android.support.v7.widget.CardView>
-
-    <android.support.v7.widget.CardView
-        android:id="@+id/card_original"
-        style="@style/CardViewStyle"
-        android:layout_width="match_parent"
-        android:layout_height="56dp"
-        app:cardCornerRadius="4dp"
-        app:cardElevation="2dp"
-        >
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:gravity="center"
-            android:text="@string/original_area"
-            android:textSize="@dimen/title_20sp"
-            />
-    </android.support.v7.widget.CardView>
 </LinearLayout>

@@ -54,9 +54,7 @@
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
-        <activity
-            android:name=".mvp.view.activity.MainActivity"
-            />
+        <activity android:name=".mvp.view.activity.MainActivity"/>
         <activity android:name=".mvp.view.activity.GuideActivity"/>
         <activity
             android:name=".mvp.view.activity.ComplexDiscussActivity"
