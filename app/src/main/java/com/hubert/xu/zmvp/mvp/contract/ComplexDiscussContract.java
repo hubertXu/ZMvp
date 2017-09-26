@@ -8,7 +8,7 @@ import com.hubert.xu.zmvp.base.BaseContract;
  * Desc  :
  */
 
-public interface OriginalContract extends BaseContract {
+public interface ComplexDiscussContract extends BaseContract {
 
     interface View<DiscussBean> extends BaseView {
         void setData(DiscussBean data, boolean isRefresh);
@@ -16,6 +16,6 @@ public interface OriginalContract extends BaseContract {
 
 
     interface Presenter extends BasePresenter {
-        void getData(int start, String type);
+        void getData(int start, String sortype);
     }
 }

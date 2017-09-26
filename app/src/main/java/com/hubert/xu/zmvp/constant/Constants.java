@@ -41,6 +41,14 @@ public class Constants {
     public static final String TYPE_BOOKE_HXYQ = "hxyq";
     public static final String TYPE_BOOKE_DMTR = "dmtr";
 
+    public static List<String> sortType = new ArrayList<String>() {
+        {
+            add(TYPE_SORT_DEFAULT);
+            add(TYPE_SORT_LATEST);
+            add(TYPE_SORT_MOST);
+        }
+    };
+
     public static List<String> bookTypeList = new ArrayList<String>() {
         {
             add(TYPE_BOOKE_ALL);
@@ -59,7 +67,7 @@ public class Constants {
         }
     };
 
-    public static HashMap<String, String> bookeTypeMap = new HashMap<String, String>() {
+    public static HashMap<String, String> bookTypeMap = new HashMap<String, String>() {
         {
             put("qt", "其它");
             put(TYPE_BOOKE_XHQH, "玄幻奇幻");

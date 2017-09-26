@@ -9,7 +9,7 @@
         <item name="windowActionBar">false</item>
         <item name="android:windowBackground">@color/gray</item>
         <!--Toolbar 设置  图标的颜色-->
-        <item name="android:textColorSecondary">@color/white</item>
+        <!--<item name="android:textColorSecondary">@color/white</item>-->
     </style>
 
     <style name="SplashTheme" parent="AppTheme">
@@ -26,7 +26,7 @@
     </style>
 
     <style name="ToolbarPopupTheme" parent="@style/ThemeOverlay.AppCompat.Dark">
-        <item name="android:colorBackground">@color/colorAccent</item>
+        <item name="android:colorBackground">@color/colorPrimaryLight</item>
         <item name="actionOverflowMenuStyle">@style/OverflowMenuStyle
         </item> <!--新增一个item，用于控制menu-->
     </style>

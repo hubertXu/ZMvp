@@ -1,60 +1,40 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              xmlns:app="http://schemas.android.com/apk/res-auto"
-              xmlns:tools="http://schemas.android.com/tools"
-              android:layout_width="match_parent"
-              android:layout_height="match_parent"
-              android:background="@color/gray"
-              android:orientation="vertical"
-    >
+<android.support.design.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
 
-    <LinearLayout
+
+    <android.support.v4.view.ViewPager
+        android:id="@+id/vp_community"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/white"
-        android:orientation="horizontal"
-        >
+        android:layout_height="match_parent">
 
         <android.support.design.widget.TabLayout
             android:id="@+id/tablayout_community"
-            android:layout_width="0dp"
+            android:layout_width="match_parent"
             android:layout_height="40dp"
-            android:layout_weight="1"
+            android:background="@color/white"
             app:tabIndicatorColor="@color/colorPrimary"
-            app:tabIndicatorHeight="1dp"
+            app:tabIndicatorHeight="2dp"
             app:tabMode="fixed"
             app:tabSelectedTextColor="@color/colorPrimaryDark"
             app:tabTextAppearance="@style/TextAppearance.AppCompat.Medium"
             app:tabTextColor="@color/colorPrimaryLight"
             />
+    </android.support.v4.view.ViewPager>
 
-        <Button
-            android:layout_width="40dp"
-            android:layout_height="match_parent"
-            android:padding="4dp"
-            android:background="@drawable/ic_action_type_select"
-            android:foreground="?attr/selectableItemBackground"
-            />
 
-        <Button
-            android:layout_width="40dp"
-            android:layout_height="match_parent"
-            android:background="@drawable/ic_action_sort_type"
-            android:foreground="?attr/selectableItemBackground"
-            />
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/fab_more"
+        android:layout_width="56dp"
+        android:layout_height="56dp"
+        android:layout_gravity="bottom|right"
+        android:layout_marginBottom="24dp"
+        android:layout_marginRight="24dp"
+        app:layout_behavior="com.hubert.xu.zmvp.behavior.FabScrollBehavior"
+        android:src="@drawable/ic_action_more"
+        />
+</android.support.design.widget.CoordinatorLayout>
 
-        <Button
-            android:id="@+id/imageView"
-            android:layout_width="40dp"
-            android:layout_height="match_parent"
-            android:background="@drawable/ic_action_sort_type"
-            android:foreground="?attr/selectableItemBackground"
-            />
-    </LinearLayout>
-
-    <android.support.v4.view.ViewPager
-        android:id="@+id/vp_community"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
-
-</LinearLayout>

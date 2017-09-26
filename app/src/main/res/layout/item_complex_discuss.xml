@@ -46,6 +46,36 @@
             android:textSize="@dimen/body_14sp"
             />
 
+        <Button
+            android:id="@+id/btn_type_fine"
+            android:layout_width="32dp"
+            android:layout_height="16dp"
+            android:layout_alignParentRight="true"
+            android:layout_marginTop="8dp"
+            android:layout_marginRight="8dp"
+            android:background="@drawable/bg_2radius_gray"
+            android:clickable="false"
+            android:text="精品"
+            android:textColor="@color/white"
+            android:textSize="@dimen/capition_10sp"
+            android:visibility="gone"
+            />
+
+        <Button
+            android:id="@+id/btn_type_hot"
+            android:layout_width="32dp"
+            android:layout_height="16dp"
+            android:layout_alignParentRight="true"
+            android:layout_marginTop="8dp"
+            android:layout_marginRight="8dp"
+            android:background="@drawable/bg_2radius_red"
+            android:clickable="false"
+            android:text="热门"
+            android:textColor="@color/white"
+            android:textSize="@dimen/capition_10sp"
+            android:visibility="gone"
+            />
+
         <TextView
             android:id="@+id/tv_updated_time"
             android:layout_width="wrap_content"

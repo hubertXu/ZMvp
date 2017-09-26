@@ -56,11 +56,6 @@
         </activity>
         <activity android:name=".mvp.view.activity.MainActivity"/>
         <activity android:name=".mvp.view.activity.GuideActivity"/>
-        <activity
-            android:name=".mvp.view.activity.ComplexDiscussActivity"
-            android:label="@string/complex_discuss_area"/>
-        <activity android:name=".mvp.view.activity.BookReviewActivity"/>
-        <activity android:name=".mvp.view.activity.BookHelpActivity"/>
         <activity android:name=".mvp.view.activity.GirlBookActivity"/>
     </application>
 

@@ -25,13 +25,13 @@ public class CommunityFragmentFactory {
                     fragment = new ComplexDiscussFragment();
                     break;
                 case 1:
-                    fragment = new BookReviewFragment();
-                    break;
-                case 2:
                     fragment = new BookHelpFragment();
                     break;
-                case 3:
+                case 2:
                     fragment = new GirlBookFragment();
+                    break;
+                case 3:
+                    fragment = new BookReviewFragment();
                     break;
             }
             fragmentMaps.put(position, fragment);

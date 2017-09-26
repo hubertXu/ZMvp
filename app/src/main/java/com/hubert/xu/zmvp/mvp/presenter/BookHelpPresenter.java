@@ -24,13 +24,13 @@ public class BookHelpPresenter implements BookHelpContract.Presenter {
     }
 
     @Override
-    public void getData(int start, String sortType, String bookeState) {
+    public void getData(int start, String sortType) {
         HashMap<String, String> parmasMap = new HashMap<>();
         parmasMap.put("duration", "all");
         parmasMap.put("sort", sortType);
         parmasMap.put("start", start + "");
         parmasMap.put("limit", 20 + "");
-        parmasMap.put("distillate", bookeState);
+        parmasMap.put("distillate", "");
         BookHelpMannager.getInstance().getBookHelpList(parmasMap, new BaseObserver<BookHelpListBean>() {
             @Override
             public void subscribe(Disposable d) {

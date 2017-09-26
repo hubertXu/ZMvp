@@ -2,7 +2,7 @@ package com.hubert.xu.zmvp.mvp.presenter;
 
 import com.hubert.xu.zmvp.entity.DiscussListBean;
 import com.hubert.xu.zmvp.http.BaseObserver;
-import com.hubert.xu.zmvp.mvp.contract.OriginalContract;
+import com.hubert.xu.zmvp.mvp.contract.ComplexDiscussContract;
 import com.hubert.xu.zmvp.mvp.model.ComplexDiscussManager;
 
 import java.util.HashMap;
@@ -15,28 +15,28 @@ import io.reactivex.disposables.Disposable;
  * Desc  :
  */
 
-public class OriginalPresenter implements OriginalContract.Presenter {
+public class ComplexDiscussPresenter implements ComplexDiscussContract.Presenter {
 
     private int mLimit = 20;
-    private OriginalContract.View view;
+    private ComplexDiscussContract.View view;
     private boolean mIsRefresh;
 
-    public OriginalPresenter(OriginalContract.View view) {
+    public ComplexDiscussPresenter(ComplexDiscussContract.View view) {
         this.view = view;
     }
 
 
     @Override
-    public void getData(int start, String type) {
+    public void getData(int start, String sortype) {
         // 最新创建
         HashMap<String, String> defaultParamsMap = new HashMap<>();
         defaultParamsMap.put("block", "ramble");
         defaultParamsMap.put("duration", "all");
-        defaultParamsMap.put("sort", type);
+        defaultParamsMap.put("sort", sortype);
         defaultParamsMap.put("type", "all");
         defaultParamsMap.put("start", start + "");
         defaultParamsMap.put("limit", mLimit + "");
-        defaultParamsMap.put("distillate", "false");
+        defaultParamsMap.put("distillate", "");
         ComplexDiscussManager.getInstance().getOriginalList(defaultParamsMap, new BaseObserver<DiscussListBean>() {
             @Override
             public void subscribe(Disposable d) {
