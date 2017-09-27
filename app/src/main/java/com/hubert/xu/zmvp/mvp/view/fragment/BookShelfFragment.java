@@ -24,10 +24,6 @@ public class BookShelfFragment extends BaseFragment {
     }
 
     @Override
-    public void initData() {
-    }
-
-    @Override
     public void initView() {
 
     }

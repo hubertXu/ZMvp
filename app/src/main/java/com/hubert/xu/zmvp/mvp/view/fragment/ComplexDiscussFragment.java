@@ -41,11 +41,6 @@ public class ComplexDiscussFragment extends BaseFragment implements ComplexDiscu
     }
 
     @Override
-    public void initData() {
-
-    }
-
-    @Override
     public void initView() {
         mComplexDiscussPresenter = new ComplexDiscussPresenter(this);
         mRvComplexDiscuss.setLayoutManager(new LinearLayoutManager(mContext));
@@ -59,7 +54,6 @@ public class ComplexDiscussFragment extends BaseFragment implements ComplexDiscu
         });
         onRefresh();
     }
-
 
     @Override
     public void onRefresh() {

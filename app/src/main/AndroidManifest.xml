@@ -56,7 +56,6 @@
         </activity>
         <activity android:name=".mvp.view.activity.MainActivity"/>
         <activity android:name=".mvp.view.activity.GuideActivity"/>
-        <activity android:name=".mvp.view.activity.GirlBookActivity"/>
     </application>
 
 </manifest>

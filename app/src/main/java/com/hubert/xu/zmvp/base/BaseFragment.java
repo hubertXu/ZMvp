@@ -28,7 +28,7 @@ public abstract class BaseFragment extends RxFragment {
     private Resources mResources;
     private LayoutInflater mInflater;
     private Unbinder mUnbinder;
-
+    protected boolean mIsUseLazyLoad = true;
 
     @Override
     public void onAttach(Activity activity) {
@@ -50,12 +50,15 @@ public abstract class BaseFragment extends RxFragment {
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         isPrepared = true;
-        lazyLoad();
+        if (mIsUseLazyLoad) {
+            lazyLoad();
+        } else {
+            initView();
+        }
     }
 
     protected abstract int attachLayoutRes();
 
-    public abstract void initData();
 
     public abstract void initView();
 
@@ -85,6 +88,7 @@ public abstract class BaseFragment extends RxFragment {
     }
 
     protected void onVisible() {
+        if (!mIsUseLazyLoad) return;
         lazyLoad();
     }
 
@@ -98,7 +102,6 @@ public abstract class BaseFragment extends RxFragment {
         }
         isFirstLoad = false;
         initView();
-        initData();
     }
 
     @Override

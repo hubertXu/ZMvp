@@ -33,7 +33,6 @@ public class BookHelpFragment extends BaseFragment implements BookHelpContract.V
     private BookHelpPresenter mBookHelpPresenter;
     private int start;
     private String mSortType = Constants.TYPE_SORT_DEFAULT;
-    private String mIsFine = "";
 
     @Override
     protected int attachLayoutRes() {
@@ -41,15 +40,10 @@ public class BookHelpFragment extends BaseFragment implements BookHelpContract.V
     }
 
     @Override
-    public void initData() {
-
-    }
-
-    @Override
     public void initView() {
         mBookHelpPresenter = new BookHelpPresenter(this);
         mRvBookHelp.setLayoutManager(new LinearLayoutManager(mContext));
-        mBookHelpAdapter = new BookHelpAdapter(R.layout.item_book_help, mData);
+        mBookHelpAdapter = new BookHelpAdapter(R.layout.item_complex_discuss, mData);
         mRvBookHelp.setAdapter(mBookHelpAdapter);
         mSwipeLayout.setOnRefreshListener(this);
         mBookHelpAdapter.setOnLoadMoreListener(this);

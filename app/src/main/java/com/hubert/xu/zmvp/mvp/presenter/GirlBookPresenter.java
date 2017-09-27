@@ -27,7 +27,7 @@ public class GirlBookPresenter implements GirlBookContract.Presenter {
 
 
     @Override
-    public void getData(int start, String type, String bookState) {
+    public void getData(int start, String type) {
         // 最新创建
         HashMap<String, String> defaultParamsMap = new HashMap<>();
         defaultParamsMap.put("block", "ramble");
@@ -36,7 +36,7 @@ public class GirlBookPresenter implements GirlBookContract.Presenter {
         defaultParamsMap.put("type", "all");
         defaultParamsMap.put("start", start + "");
         defaultParamsMap.put("limit", mLimit + "");
-        defaultParamsMap.put("distillate", bookState);
+        defaultParamsMap.put("distillate", "");
         GirlBookListManager.getInstance().getGirlBookList(defaultParamsMap, new BaseObserver<GirlBookListBean>() {
             @Override
             public void subscribe(Disposable d) {

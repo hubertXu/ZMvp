@@ -15,10 +15,6 @@ public class FindFragment extends BaseFragment {
         return R.layout.fragment_find;
     }
 
-    @Override
-    public void initData() {
-
-    }
 
     @Override
     public void initView() {

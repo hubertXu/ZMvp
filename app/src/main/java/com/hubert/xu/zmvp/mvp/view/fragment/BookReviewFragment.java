@@ -40,10 +40,6 @@ public class BookReviewFragment extends BaseFragment implements BookReviewContra
         return R.layout.fragment_book_review;
     }
 
-    @Override
-    public void initData() {
-
-    }
 
     @Override
     public void initView() {

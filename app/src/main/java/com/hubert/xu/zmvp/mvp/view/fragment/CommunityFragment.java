@@ -30,6 +30,7 @@ public class CommunityFragment extends BaseFragment {
     ViewPager mVpCommunity;
     @BindView(R.id.fab_more)
     FloatingActionButton mFabMore;
+
     private int mTabPosition;
     private HashMap<Integer, Integer> selectType = new HashMap<Integer, Integer>() {
         {
@@ -40,6 +41,8 @@ public class CommunityFragment extends BaseFragment {
         }
     };
 
+    HashMap<Integer, DiscussSortLisenter> discussSortLisenters = new HashMap<>();
+
 
     public interface DiscussSortLisenter {
         void refreshComplexDiscussData(String sortType);
@@ -47,12 +50,8 @@ public class CommunityFragment extends BaseFragment {
 
     @Override
     protected int attachLayoutRes() {
+        mIsUseLazyLoad = false;
         return R.layout.fragment_community;
-    }
-
-    @Override
-    public void initData() {
-
     }
 
     @Override
@@ -81,6 +80,7 @@ public class CommunityFragment extends BaseFragment {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
                 mTabPosition = tab.getPosition();
+                mVpCommunity.setCurrentItem(tab.getPosition(), false);
             }
 
             @Override
@@ -99,7 +99,7 @@ public class CommunityFragment extends BaseFragment {
                         .items(R.array.book_type)
                         .itemsCallbackSingleChoice(selectType.get(mTabPosition), (dialog, itemView, which, text) -> {
                             selectType.put(mTabPosition, which);
-                            mSortLisenter.refreshComplexDiscussData(Constants.bookTypeList.get(which));
+                            discussSortLisenters.get(mTabPosition).refreshComplexDiscussData(Constants.bookTypeList.get(which));
                             return true;
                         })
                         .show();
@@ -108,7 +108,7 @@ public class CommunityFragment extends BaseFragment {
                         .items(R.array.sort_type)
                         .itemsCallbackSingleChoice(selectType.get(mTabPosition), (dialog, itemView, which, text) -> {
                             selectType.put(mTabPosition, which);
-                            mSortLisenter.refreshComplexDiscussData(Constants.sortType.get(which));
+                            discussSortLisenters.get(mTabPosition).refreshComplexDiscussData(Constants.sortType.get(which));
                             return true;
                         })
                         .show();
@@ -116,9 +116,8 @@ public class CommunityFragment extends BaseFragment {
         });
     }
 
-    public DiscussSortLisenter mSortLisenter;
 
     public void setDiscussSortLisenter(DiscussSortLisenter discussSortLisenter) {
-        this.mSortLisenter = discussSortLisenter;
+        discussSortLisenters.put(mTabPosition, discussSortLisenter);
     }
 }
