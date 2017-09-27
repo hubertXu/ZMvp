@@ -84,6 +84,22 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
         mTabLayout.getTabAt(0).setIcon(R.drawable.selector_tab_bookshelf);
         mTabLayout.getTabAt(1).setIcon(R.drawable.selector_tab_community);
         mTabLayout.getTabAt(2).setIcon(R.drawable.selector_tab_find);
+        mTabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+            @Override
+            public void onTabSelected(TabLayout.Tab tab) {
+                mVpMain.setCurrentItem(tab.getPosition(), false);
+            }
+
+            @Override
+            public void onTabUnselected(TabLayout.Tab tab) {
+
+            }
+
+            @Override
+            public void onTabReselected(TabLayout.Tab tab) {
+
+            }
+        });
     }
 
 

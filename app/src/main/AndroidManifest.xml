@@ -56,6 +56,10 @@
         </activity>
         <activity android:name=".mvp.view.activity.MainActivity"/>
         <activity android:name=".mvp.view.activity.GuideActivity"/>
+        <activity android:name=".mvp.view.activity.RankingActivity"
+            android:label="@string/ranking"
+            >
+        </activity>
     </application>
 
 </manifest>

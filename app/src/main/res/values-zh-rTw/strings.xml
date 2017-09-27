@@ -28,4 +28,7 @@
     <string name="book_review">书评</string>
     <string name="book_help">书荒</string>
     <string name="girl">女生</string>
+    <string name="ranking">排行榜</string>
+    <string name="book_list">书单</string>
+    <string name="assort">分类</string>
 </resources>
