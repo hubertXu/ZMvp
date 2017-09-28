@@ -31,4 +31,20 @@
     <string name="ranking">排行榜</string>
     <string name="book_list">书单</string>
     <string name="assort">分类</string>
+    <string name="zhuishu_hosttest_ranking">追书最热榜</string>
+    <string name="this_week_potential_ranking">本周潜力榜</string>
+    <string name="reader_retained_ranking">读者留存榜</string>
+    <string name="zhuishu_finish_ranking">追书完结榜</string>
+    <string name="vip_ranking">VIP排行榜</string>
+    <string name="christmas_hot_search_ranking">圣诞热搜榜</string>
+    <string name="baidu_hot_search_ranking">百度热搜榜</string>
+    <string name="zhangyue_hot_search_ranking">掌阅热销榜</string>
+    <string name="shuqi_sell_well_ranking">书旗热销榜</string>
+    <string name="k17_ranking">17K鲜花榜</string>
+    <string name="qidian_ranking">起点月票榜</string>
+    <string name="zongheng_ranking">纵横月票榜</string>
+    <string name="heyue_ranking">和阅原创榜</string>
+    <string name="zhulang_ranking">逐浪点击榜</string>
+    <string name="xiaoxiang_ranking">潇湘月票榜</string>
+    <string name="ranking_sign_boy">男生</string>
 </resources>

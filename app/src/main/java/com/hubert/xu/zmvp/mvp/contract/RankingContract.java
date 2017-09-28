@@ -8,14 +8,15 @@ import com.hubert.xu.zmvp.base.BaseContract;
  * Desc  :
  */
 
-public interface FineContract extends BaseContract {
+public interface RankingContract extends BaseContract {
 
-    interface View<DiscussBean> extends BaseView {
-        void setData(DiscussBean data, boolean isRefresh);
+    interface View<RankingBean> extends BaseView {
+        void setData(RankingBean data);
     }
 
 
     interface Presenter extends BasePresenter {
-        void getData(int start, String type);
+        void getData(String rankingId);
     }
+
 }

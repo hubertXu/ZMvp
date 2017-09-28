@@ -1,13 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
                                     style="@style/CardViewStyle"
+                                    android:id="@+id/card_view"
                                     android:layout_width="match_parent"
-                                    android:layout_height="64dp">
+                                    android:layout_height="72dp">
 
     <TextView
         android:id="@+id/tv_ranking_type"
         android:layout_width="match_parent"
-        android:layout_height="64dp"
+        android:layout_height="72dp"
         android:gravity="center"
         android:textColor="@color/colorPrimaryDark"
         android:textSize="@dimen/title_20sp"

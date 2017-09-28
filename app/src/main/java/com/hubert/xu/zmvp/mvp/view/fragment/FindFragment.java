@@ -6,7 +6,7 @@ import android.view.View;
 
 import com.hubert.xu.zmvp.R;
 import com.hubert.xu.zmvp.base.BaseFragment;
-import com.hubert.xu.zmvp.mvp.view.activity.RankingActivity;
+import com.hubert.xu.zmvp.mvp.view.activity.AllRankingTypeActivity;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -41,7 +41,7 @@ public class FindFragment extends BaseFragment {
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.card_ranking:
-                startActivity(new Intent(mContext, RankingActivity.class));
+                startActivity(new Intent(mContext, AllRankingTypeActivity.class));
                 break;
             case R.id.card_book_list:
                 break;
