@@ -10,6 +10,7 @@ import android.widget.TextView;
 import com.hubert.xu.zmvp.R;
 import com.hubert.xu.zmvp.entity.AllRankTypeBean;
 import com.hubert.xu.zmvp.mvp.view.activity.AllRankingTypeActivity;
+import com.hubert.xu.zmvp.mvp.view.activity.OtherRankingActivity;
 import com.hubert.xu.zmvp.mvp.view.activity.RankingActivity;
 
 import java.util.List;
@@ -40,9 +41,13 @@ public class RankingMaleAdapter extends RecyclerView.Adapter {
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
         MViewHolder mViewHolder = (MViewHolder) holder;
         AllRankTypeBean.MaleBean maleBean = mMaleList.get(position);
-        mViewHolder.mTvRankingType.setText(maleBean.getTitle().replace("Top100",""));
+        mViewHolder.mTvRankingType.setText(maleBean.getTitle().replace("Top100", ""));
         mViewHolder.mCardContent.setOnClickListener(v -> {
-            RankingActivity.startActivity(mMContext, "", maleBean.getMonthRank(), maleBean.getTotalRank(), maleBean.getTitle().replace("Top100",""));
+            if (maleBean.isCollapse()) {
+                OtherRankingActivity.startActivity(mMContext, maleBean.get_id(), maleBean.getTitle());
+            } else {
+                RankingActivity.startActivity(mMContext, maleBean.get_id(), maleBean.getMonthRank(), maleBean.getTotalRank(), maleBean.getTitle().replace("Top100", ""));
+            }
         });
     }
 
@@ -66,5 +71,6 @@ public class RankingMaleAdapter extends RecyclerView.Adapter {
             mTvRankingType = (TextView) itemView.findViewById(R.id.tv_ranking_type);
             mCardContent = (CardView) itemView.findViewById(R.id.card_view);
         }
+
     }
 }
