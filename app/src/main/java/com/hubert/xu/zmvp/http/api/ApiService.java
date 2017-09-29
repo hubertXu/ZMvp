@@ -1,6 +1,8 @@
 package com.hubert.xu.zmvp.http.api;
 
 import com.hubert.xu.zmvp.entity.AllRankTypeBean;
+import com.hubert.xu.zmvp.entity.BookClassifyBean;
+import com.hubert.xu.zmvp.entity.BookClassifyLv2Bean;
 import com.hubert.xu.zmvp.entity.BookHelpListBean;
 import com.hubert.xu.zmvp.entity.BookReviewListBean;
 import com.hubert.xu.zmvp.entity.DiscussListBean;
@@ -56,7 +58,7 @@ public interface ApiService {
      * @return
      */
     @GET("/post/review")
-    Observable<BookReviewListBean> getBookeReviewList(@QueryMap Map<String, String> map);
+    Observable<BookReviewListBean> getBookReviewList(@QueryMap Map<String, String> map);
 
     /**
      * 获取书荒区帖子列表
@@ -105,12 +107,30 @@ public interface ApiService {
 
     /**
      * 获取单一排行
-     * @param rankingId
-     *        周榜    改类型排行的_id值
-     *        月榜    改类型排行的monthRank值
-     *        总榜    改类型排行的totalRank值
+     *
+     * @param rankingId 周榜    改类型排行的_id值
+     *                  月榜    改类型排行的monthRank值
+     *                  总榜    改类型排行的totalRank值
      * @return
      */
     @GET("/ranking/{rankingId}")
     Observable<RankingBean> getRanking(@Path("rankingId") String rankingId);
+
+
+    /**
+     * 获取分类
+     *
+     * @return
+     */
+    @GET("/cats/lv2/statistics")
+    Observable<BookClassifyBean> getBookClassify();
+
+
+    /**
+     * 获取二级分类
+     *
+     * @return
+     */
+    @GET("/cats/lv2")
+    Observable<BookClassifyLv2Bean> getBookClassifyLv2();
 }
