@@ -112,5 +112,5 @@ public interface ApiService {
      * @return
      */
     @GET("/ranking/{rankingId}")
-    Observable<RankingBean.RankingBean> getRanking(@Path("rankingId") String rankingId);
+    Observable<RankingBean> getRanking(@Path("rankingId") String rankingId);
 }

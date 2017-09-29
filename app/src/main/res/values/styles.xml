@@ -7,7 +7,7 @@
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
         <item name="windowActionBar">false</item>
-        <item name="android:windowBackground">@color/gray</item>
+        <item name="android:windowBackground">@color/grayLight</item>
         <!--Toolbar 设置  图标的颜色-->
         <!--<item name="android:textColorSecondary">@color/white</item>-->
     </style>

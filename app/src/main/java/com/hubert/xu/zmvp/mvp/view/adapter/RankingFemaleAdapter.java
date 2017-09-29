@@ -10,6 +10,8 @@ import android.widget.TextView;
 import com.hubert.xu.zmvp.R;
 import com.hubert.xu.zmvp.entity.AllRankTypeBean;
 import com.hubert.xu.zmvp.mvp.view.activity.AllRankingTypeActivity;
+import com.hubert.xu.zmvp.mvp.view.activity.OtherRankingActivity;
+import com.hubert.xu.zmvp.mvp.view.activity.RankingActivity;
 
 import java.util.List;
 
@@ -38,9 +40,14 @@ public class RankingFemaleAdapter extends RecyclerView.Adapter {
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
         MViewHolder mViewHolder = (MViewHolder) holder;
-        mViewHolder.mTvRankingType.setText(mFemaleList.get(position).getTitle().replace("Top100",""));
+        AllRankTypeBean.FemaleBean femaleBean = mFemaleList.get(position);
+        mViewHolder.mTvRankingType.setText(femaleBean.getTitle().replace("Top100",""));
         mViewHolder.mCardContent.setOnClickListener(v -> {
-
+            if (femaleBean.isCollapse()) {
+                OtherRankingActivity.startActivity(mMContext, femaleBean.get_id(), femaleBean.getTitle());
+            } else {
+                RankingActivity.startActivity(mMContext, femaleBean.get_id(), femaleBean.getMonthRank(), femaleBean.getTotalRank(), femaleBean.getTitle().replace("Top100", ""));
+            }
         });
     }
 

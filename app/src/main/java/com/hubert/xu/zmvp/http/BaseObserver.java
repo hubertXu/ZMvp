@@ -63,7 +63,7 @@ public abstract class BaseObserver<T extends BookBaseBean> implements Observer<T
         } else {
             ToastUtil.showShort(e.getMessage());
         }
-        LogUtil.json(e.getMessage());
+        LogUtil.json(e.getMessage().toString());
         ToastUtil.showShortToastSafely(sb.toString());
         error(e);
     }

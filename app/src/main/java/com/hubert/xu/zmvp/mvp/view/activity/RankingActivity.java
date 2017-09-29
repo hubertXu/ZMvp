@@ -51,6 +51,7 @@ public class RankingActivity extends BaseActivity {
         String month = intent.getStringExtra(INTENT_MONTH);
         String total = intent.getStringExtra(INTENT_ALL);
         mTvTitle.setText(title);
+        mVpRanking.setOffscreenPageLimit(3);
         String[] rankingSort = getResources().getStringArray(R.array.ranking_sort);
         mVpRanking.setAdapter(new FragmentPagerAdapter(getSupportFragmentManager()) {
             @Override

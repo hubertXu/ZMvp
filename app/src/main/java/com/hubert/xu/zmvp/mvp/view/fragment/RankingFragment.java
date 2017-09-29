@@ -29,7 +29,7 @@ public class RankingFragment extends BaseFragment implements SwipeRefreshLayout.
     @BindView(R.id.swipe_layout)
     SwipeRefreshLayout mSwipeLayout;
     public final static String BUNDLE_ID = "rankingId";
-    private List<RankingBean.BooksBean> mBooks;
+    private List<RankingBean.RankingsBean.BooksBean> mBooks;
     private RankingAdapter mRankingAdapter;
     private RankingPresenter mRankingPresenter;
     private String mRankingId;
@@ -53,8 +53,12 @@ public class RankingFragment extends BaseFragment implements SwipeRefreshLayout.
         mRankingId = getArguments().getString(BUNDLE_ID);
         mRvRanking.setLayoutManager(new LinearLayoutManager(mContext));
         mRankingPresenter = new RankingPresenter(this);
-        mRankingAdapter = new RankingAdapter(R.layout.item_complex_discuss, mBooks);
+        mRankingAdapter = new RankingAdapter(R.layout.item_ranking, mBooks);
         mRvRanking.setAdapter(mRankingAdapter);
+        mSwipeLayout.setOnRefreshListener(this);
+        mRankingAdapter.setOnItemClickListener((adapter, view, position) -> {
+
+        });
         onRefresh();
     }
 
@@ -64,11 +68,6 @@ public class RankingFragment extends BaseFragment implements SwipeRefreshLayout.
         mRankingPresenter.getData(mRankingId);
     }
 
-    @Override
-    public void setData(RankingBean data) {
-        mSwipeLayout.setRefreshing(false);
-        mRankingAdapter.setNewData(data.getBooks());
-    }
 
     @Override
     public void showError() {
@@ -78,5 +77,11 @@ public class RankingFragment extends BaseFragment implements SwipeRefreshLayout.
     @Override
     public void complete() {
 
+    }
+
+    @Override
+    public void setData(RankingBean data) {
+        mSwipeLayout.setRefreshing(false);
+        mRankingAdapter.setNewData(data.getRanking().getBooks());
     }
 }
