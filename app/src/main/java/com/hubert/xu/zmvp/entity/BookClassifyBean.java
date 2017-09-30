@@ -125,6 +125,20 @@ public class BookClassifyBean extends BookBaseBean {
         private int bookCount;
         private int monthlyCount;
         private String icon;
+        private int sign;
+
+        public FemaleBean(String name, int sign) {
+            this.name = name;
+            this.sign = sign;
+        }
+
+        public void setSign(int sign) {
+            this.sign = sign;
+        }
+
+        public int getSign() {
+            return sign;
+        }
 
         public String getName() {
             return name;
@@ -172,6 +186,20 @@ public class BookClassifyBean extends BookBaseBean {
         private int bookCount;
         private int monthlyCount;
         private String icon;
+        private int sign;
+
+        public PictureBean(String name, int sign) {
+            this.name = name;
+            this.sign = sign;
+        }
+
+        public void setSign(int sign) {
+            this.sign = sign;
+        }
+
+        public int getSign() {
+            return sign;
+        }
 
         public String getName() {
             return name;
@@ -219,6 +247,20 @@ public class BookClassifyBean extends BookBaseBean {
         private int bookCount;
         private int monthlyCount;
         private String icon;
+        private int sign;
+
+        public PressBean(String name, int sign) {
+            this.name = name;
+            this.sign = sign;
+        }
+
+        public int getSign() {
+            return sign;
+        }
+
+        public void setSign(int sign) {
+            this.sign = sign;
+        }
 
         public String getName() {
             return name;

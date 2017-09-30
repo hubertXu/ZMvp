@@ -1,6 +1,6 @@
 package com.hubert.xu.zmvp.mvp.presenter;
 
-import com.hubert.xu.zmvp.entity.BookClassifyBean;
+import com.hubert.xu.zmvp.entity.BookclassifyLocalBean;
 import com.hubert.xu.zmvp.http.BaseObserver;
 import com.hubert.xu.zmvp.mvp.contract.BookClassifyContract;
 import com.hubert.xu.zmvp.mvp.model.BookClassifyMannager;
@@ -24,21 +24,15 @@ public class BookClassifyPresenter implements BookClassifyContract.Presenter {
 
     @Override
     public void getData() {
-        BookClassifyMannager.getInstance().getBookClassify(new BaseObserver<BookClassifyBean>() {
+        BookClassifyMannager.getInstance().getBookClassify(new BaseObserver<BookclassifyLocalBean>() {
             @Override
             public void subscribe(Disposable d) {
 
             }
 
             @Override
-            public void next(BookClassifyBean bookClassifyBean) {
-       /*         List<BookClassifyBean.MaleBean> males = bookClassifyBean.getMale();
-                for (BookClassifyBean.MaleBean male : males) {
-                    male.setSign(Constants.RANKING_TYPE_NAME);
-                }
-                males.add(0, new BookClassifyBean.MaleBean("男生", 0, 0, "", Constants.RANKING_TYPE_SIGN));
-                LogUtil.info(new Gson().toJson(bookClassifyBean.getMale(),BookClassifyBean.MaleBean.class));*/
-                mView.setData(bookClassifyBean);
+            public void next(BookclassifyLocalBean data) {
+                mView.setData(data);
             }
 
             @Override

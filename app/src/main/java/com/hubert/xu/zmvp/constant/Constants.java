@@ -41,8 +41,8 @@ public class Constants {
     public static final String TYPE_BOOKE_HXYQ = "hxyq";
     public static final String TYPE_BOOKE_DMTR = "dmtr";
 
-    public static final int RANKING_TYPE_SIGN = 0;
-    public static final int RANKING_TYPE_NAME = 1;
+    public static final int BOOK_TYPE_SIGN = 0;
+    public static final int BOOK_TYPE_NAME = 1;
 
     public static List<String> sortType = new ArrayList<String>() {
         {

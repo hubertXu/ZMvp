@@ -10,8 +10,8 @@ import com.hubert.xu.zmvp.base.BaseContract;
 
 public interface BookClassifyContract extends BaseContract {
 
-    interface View<BookClassifyBean> extends BaseView {
-        void setData(BookClassifyBean data);
+    interface View<BookclassifyLocalBean> extends BaseView {
+        void setData(BookclassifyLocalBean data);
     }
 
 

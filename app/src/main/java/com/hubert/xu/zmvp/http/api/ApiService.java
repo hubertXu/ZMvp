@@ -4,11 +4,13 @@ import com.hubert.xu.zmvp.entity.AllRankTypeBean;
 import com.hubert.xu.zmvp.entity.BookClassifyBean;
 import com.hubert.xu.zmvp.entity.BookClassifyLv2Bean;
 import com.hubert.xu.zmvp.entity.BookHelpListBean;
+import com.hubert.xu.zmvp.entity.BookListBean;
 import com.hubert.xu.zmvp.entity.BookReviewListBean;
 import com.hubert.xu.zmvp.entity.DiscussListBean;
 import com.hubert.xu.zmvp.entity.GirlBookListBean;
 import com.hubert.xu.zmvp.entity.RankingBean;
 
+import java.util.HashMap;
 import java.util.Map;
 
 import io.reactivex.Observable;
@@ -116,7 +118,6 @@ public interface ApiService {
     @GET("/ranking/{rankingId}")
     Observable<RankingBean> getRanking(@Path("rankingId") String rankingId);
 
-
     /**
      * 获取分类
      *
@@ -133,4 +134,17 @@ public interface ApiService {
      */
     @GET("/cats/lv2")
     Observable<BookClassifyLv2Bean> getBookClassifyLv2();
+
+    /**
+     * 获取当前分类的书籍
+     *
+     * @param map gender male|female
+     *            type   hot(热门)|new(新书)|reputation(好评)|over(完结)
+     *            major  一级分类名
+     *            minor  二级分类名
+     *            limit  50
+     * @return
+     */
+    @GET("/book/by-categories")
+    Observable<BookListBean> getBooksByClassify(@QueryMap HashMap<String, String> map);
 }

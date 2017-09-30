@@ -25,7 +25,7 @@ import butterknife.BindView;
 public class MainActivity extends BaseActivity implements NavigationView.OnNavigationItemSelectedListener {
     @BindView(R.id.vp_main)
     ViewPager mVpMain;
-    @BindView(R.id.tablayout_main_mian)
+    @BindView(R.id.tablayout_main)
     TabLayout mTabLayout;
     @BindView(R.id.drawer_layout)
     DrawerLayout mDrawerLayout;

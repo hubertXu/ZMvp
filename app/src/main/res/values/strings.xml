@@ -43,6 +43,12 @@
         <item>总榜</item>
     </array>
 
+    <array name="book_classify">
+        <item>热门</item>
+        <item>新书</item>
+        <item>好评</item>
+        <item>完结</item>
+    </array>
 
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>

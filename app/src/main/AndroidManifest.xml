@@ -66,6 +66,7 @@
         </activity>
         <activity android:name=".mvp.view.activity.BookClassifyActivity">
         </activity>
+        <activity android:name=".mvp.view.activity.BookListActivity"/>
     </application>
 
 </manifest>

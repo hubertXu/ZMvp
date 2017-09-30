@@ -13,7 +13,7 @@
     >
 
     <android.support.design.widget.TabLayout
-        android:id="@+id/tablayout_main_mian"
+        android:id="@+id/tablayout_main"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:tabGravity="center"
