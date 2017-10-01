@@ -1,11 +1,9 @@
 package com.hubert.xu.zmvp.mvp.presenter;
 
-import com.google.gson.Gson;
 import com.hubert.xu.zmvp.entity.BookReviewListBean;
 import com.hubert.xu.zmvp.http.BaseObserver;
 import com.hubert.xu.zmvp.mvp.contract.BookReviewContract;
 import com.hubert.xu.zmvp.mvp.model.BookReviewmannager;
-import com.hubert.xu.zmvp.utils.LogUtil;
 
 import java.util.HashMap;
 
@@ -43,7 +41,6 @@ public class BookReviewPresenter implements BookReviewContract.Presenter {
             @Override
             public void next(BookReviewListBean bookReviewBean) {
                 mView.setData(bookReviewBean, start == 0);
-                LogUtil.json(new Gson().toJson(bookReviewBean, BookReviewListBean.class));
             }
 
 
