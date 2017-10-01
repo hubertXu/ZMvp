@@ -15,7 +15,7 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="original">原创</string>
     <string name="fine">精品</string>
-    <array name="booke_type">
+    <array name="book_type">
         <item>全部类型</item>
         <item>玄幻奇幻</item>
         <item>武侠仙侠</item>
@@ -30,4 +30,38 @@
         <item>幻想言情</item>
         <item>耽美同人</item>
     </array>
+
+    <array name="sort_type">
+        <item>默认排序</item>
+        <item>最新发布</item>
+        <item>最多评论</item>
+    </array>
+
+    <array name="ranking_sort">
+        <item>周榜</item>
+        <item>月榜</item>
+        <item>总榜</item>
+    </array>
+
+    <array name="book_classify">
+        <item>热门</item>
+        <item>新书</item>
+        <item>好评</item>
+        <item>完结</item>
+    </array>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
+    <string name="action_settings">Settings</string>
+    <string name="complex_discuss">讨论</string>
+    <string name="book_review">书评</string>
+    <string name="book_help">书荒</string>
+    <string name="girl">女生</string>
+    <string name="ranking">排行榜</string>
+    <string name="book_list">书单</string>
+    <string name="assort">分类</string>
+    <string name="ranking_sign_boy">男生</string>
+    <string name="ranking_sign_girl">女生</string>
+    <string name="classify">分类</string>
 </resources>

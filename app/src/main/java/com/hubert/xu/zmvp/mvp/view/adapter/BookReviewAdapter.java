@@ -34,7 +34,7 @@ public class BookReviewAdapter extends BaseQuickAdapter<BookReviewListBean.Revie
 
     @Override
     protected void convert(BaseViewHolder helper, BookReviewListBean.ReviewsBean item) {
-        SpannableString spannableString = new SpannableString(item.getBook().getTitle() + "[" + Constants.bookeTypeMap.get(item.getBook().getType()) + "]");
+        SpannableString spannableString = new SpannableString(item.getBook().getTitle() + "[" + Constants.bookTypeMap.get(item.getBook().getType()) + "]");
         spannableString.setSpan(new ForegroundColorSpan(ContextCompat.getColor(mContext, R.color.half_black)), item.getBook().getTitle().length(), spannableString.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
         helper.setText(R.id.tv_book_name, spannableString);
         helper.setText(R.id.tv_review_title, item.getTitle());

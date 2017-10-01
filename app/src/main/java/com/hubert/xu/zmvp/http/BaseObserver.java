@@ -45,7 +45,7 @@ public abstract class BaseObserver<T extends BookBaseBean> implements Observer<T
         if (t.ok) {
             next(t);
         } else {
-            ToastUtil.showShort("");
+            ToastUtil.showShort("ok=false");
         }
     }
 
@@ -62,8 +62,9 @@ public abstract class BaseObserver<T extends BookBaseBean> implements Observer<T
             sb.append("解析错误");
         } else {
             ToastUtil.showShort(e.getMessage());
+            LogUtil.json(e.getMessage().toString());
         }
-        LogUtil.json(e.getMessage());
+        LogUtil.json(e.getMessage().toString());
         ToastUtil.showShortToastSafely(sb.toString());
         error(e);
     }

@@ -24,6 +24,6 @@ public class BookReviewmannager {
     }
     public void getBookReviewList(HashMap defaultParamsMap, BaseObserver observer) {
         ApiService apiService = RetrofitClient.getInstance().create(ApiService.class);
-        apiService.getBookHelpList(defaultParamsMap).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).subscribe(observer);
+        apiService.getBookReviewList(defaultParamsMap).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).subscribe(observer);
     }
 }

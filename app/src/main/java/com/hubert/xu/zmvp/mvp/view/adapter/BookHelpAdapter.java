@@ -38,13 +38,19 @@ public class BookHelpAdapter extends BaseQuickAdapter<BookHelpListBean.HelpsBean
         SpannableString spannableString = new SpannableString(item.getAuthor().getNickname() + "lv." + item.getAuthor().getLv());
         spannableString.setSpan(new ForegroundColorSpan(ContextCompat.getColor(mContext, R.color.half_black)), item.getAuthor().getNickname().length(), spannableString.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
         helper.setText(R.id.tv_user_name, spannableString);
-        helper.setText(R.id.tv_review_title, item.getTitle());
+        helper.setText(R.id.tv_discuss_content, item.getTitle());
         helper.setText(R.id.tv_like_count, item.getLikeCount() + "");
         helper.setText(R.id.tv_comment_count, item.getCommentCount() + "");
-        if (TextUtils.equals("distillate", item.getState())) {
+        if (TextUtils.equals("hot", item.getState())) {
+            helper.setVisible(R.id.btn_type_hot, true);
+            helper.setVisible(R.id.btn_type_fine, false);
+            helper.setVisible(R.id.tv_updated_time, false);
+        } else if (TextUtils.equals("distillate", item.getState())) {
+            helper.setVisible(R.id.btn_type_hot, false);
             helper.setVisible(R.id.btn_type_fine, true);
             helper.setVisible(R.id.tv_updated_time, false);
         } else {
+            helper.setVisible(R.id.btn_type_hot, false);
             helper.setVisible(R.id.btn_type_fine, false);
             helper.setVisible(R.id.tv_updated_time, true);
             helper.setText(R.id.tv_updated_time, TimeFormatUtil.formatTime(item.getUpdated()));

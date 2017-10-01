@@ -54,16 +54,19 @@
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
-        <activity
-            android:name=".mvp.view.activity.MainActivity"
-            />
+        <activity android:name=".mvp.view.activity.MainActivity"/>
         <activity android:name=".mvp.view.activity.GuideActivity"/>
         <activity
-            android:name=".mvp.view.activity.ComplexDiscussActivity"
-            android:label="@string/complex_discuss_area"/>
-        <activity android:name=".mvp.view.activity.BookReviewActivity"/>
-        <activity android:name=".mvp.view.activity.BookHelpActivity"/>
-        <activity android:name=".mvp.view.activity.GirlBooKActivity"/>
+            android:name=".mvp.view.activity.AllRankingTypeActivity"
+            android:label="@string/ranking">
+        </activity>
+        <activity android:name=".mvp.view.activity.RankingActivity">
+        </activity>
+        <activity android:name=".mvp.view.activity.OtherRankingActivity">
+        </activity>
+        <activity android:name=".mvp.view.activity.BookClassifyActivity">
+        </activity>
+        <activity android:name=".mvp.view.activity.BookListActivity"/>
     </application>
 
 </manifest>

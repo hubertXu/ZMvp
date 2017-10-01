@@ -17,7 +17,7 @@ public interface GirlBookContract extends BaseContract {
 
 
     interface Presenter extends BasePresenter {
-        void getData(int start, String sortType, String bookState);
+        void getData(int start, String sortType);
     }
 
 }
