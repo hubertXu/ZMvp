@@ -80,7 +80,7 @@ public class CommunityFragment extends BaseFragment {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
                 mTabPosition = tab.getPosition();
-                mVpCommunity.setCurrentItem(tab.getPosition(), false);
+                mVpCommunity.setCurrentItem(mTabPosition, false);
             }
 
             @Override

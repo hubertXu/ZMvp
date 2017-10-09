@@ -71,7 +71,11 @@ public class BookClassifyActivity extends BaseActivity implements SwipeRefreshLa
             mAdapter.setSpanSizeLookup((gridLayoutManager, position) -> data.getLocalBookclassifys().get(position).getSign() == Constants.BOOK_TYPE_SIGN ? 3 : 1);
             mRvBookClassify.setAdapter(mAdapter);
             mAdapter.setOnItemClickListener((adapter, view, position) -> {
-                
+                if (data.getLocalBookclassifys().get(position).getType().equals(Constants.BOOK_TYPE_FEMAL) || data.getLocalBookclassifys().get(position).getType().equals(Constants.BOOK_TYPE_MALE)) {
+                    BookListActivity.startActivity(BookClassifyActivity.this, data.getLocalBookclassifys().get(position));
+                } else {
+                    BookListSubActivity.startActivity(BookClassifyActivity.this, data.getLocalBookclassifys().get(position));
+                }
             });
         }
         mAdapter.setNewData(data.getLocalBookclassifys());

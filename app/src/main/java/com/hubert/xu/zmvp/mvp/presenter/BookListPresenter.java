@@ -32,7 +32,7 @@ public class BookListPresenter implements BookListContract.Presenter {
         params.put("limit", 20 + "");
         params.put("start", start + "");
         params.put("gender", sign);
-        params.put("minor", "");
+        params.put("minor", minor);
         BookListMananger.getInstance().getBookList(params, new BaseObserver<BookListBean>() {
             @Override
             public void subscribe(Disposable d) {
@@ -46,14 +46,13 @@ public class BookListPresenter implements BookListContract.Presenter {
 
             @Override
             public void error(Throwable e) {
-
+                mView.showError();
             }
 
             @Override
             public void completed() {
 
             }
-
         });
     }
 }

@@ -4,8 +4,7 @@
               android:layout_width="match_parent"
               android:layout_height="match_parent"
               android:orientation="vertical"
-              tools:context="com.hubert.xu.zmvp.mvp.view.activity.AllRankingTypeActivity">
-
+              tools:context="com.hubert.xu.zmvp.mvp.view.activity.BookListSubActivity">
 
     <include layout="@layout/layout_toolbar"/>
 
@@ -15,9 +14,10 @@
         android:layout_height="match_parent">
 
         <android.support.v7.widget.RecyclerView
-            android:id="@+id/rv_all_ranking"
+            android:id="@+id/rv_book_list_sub"
             android:layout_width="match_parent"
             android:layout_height="match_parent"/>
     </android.support.v4.widget.SwipeRefreshLayout>
+
 
 </LinearLayout>

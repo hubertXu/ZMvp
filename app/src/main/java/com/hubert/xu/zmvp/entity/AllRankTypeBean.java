@@ -49,6 +49,20 @@ public class AllRankTypeBean extends BookBaseBean {
         private String monthRank;
         private String totalRank;
         private String shortTitle;
+        private int sign;
+
+        public MaleBean(int sign, String title) {
+            this.title = title;
+            this.sign = sign;
+        }
+
+        public void setSign(int sign) {
+            this.sign = sign;
+        }
+
+        public int getSign() {
+            return sign;
+        }
 
         public String get_id() {
             return _id;
@@ -126,6 +140,20 @@ public class AllRankTypeBean extends BookBaseBean {
         private String monthRank;
         private String totalRank;
         private String shortTitle;
+        private int sign;
+
+        public FemaleBean(int sign, String title) {
+            this.title = title;
+            this.sign = sign;
+        }
+
+        public void setSign(int sign) {
+            this.sign = sign;
+        }
+
+        public int getSign() {
+            return sign;
+        }
 
         public String get_id() {
             return _id;

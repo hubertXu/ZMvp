@@ -37,29 +37,29 @@ public class BookClassifyMannager {
             public BookclassifyLocalBean apply(@NonNull BookClassifyBean bookClassifyBean, @NonNull BookClassifyLv2Bean bookClassifyLv2Bean) throws Exception {
                 BookclassifyLocalBean bookClassifyLocalData = new BookclassifyLocalBean();
                 List<BookclassifyLocalBean.LocalBookClassifyBean> localBookClassifyList = new ArrayList<>();
-                localBookClassifyList.add(new BookclassifyLocalBean.LocalBookClassifyBean(Constants.BOOK_TYPE_SIGN, "男生", 0, null));
+                localBookClassifyList.add(new BookclassifyLocalBean.LocalBookClassifyBean(Constants.BOOK_TYPE_SIGN, "", "男生", 0, null));
                 for (BookClassifyBean.MaleBean male : bookClassifyBean.getMale()) {
                     for (BookClassifyLv2Bean.MaleBean lv2Male : bookClassifyLv2Bean.getMale()) {
                         if (male.getName().equals(lv2Male.getMajor())) {
-                            localBookClassifyList.add(new BookclassifyLocalBean.LocalBookClassifyBean(Constants.BOOK_TYPE_NAME, male.getName(), male.getBookCount(), lv2Male.getMins()));
+                            localBookClassifyList.add(new BookclassifyLocalBean.LocalBookClassifyBean(Constants.BOOK_TYPE_NAME, Constants.BOOK_TYPE_MALE, male.getName(), male.getBookCount(), lv2Male.getMins()));
                         }
                     }
                 }
-                localBookClassifyList.add(new BookclassifyLocalBean.LocalBookClassifyBean(Constants.BOOK_TYPE_SIGN, "女生", 0, null));
+                localBookClassifyList.add(new BookclassifyLocalBean.LocalBookClassifyBean(Constants.BOOK_TYPE_SIGN, "", "女生", 0, null));
                 for (BookClassifyBean.FemaleBean female : bookClassifyBean.getFemale()) {
                     for (BookClassifyLv2Bean.FemaleBean lv2Female : bookClassifyLv2Bean.getFemale()) {
                         if (female.getName().equals(lv2Female.getMajor())) {
-                            localBookClassifyList.add(new BookclassifyLocalBean.LocalBookClassifyBean(Constants.BOOK_TYPE_NAME, female.getName(), female.getBookCount(), lv2Female.getMins()));
+                            localBookClassifyList.add(new BookclassifyLocalBean.LocalBookClassifyBean(Constants.BOOK_TYPE_NAME, Constants.BOOK_TYPE_FEMAL, female.getName(), female.getBookCount(), lv2Female.getMins()));
                         }
                     }
                 }
-                localBookClassifyList.add(new BookclassifyLocalBean.LocalBookClassifyBean(Constants.BOOK_TYPE_SIGN, "漫画", 0, null));
+                localBookClassifyList.add(new BookclassifyLocalBean.LocalBookClassifyBean(Constants.BOOK_TYPE_SIGN, "", "漫画", 0, null));
                 for (BookClassifyBean.PictureBean catroon : bookClassifyBean.getPicture()) {
-                    localBookClassifyList.add(new BookclassifyLocalBean.LocalBookClassifyBean(Constants.BOOK_TYPE_NAME, catroon.getName(), catroon.getBookCount(), null));
+                    localBookClassifyList.add(new BookclassifyLocalBean.LocalBookClassifyBean(Constants.BOOK_TYPE_NAME, Constants.BOOK_TYPE_PICTURE, catroon.getName(), catroon.getBookCount(), null));
                 }
-                localBookClassifyList.add(new BookclassifyLocalBean.LocalBookClassifyBean(Constants.BOOK_TYPE_SIGN, "出版", 0, null));
+                localBookClassifyList.add(new BookclassifyLocalBean.LocalBookClassifyBean(Constants.BOOK_TYPE_SIGN, "", "出版", 0, null));
                 for (BookClassifyBean.PressBean publication : bookClassifyBean.getPress()) {
-                    localBookClassifyList.add(new BookclassifyLocalBean.LocalBookClassifyBean(Constants.BOOK_TYPE_NAME, publication.getName(), publication.getBookCount(), null));
+                    localBookClassifyList.add(new BookclassifyLocalBean.LocalBookClassifyBean(Constants.BOOK_TYPE_NAME, Constants.BOOK_TYPE_PRESS, publication.getName(), publication.getBookCount(), null));
                 }
                 bookClassifyLocalData.setLocalBookclassifys(localBookClassifyList);
                 bookClassifyLocalData.ok = true;

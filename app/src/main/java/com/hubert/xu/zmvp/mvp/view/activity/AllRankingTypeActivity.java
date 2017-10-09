@@ -3,36 +3,26 @@ package com.hubert.xu.zmvp.mvp.view.activity;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.view.View;
-import android.widget.LinearLayout;
 
 import com.hubert.xu.zmvp.R;
 import com.hubert.xu.zmvp.base.BaseActivity;
-import com.hubert.xu.zmvp.entity.AllRankTypeBean;
+import com.hubert.xu.zmvp.constant.Constants;
+import com.hubert.xu.zmvp.entity.LocalAllRankingTypeBean;
 import com.hubert.xu.zmvp.mvp.contract.AllRankTypeContract;
 import com.hubert.xu.zmvp.mvp.presenter.AllRankTypePresenter;
-import com.hubert.xu.zmvp.mvp.view.adapter.RankingFemaleAdapter;
-import com.hubert.xu.zmvp.mvp.view.adapter.RankingMaleAdapter;
-
-import java.util.List;
+import com.hubert.xu.zmvp.mvp.view.adapter.ALlRankingTypeAdapter;
 
 import butterknife.BindView;
 
-public class AllRankingTypeActivity extends BaseActivity implements SwipeRefreshLayout.OnRefreshListener, AllRankTypeContract.View<AllRankTypeBean> {
+public class AllRankingTypeActivity extends BaseActivity implements SwipeRefreshLayout.OnRefreshListener, AllRankTypeContract.View<LocalAllRankingTypeBean> {
 
-    @BindView(R.id.rv_ranking_male)
-    RecyclerView mRvRankingMale;
-    @BindView(R.id.rv_ranking_female)
-    RecyclerView mRvRankingFemale;
+
     @BindView(R.id.swipe_layout)
     SwipeRefreshLayout mSwipeRefreshLayout;
-    @BindView(R.id.llt_ranking_content)
-    LinearLayout mLltRankingContent;
-    private List<AllRankTypeBean.MaleBean> mMaleList;
-    private List<AllRankTypeBean.FemaleBean> mFemaleList;
-    private RankingMaleAdapter mRankingMaleAdapter;
-    private RankingFemaleAdapter mRankingFemaleAdapter;
+    @BindView(R.id.rv_all_ranking)
+    RecyclerView mRvAllRanking;
     private AllRankTypePresenter mAllRankTypePresenter;
+    private ALlRankingTypeAdapter mAdapter;
 
 
     @Override
@@ -48,22 +38,28 @@ public class AllRankingTypeActivity extends BaseActivity implements SwipeRefresh
     @Override
     protected void initView() {
         mAllRankTypePresenter = new AllRankTypePresenter(this);
-        mRvRankingMale.setLayoutManager(new GridLayoutManager(this, 3));
-        mRvRankingFemale.setLayoutManager(new GridLayoutManager(this, 3));
-        mRankingMaleAdapter = new RankingMaleAdapter(mMaleList, this);
-        mRankingFemaleAdapter = new RankingFemaleAdapter(mFemaleList, this);
-        mRvRankingMale.setAdapter(mRankingMaleAdapter);
-        mRvRankingFemale.setAdapter(mRankingFemaleAdapter);
+        mRvAllRanking.setLayoutManager(new GridLayoutManager(this, 3));
         mSwipeRefreshLayout.setOnRefreshListener(this);
         onRefresh();
     }
 
     @Override
-    public void setData(AllRankTypeBean data) {
-        mRankingFemaleAdapter.setFemaleList(data.getFemale());
-        mRankingMaleAdapter.setMaleList(data.getMale());
+    public void setData(LocalAllRankingTypeBean data) {
         mSwipeRefreshLayout.setRefreshing(false);
-        mLltRankingContent.setVisibility(View.VISIBLE);
+        if (mAdapter == null) {
+            mAdapter = new ALlRankingTypeAdapter(data.getRanking());
+            mAdapter.setSpanSizeLookup((gridLayoutManager, position) -> data.getRanking().get(position).getSign() == Constants.BOOK_TYPE_SIGN ? 3 : 1);
+            mRvAllRanking.setAdapter(mAdapter);
+            mAdapter.setOnItemClickListener((adapter, view, position) -> {
+                LocalAllRankingTypeBean.RankingBean ranking = data.getRanking().get(position);
+                if (ranking.isCollapse()) {
+                    OtherRankingActivity.startActivity(AllRankingTypeActivity.this, ranking.get_id(), ranking.getTitle());
+                } else {
+                    RankingActivity.startActivity(AllRankingTypeActivity.this, ranking.get_id(), ranking.getMonthRank(), ranking.getTotalRank(), ranking.getTitle().replace("Top100", ""));
+                }
+            });
+        }
+        mAdapter.setNewData(data.getRanking());
     }
 
     @Override

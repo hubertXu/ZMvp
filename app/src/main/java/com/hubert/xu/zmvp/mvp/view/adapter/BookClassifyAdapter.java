@@ -6,7 +6,6 @@ import com.chad.library.adapter.base.util.MultiTypeDelegate;
 import com.hubert.xu.zmvp.R;
 import com.hubert.xu.zmvp.constant.Constants;
 import com.hubert.xu.zmvp.entity.BookclassifyLocalBean;
-import com.hubert.xu.zmvp.utils.LogUtil;
 
 import java.util.List;
 
@@ -39,12 +38,11 @@ public class BookClassifyAdapter extends BaseQuickAdapter<BookclassifyLocalBean.
     protected void convert(BaseViewHolder helper, BookclassifyLocalBean.LocalBookClassifyBean item) {
         switch (helper.getItemViewType()) {
             case Constants.BOOK_TYPE_NAME:
-                LogUtil.info(item.getName() + item.getSign());
                 helper.setText(R.id.tv_book_classify_name, item.getName())
                         .setText(R.id.tv_book_classify_count, item.getBookCount()+"");
                 break;
             case Constants.BOOK_TYPE_SIGN:
-                helper.setText(R.id.tv_book_classify_sign, item.getName());
+                helper.setText(R.id.tv_book_sign, item.getName());
                 break;
         }
     }

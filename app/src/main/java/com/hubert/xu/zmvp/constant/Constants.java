@@ -43,6 +43,10 @@ public class Constants {
 
     public static final int BOOK_TYPE_SIGN = 0;
     public static final int BOOK_TYPE_NAME = 1;
+    public static final String BOOK_TYPE_MALE = "male";
+    public static final String BOOK_TYPE_FEMAL = "female";
+    public static final String BOOK_TYPE_PICTURE = "picture";
+    public static final String BOOK_TYPE_PRESS = "press";
 
     public static List<String> sortType = new ArrayList<String>() {
         {

@@ -50,6 +50,13 @@
         <item>完结</item>
     </array>
 
+    <array name="book_classify_type">
+        <item>hot</item>
+        <item>new</item>
+        <item>reputation</item>
+        <item>over</item>
+    </array>
+
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
 
