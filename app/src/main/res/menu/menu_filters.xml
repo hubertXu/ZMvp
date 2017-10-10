@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <group>
+        <item
+            android:id="@+id/action_filter_sk"
+            android:title="时空"/>
+        <item
+            android:id="@+id/action_filter_qg"
+            android:title="情感"/>
+        <item
+            android:id="@+id/action_filter_lp"
+            android:title="流派"/>
+        <item
+            android:id="@+id/action_filter_rs"
+            android:title="人设"/>
+    </group>
+</menu>

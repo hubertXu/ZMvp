@@ -86,15 +86,19 @@ public class BookReviewFragment extends BaseFragment implements BookReviewContra
     @Override
     public void setData(BookReviewListBean data, boolean isRefresh) {
         mSwipeLayout.setRefreshing(false);
-        if (isRefresh) {
-            if (mData != null) mData.clear();
-            mData = data.getReviews();
+        if (data == null || data.getReviews() == null || data.getReviews().size() == 0) {
+            mBookReviewAdapter.loadMoreComplete();
         } else {
-            mData.addAll(data.getReviews());
+            if (isRefresh) {
+                if (mData != null) mData.clear();
+                mData = data.getReviews();
+            } else {
+                mData.addAll(data.getReviews());
+            }
+            mSwipeLayout.setEnabled(true);
+            mBookReviewAdapter.setEnableLoadMore(true);
+            mBookReviewAdapter.setNewData(mData);
+            start = start + data.getReviews().size();
         }
-        mSwipeLayout.setEnabled(true);
-        mBookReviewAdapter.setEnableLoadMore(true);
-        mBookReviewAdapter.setNewData(mData);
-        start = start + data.getReviews().size();
     }
 }

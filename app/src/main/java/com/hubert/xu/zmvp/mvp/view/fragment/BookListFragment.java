@@ -3,10 +3,8 @@ package com.hubert.xu.zmvp.mvp.view.fragment;
 import android.app.Activity;
 import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 
-import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.hubert.xu.zmvp.R;
 import com.hubert.xu.zmvp.base.BaseFragment;
 import com.hubert.xu.zmvp.entity.BookListBean;
@@ -21,37 +19,31 @@ import butterknife.BindView;
 
 /**
  * Author: Hubert.Xu
- * Date  : 2017/9/30
+ * Date  : 2017/10/10
  * Desc  :
  */
 
-public class BookListFragment extends BaseFragment implements SwipeRefreshLayout.OnRefreshListener, BookListContract.View<BookListBean>, BaseQuickAdapter.RequestLoadMoreListener {
+public class BookListFragment extends BaseFragment implements SwipeRefreshLayout.OnRefreshListener, BookListActivity.TagChangeLisenter, BookListContract.View<BookListBean.BookListsBean> {
 
-    private static final String INTENT_BOOK_LIST_TYPE = "intent_book_list_type";
-    private static final String INTENT_BOOK_CLASSIFY_TYPE = "intent_book_classify_type";
-    private static final String INTENT_BOOK_LIST_MINOR = "intent_book_list_minor";
-    private static final String INTENT_BOOK_LIST_MAJOR = "intent_book_list_major";
+
+    private static final String ARGS_TAB_KEY = "args_tab_key";
     @BindView(R.id.rv_book_list)
     RecyclerView mRvBookList;
     @BindView(R.id.swipe_layout)
     SwipeRefreshLayout mSwipeLayout;
-    private List<BookListBean.BooksBean> mBooks;
+    private int mTabPosition;
+    private BookListActivity mBookListActivity;
+    private String mTag;
+    private String mGender;
+    private List<BookListBean.BookListsBean> bookList;
     private BookListPresenter mPresenter;
     private BookListAdapter mAdapter;
-    private int start;
-    private BookListActivity mBookListActivity;
-    String mMinor;
-    String mMajor;
-    String type;
-    String gender;
 
-    public static BookListFragment newInstance(String major, String gender, String minor, String type) {
+    public static BookListFragment newInstance(int tabPostion) {
+
         Bundle args = new Bundle();
         BookListFragment fragment = new BookListFragment();
-        args.putString(INTENT_BOOK_CLASSIFY_TYPE, gender);
-        args.putString(INTENT_BOOK_LIST_MINOR, minor);
-        args.putString(INTENT_BOOK_LIST_MAJOR, major);
-        args.putString(INTENT_BOOK_LIST_TYPE, type);
+        args.putInt(ARGS_TAB_KEY, tabPostion);
         fragment.setArguments(args);
         return fragment;
     }
@@ -69,31 +61,32 @@ public class BookListFragment extends BaseFragment implements SwipeRefreshLayout
 
     @Override
     public void initView() {
-        type = getArguments().getString(INTENT_BOOK_LIST_TYPE);
-        gender = getArguments().getString(INTENT_BOOK_CLASSIFY_TYPE);
-        mMinor = getArguments().getString(INTENT_BOOK_LIST_MINOR);
-        mMajor = getArguments().getString(INTENT_BOOK_LIST_MAJOR);
-        mPresenter = new BookListPresenter(this);
-        mRvBookList.setLayoutManager(new LinearLayoutManager(mContext));
-        mAdapter = new BookListAdapter(R.layout.item_book, mBooks);
-        mRvBookList.setAdapter(mAdapter);
-        mAdapter.setOnLoadMoreListener(this);
+        mTabPosition = getArguments().getInt(ARGS_TAB_KEY);
         mSwipeLayout.setOnRefreshListener(this);
-        mBookListActivity.setGetBookListDataLisenter((lv2Type) -> {
-            mMinor = lv2Type;
-            onRefresh();
-        });
+        mBookListActivity.setTagChangeLisenters(this);
+        mPresenter = new BookListPresenter(this);
+        mAdapter = new BookListAdapter(R.layout.itemt_book_list, bookList);
+        mRvBookList.setAdapter(mAdapter);
         onRefresh();
     }
 
+
     @Override
     public void onRefresh() {
-        mRvBookList.scrollToPosition(0);
         mSwipeLayout.setRefreshing(true);
-        start = 0;
-        mPresenter.getData(start, gender, type, mMajor, mMinor);
+        mPresenter.getData();
     }
 
+    @Override
+    public void tagChange(String gender, String tag) {
+        mTag = tag;
+        mGender = gender;
+    }
+
+    @Override
+    public void setData(BookListBean data) {
+
+    }
 
     @Override
     public void showError() {
@@ -104,25 +97,5 @@ public class BookListFragment extends BaseFragment implements SwipeRefreshLayout
     @Override
     public void complete() {
 
-    }
-
-    @Override
-    public void setData(BookListBean data, boolean isRefresh) {
-        mSwipeLayout.setRefreshing(false);
-        if (isRefresh) {
-            if (mBooks != null) mBooks.clear();
-            mBooks = data.getBooks();
-        }else {
-            mBooks.addAll(data.getBooks());
-        }
-        mAdapter.setNewData(mBooks);
-        mAdapter.setEnableLoadMore(true);
-        start = start + data.getBooks().size();
-    }
-
-    @Override
-    public void onLoadMoreRequested() {
-        mSwipeLayout.setRefreshing(false);
-        mPresenter.getData(start, gender, type, mMajor, mMinor);
     }
 }

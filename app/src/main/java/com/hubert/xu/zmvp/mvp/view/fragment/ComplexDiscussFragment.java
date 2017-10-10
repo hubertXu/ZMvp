@@ -65,18 +65,22 @@ public class ComplexDiscussFragment extends BaseFragment implements ComplexDiscu
 
     @Override
     public void setData(DiscussListBean data, boolean isRefresh) {
-        List<DiscussListBean.PostsBean> list = data.getPosts();
-        if (isRefresh) {
-            if (mData != null) mData.clear();
-            mData = list;
+        if (data == null || data.getPosts() == null || data.getPosts().size() == 0) {
+            mComplexDiscussAdapter.loadMoreComplete();
         } else {
-            mData.addAll(list);
+            if (isRefresh) {
+                if (mData != null) mData.clear();
+                mData = data.getPosts();
+            } else {
+                mData.addAll(data.getPosts());
+            }
+            mComplexDiscussAdapter.setNewData(mData);
+            mSwipeLayout.setRefreshing(false);
+            mSwipeLayout.setEnabled(true);
+            mComplexDiscussAdapter.setEnableLoadMore(true);
+            start = start + data.getPosts().size();
         }
-        mComplexDiscussAdapter.setNewData(mData);
-        mSwipeLayout.setRefreshing(false);
-        mSwipeLayout.setEnabled(true);
-        mComplexDiscussAdapter.setEnableLoadMore(true);
-        start = start + list.size();
+
     }
 
     @Override

@@ -10,17 +10,17 @@ import android.support.v7.widget.RecyclerView;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.hubert.xu.zmvp.R;
 import com.hubert.xu.zmvp.base.BaseActivity;
-import com.hubert.xu.zmvp.entity.BookListBean;
+import com.hubert.xu.zmvp.entity.BookClassifyListBean;
 import com.hubert.xu.zmvp.entity.BookclassifyLocalBean;
-import com.hubert.xu.zmvp.mvp.contract.BookListContract;
-import com.hubert.xu.zmvp.mvp.presenter.BookListPresenter;
-import com.hubert.xu.zmvp.mvp.view.adapter.BookListAdapter;
+import com.hubert.xu.zmvp.mvp.contract.BookClassifyListContract;
+import com.hubert.xu.zmvp.mvp.presenter.BookClassifyListPresenter;
+import com.hubert.xu.zmvp.mvp.view.adapter.BookClassifyListAdapter;
 
 import java.util.List;
 
 import butterknife.BindView;
 
-public class BookListSubActivity extends BaseActivity implements SwipeRefreshLayout.OnRefreshListener, BookListContract.View<BookListBean>, BaseQuickAdapter.RequestLoadMoreListener {
+public class BookListSubActivity extends BaseActivity implements SwipeRefreshLayout.OnRefreshListener, BookClassifyListContract.View<BookClassifyListBean>, BaseQuickAdapter.RequestLoadMoreListener {
 
     private static final String INTENT_BOOK_LIST_DATA = "intent_book_list_data";
     private static final String INTENT_BOOK_LIST_BUNDLE = "intent_book_list_bundle";
@@ -29,10 +29,10 @@ public class BookListSubActivity extends BaseActivity implements SwipeRefreshLay
     @BindView(R.id.swipe_layout)
     SwipeRefreshLayout mSwipeLayout;
     private BookclassifyLocalBean.LocalBookClassifyBean mData;
-    private BookListAdapter mAdapter;
-    private BookListPresenter mPresenter;
+    private BookClassifyListAdapter mAdapter;
+    private BookClassifyListPresenter mPresenter;
     private int start;
-    private List<BookListBean.BooksBean> mBooks;
+    private List<BookClassifyListBean.BooksBean> mBooks;
 
 
     public static void startActivity(Context context, BookclassifyLocalBean.LocalBookClassifyBean data) {
@@ -44,7 +44,7 @@ public class BookListSubActivity extends BaseActivity implements SwipeRefreshLay
 
     @Override
     protected int attachLayoutRes() {
-        return R.layout.activity_book_list_sub;
+        return R.layout.activity_book_list_classify_sub;
     }
 
     @Override
@@ -57,8 +57,8 @@ public class BookListSubActivity extends BaseActivity implements SwipeRefreshLay
         mData = (BookclassifyLocalBean.LocalBookClassifyBean) getIntent().getBundleExtra(INTENT_BOOK_LIST_BUNDLE).get(INTENT_BOOK_LIST_DATA);
         mTvTitle.setText(mData.getName());
         mRvBookListSub.setLayoutManager(new LinearLayoutManager(this));
-        mPresenter = new BookListPresenter(this);
-        mAdapter = new BookListAdapter(R.layout.item_book, mBooks);
+        mPresenter = new BookClassifyListPresenter(this);
+        mAdapter = new BookClassifyListAdapter(R.layout.item_book, mBooks);
         mRvBookListSub.setAdapter(mAdapter);
         mAdapter.setOnLoadMoreListener(this);
         mSwipeLayout.setOnRefreshListener(this);
@@ -80,17 +80,21 @@ public class BookListSubActivity extends BaseActivity implements SwipeRefreshLay
     }
 
     @Override
-    public void setData(BookListBean data, boolean isRefresh) {
+    public void setData(BookClassifyListBean data, boolean isRefresh) {
         mSwipeLayout.setRefreshing(false);
-        if (isRefresh) {
-            if (mBooks != null) mBooks.clear();
-            mBooks = data.getBooks();
+        if (data==null||data.getBooks() == null || data.getBooks().size() == 0) {
+            mAdapter.loadMoreComplete();
         } else {
-            mBooks.addAll(data.getBooks());
+            if (isRefresh) {
+                if (mBooks != null) mBooks.clear();
+                mBooks = data.getBooks();
+            } else {
+                mBooks.addAll(data.getBooks());
+            }
+            mAdapter.setNewData(mBooks);
+            mAdapter.setEnableLoadMore(true);
+            start = start + data.getBooks().size();
         }
-        mAdapter.setNewData(mBooks);
-        mAdapter.setEnableLoadMore(true);
-        start = start + data.getBooks().size();
     }
 
     @Override

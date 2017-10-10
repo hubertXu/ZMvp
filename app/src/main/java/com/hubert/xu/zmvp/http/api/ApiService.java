@@ -3,11 +3,13 @@ package com.hubert.xu.zmvp.http.api;
 import com.hubert.xu.zmvp.entity.AllRankTypeBean;
 import com.hubert.xu.zmvp.entity.BookClassifyBean;
 import com.hubert.xu.zmvp.entity.BookClassifyLv2Bean;
+import com.hubert.xu.zmvp.entity.BookTagBean;
 import com.hubert.xu.zmvp.entity.BookHelpListBean;
-import com.hubert.xu.zmvp.entity.BookListBean;
+import com.hubert.xu.zmvp.entity.BookClassifyListBean;
 import com.hubert.xu.zmvp.entity.BookReviewListBean;
 import com.hubert.xu.zmvp.entity.DiscussListBean;
 import com.hubert.xu.zmvp.entity.GirlBookListBean;
+import com.hubert.xu.zmvp.entity.BookListBean;
 import com.hubert.xu.zmvp.entity.RankingBean;
 
 import java.util.HashMap;
@@ -146,5 +148,29 @@ public interface ApiService {
      * @return
      */
     @GET("/book/by-categories")
-    Observable<BookListBean> getBooksByClassify(@QueryMap HashMap<String, String> map);
+    Observable<BookClassifyListBean> getBooksByClassify(@QueryMap HashMap<String, String> map);
+
+    /**
+     * 获取主题书单列表
+     * 本周最热：    duration=last-seven-days&sort=collectorCount
+     * 最新发布：    duration=all&sort=created
+     * 最多收藏：    duration=all&sort=collectorCount
+     * tag:         都市、古代、架空、重生、玄幻、网游
+     * gender:      male、female
+     * limit        20
+     *
+     * @param map
+     * @return
+     */
+    @GET("/book-list")
+    Observable<BookListBean> getListOfBook(@QueryMap HashMap<String, String> map);
+
+
+    /**
+     * 获取主题书单标签列表
+     *
+     * @return
+     */
+    @GET("/book-list/tagType")
+    Observable<BookTagBean> getBookListTags();
 }

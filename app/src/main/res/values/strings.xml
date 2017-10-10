@@ -71,4 +71,10 @@
     <string name="ranking_sign_boy">男生</string>
     <string name="ranking_sign_girl">女生</string>
     <string name="classify">分类</string>
+
+    <array name="book_list_tab">
+        <item>本周最热</item>
+        <item>最新发布</item>
+        <item>最多收藏</item>
+    </array>
 </resources>

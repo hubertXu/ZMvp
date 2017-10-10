@@ -62,6 +62,5 @@ public class AllRankingTypeMannager {
                 return localAllRankingTypeBean;
             }
         }).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).subscribe(observer);
-//        apiService.getAllRankingTypes().subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).subscribe(observer);
     }
 }

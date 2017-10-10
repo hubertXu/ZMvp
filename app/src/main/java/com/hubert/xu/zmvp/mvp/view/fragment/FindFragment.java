@@ -8,6 +8,7 @@ import com.hubert.xu.zmvp.R;
 import com.hubert.xu.zmvp.base.BaseFragment;
 import com.hubert.xu.zmvp.mvp.view.activity.AllRankingTypeActivity;
 import com.hubert.xu.zmvp.mvp.view.activity.BookClassifyActivity;
+import com.hubert.xu.zmvp.mvp.view.activity.BookListActivity;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -45,6 +46,7 @@ public class FindFragment extends BaseFragment {
                 startActivity(new Intent(mContext, AllRankingTypeActivity.class));
                 break;
             case R.id.card_book_list:
+                startActivity(new Intent(mContext, BookListActivity.class));
                 break;
             case R.id.card_assort:
                 startActivity(new Intent(mContext, BookClassifyActivity.class));

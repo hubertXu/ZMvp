@@ -1,13 +1,7 @@
 package com.hubert.xu.zmvp.mvp.presenter;
 
 import com.hubert.xu.zmvp.entity.BookListBean;
-import com.hubert.xu.zmvp.http.BaseObserver;
 import com.hubert.xu.zmvp.mvp.contract.BookListContract;
-import com.hubert.xu.zmvp.mvp.model.BookListMananger;
-
-import java.util.HashMap;
-
-import io.reactivex.disposables.Disposable;
 
 /**
  * Author: Hubert.Xu
@@ -18,41 +12,15 @@ import io.reactivex.disposables.Disposable;
 public class BookListPresenter implements BookListContract.Presenter {
 
 
-    private BookListContract.View mView;
+    private BookListContract.View<BookListBean.BookListsBean> mView;
 
-    public BookListPresenter(BookListContract.View view) {
+    public BookListPresenter(BookListContract.View<BookListBean.BookListsBean> view) {
         mView = view;
     }
 
+
     @Override
-    public void getData(int start, String sign, String type, String major, String minor) {
-        HashMap<String, String> params = new HashMap<>();
-        params.put("type", type);
-        params.put("major", major);
-        params.put("limit", 20 + "");
-        params.put("start", start + "");
-        params.put("gender", sign);
-        params.put("minor", minor);
-        BookListMananger.getInstance().getBookList(params, new BaseObserver<BookListBean>() {
-            @Override
-            public void subscribe(Disposable d) {
+    public void getData() {
 
-            }
-
-            @Override
-            public void next(BookListBean bookListBean) {
-                mView.setData(bookListBean, start == 0);
-            }
-
-            @Override
-            public void error(Throwable e) {
-                mView.showError();
-            }
-
-            @Override
-            public void completed() {
-
-            }
-        });
     }
 }

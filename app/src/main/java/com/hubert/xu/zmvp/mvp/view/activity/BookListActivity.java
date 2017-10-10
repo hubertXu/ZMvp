@@ -1,19 +1,26 @@
 package com.hubert.xu.zmvp.mvp.view.activity;
 
-import android.content.Context;
-import android.content.Intent;
-import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.RecyclerView;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.PopupWindow;
 
-import com.afollestad.materialdialogs.MaterialDialog;
 import com.hubert.xu.zmvp.R;
 import com.hubert.xu.zmvp.base.BaseActivity;
-import com.hubert.xu.zmvp.entity.BookclassifyLocalBean;
+import com.hubert.xu.zmvp.constant.Constants;
+import com.hubert.xu.zmvp.entity.LocalBookTagsBean;
+import com.hubert.xu.zmvp.mvp.contract.BookListTagContract;
+import com.hubert.xu.zmvp.mvp.presenter.BookTagsPresenter;
+import com.hubert.xu.zmvp.mvp.view.adapter.BookTagAdatper;
 import com.hubert.xu.zmvp.mvp.view.fragment.BookListFragment;
 
 import java.util.ArrayList;
@@ -24,42 +31,33 @@ import butterknife.BindView;
 
 /**
  * Author: Hubert.Xu
- * Date  : 2017/9/30
+ * Date  : 2017/10/10
  * Desc  :
  */
 
-public class BookListActivity extends BaseActivity {
+public class BookListActivity extends BaseActivity implements BookListTagContract.View, SwipeRefreshLayout.OnRefreshListener {
 
-    private static final String INTENT_BOOK_LIST_DATA = "intent_book_list_data";
-    private static final String INTENT_BOOK_LIST_BUNDLE = "intent_book_list_bundle";
     @BindView(R.id.tablayout_book_list)
     TabLayout mTablayoutBookList;
     @BindView(R.id.vp_book_list)
     ViewPager mVpBookList;
-    private BookclassifyLocalBean.LocalBookClassifyBean mData;
-    private int mTabPosition;
-    private HashMap<Integer, Integer> selectType = new HashMap<Integer, Integer>() {
-        {
-            put(0, 0);
-            put(1, 0);
-            put(2, 0);
-            put(3, 0);
-        }
-    };
-    HashMap<Integer, GetLv2BookListDataLisenter> getLv2BookListDataLisenters = new HashMap<>();
-    private boolean mMenuVisible = true;
+    private PopupWindow mPopupWindow;
+    private BookTagAdatper mAdapter;
+    private BookTagsPresenter mBookTagsPresenter;
+    private RecyclerView mRvBookTag;
+    private SwipeRefreshLayout mSwipeRefreshLayout;
+    private boolean isFirstDataPrepare;
+    private List<LocalBookTagsBean.BookTag> mBookTags;
+    private int mTagSelectPosition;
+    private String gender;
+    private String tag;
+    HashMap<Integer, TagChangeLisenter> mTagChangeLisenters = new HashMap<>();
 
 
-    public interface GetLv2BookListDataLisenter {
-        void getLv2BookListData(String lv2Type);
+    public interface TagChangeLisenter {
+        void tagChange(String gender, String tag);
     }
 
-    public static void startActivity(Context context, BookclassifyLocalBean.LocalBookClassifyBean data) {
-        Bundle bundle = new Bundle();
-        bundle.putSerializable(INTENT_BOOK_LIST_DATA, data);
-        context.startActivity(new Intent(context, BookListActivity.class)
-                .putExtra(INTENT_BOOK_LIST_BUNDLE, bundle));
-    }
 
     @Override
     protected int attachLayoutRes() {
@@ -73,20 +71,14 @@ public class BookListActivity extends BaseActivity {
 
     @Override
     protected void initView() {
-        mData = (BookclassifyLocalBean.LocalBookClassifyBean) getIntent().getBundleExtra(INTENT_BOOK_LIST_BUNDLE).get(INTENT_BOOK_LIST_DATA);
-        if (mData.getLv2ClassifyNames().size() == 0) {
-            mMenuVisible = false;
-            supportInvalidateOptionsMenu();
-        }
-        mTvTitle.setText(mData.getName());
-        String[] bookClassifys = getResources().getStringArray(R.array.book_classify);
+        mTvTitle.setText(getString(R.string.book_list));
+        String[] bookListTabs = getResources().getStringArray(R.array.book_list_tab);
         List<BookListFragment> fragments = new ArrayList<>();
-        for (int i = 0; i < bookClassifys.length; i++) {
-            fragments.add(BookListFragment.newInstance(mData.getName(), mData.getType(), mData.getLv2ClassifyNames().size() == 0 ? "" : mData.getLv2ClassifyNames().get(0), getResources().getStringArray(R.array.book_classify_type)[i]));
+        for (int i = 0; i < 3; i++) {
+            fragments.add(BookListFragment.newInstance(i));
         }
-        mVpBookList.setOffscreenPageLimit(3);
+        mVpBookList.setOffscreenPageLimit(2);
         mVpBookList.setAdapter(new FragmentPagerAdapter(getSupportFragmentManager()) {
-
             @Override
             public Fragment getItem(int position) {
                 return fragments.get(position);
@@ -94,19 +86,19 @@ public class BookListActivity extends BaseActivity {
 
             @Override
             public int getCount() {
-                return bookClassifys.length;
+                return bookListTabs.length;
             }
 
             @Override
             public CharSequence getPageTitle(int position) {
-                return bookClassifys[position];
+                return bookListTabs[position];
             }
         });
+        mTablayoutBookList.setupWithViewPager(mVpBookList);
         mTablayoutBookList.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
-                mTabPosition = tab.getPosition();
-                mVpBookList.setCurrentItem(mTabPosition, false);
+                mVpBookList.setCurrentItem(tab.getPosition(), false);
             }
 
             @Override
@@ -119,47 +111,90 @@ public class BookListActivity extends BaseActivity {
 
             }
         });
+        initPop();
+        mBookTagsPresenter = new BookTagsPresenter(this);
+    }
+
+    private void initPop() {
+        mPopupWindow = new PopupWindow(this);
+        mPopupWindow.setWidth(ViewGroup.LayoutParams.MATCH_PARENT);
+        mPopupWindow.setHeight(ViewGroup.LayoutParams.MATCH_PARENT);
+//        mPopupWindow.setBackgroundDrawable(new ColorDrawable(ContextCompat.getColor(this, R.color.white)));
+        View contentView = LayoutInflater.from(this).inflate(R.layout.pop_tag, null);
+        mSwipeRefreshLayout = (SwipeRefreshLayout) contentView.findViewById(R.id.swipe_layout);
+        mRvBookTag = (RecyclerView) contentView.findViewById(R.id.rv_book_tag);
+        mPopupWindow.setOutsideTouchable(true);
+        mRvBookTag.setLayoutManager(new GridLayoutManager(this, 4));
+        mPopupWindow.setContentView(contentView);
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_book_classify, menu);
-        return true;
+        getMenuInflater().inflate(R.menu.menu_filter, menu);
+        return super.onCreateOptionsMenu(menu);
     }
 
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        if (item.getItemId() == R.id.action_book_classify) {
-            new MaterialDialog.Builder(BookListActivity.this)
-                    .items(mData.getLv2ClassifyNames())
-                    .itemsCallbackSingleChoice(selectType.get(mTabPosition), (dialog, itemView, which, text) -> {
-                        selectType.put(mTabPosition, which);
-                        getLv2BookListDataLisenters.get(mTabPosition).getLv2BookListData(text.toString());
-                        return true;
-                    })
-                    .show();
+        if (item.getItemId() == R.id.action_filter) {
+            mPopupWindow.showAsDropDown(mToolbar);
+            if (isFirstDataPrepare) {
+                mAdapter.setNewData(mBookTags);
+            } else {
+                onRefresh();
+            }
         }
         return super.onOptionsItemSelected(item);
     }
 
     @Override
-    public boolean onPrepareOptionsMenu(Menu menu) {
-        MenuItem item = menu.findItem(R.id.action_book_classify);
-        if (mMenuVisible) {
-            item.setVisible(true);
-        } else {
-            item.setVisible(false);
+    public void setTagData(LocalBookTagsBean data) {
+        mSwipeRefreshLayout.setRefreshing(false);
+        mBookTags = data.getBookTags();
+        if (mAdapter == null) {
+            mAdapter = new BookTagAdatper(mBookTags);
+            mAdapter.setSpanSizeLookup((gridLayoutManager, position) -> mBookTags.get(position).getSign() == Constants.BOOK_TYPE_SIGN ? 4 : 1);
+            mRvBookTag.setAdapter(mAdapter);
+            mAdapter.setOnItemClickListener((adapter, view, position) -> {
+                if (mBookTags.get(position).getSign() == Constants.BOOK_TYPE_NAME) {
+                    if (position == 1 || position == 2) {
+                        mBookTags.get(position - 1 == 0 ? 2 : 1).setSelsect(false);
+                        gender = mBookTags.get(position).getName();
+                    } else {
+                        if (mTagSelectPosition != 2 && mTagSelectPosition != 1) {
+                            mBookTags.get(mTagSelectPosition).setSelsect(false);
+                            mTagSelectPosition = position;
+                            tag = mBookTags.get(position).getName();
+                        }
+                    }
+                    mBookTags.get(position).setSelsect(true);
+                    mPopupWindow.dismiss();
+                    mTagChangeLisenters.get(mTablayoutBookList.getSelectedTabPosition()).tagChange(gender, tag);
+                }
+            });
         }
-        return super.onPrepareOptionsMenu(menu);
+        isFirstDataPrepare = true;
+        mAdapter.setNewData(mBookTags);
     }
 
     @Override
-    public void supportInvalidateOptionsMenu() {
-        super.supportInvalidateOptionsMenu();
+    public void showError() {
+
     }
 
-    public void setGetBookListDataLisenter(GetLv2BookListDataLisenter getLv2BookListDataLisenter) {
-        getLv2BookListDataLisenters.put(mTablayoutBookList.getSelectedTabPosition(), getLv2BookListDataLisenter);
+    @Override
+    public void complete() {
+
+    }
+
+    @Override
+    public void onRefresh() {
+        mSwipeRefreshLayout.setRefreshing(true);
+        mBookTagsPresenter.getTagData();
+    }
+
+    public void setTagChangeLisenters(TagChangeLisenter tagChangeLisenter) {
+        mTagChangeLisenters.put(mTablayoutBookList.getSelectedTabPosition(), tagChangeLisenter);
     }
 }
