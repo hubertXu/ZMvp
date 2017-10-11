@@ -15,6 +15,7 @@ import com.hubert.xu.zmvp.mvp.presenter.BookClassifyListPresenter;
 import com.hubert.xu.zmvp.mvp.view.activity.BookClassifyListActivity;
 import com.hubert.xu.zmvp.mvp.view.adapter.BookClassifyListAdapter;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
@@ -25,7 +26,7 @@ import butterknife.BindView;
  * Desc  :
  */
 
-public class BookLClassifyistFragment extends BaseFragment implements SwipeRefreshLayout.OnRefreshListener, BookClassifyListContract.View<BookClassifyListBean>, BaseQuickAdapter.RequestLoadMoreListener {
+public class BookLClassifyListFragment extends BaseFragment implements SwipeRefreshLayout.OnRefreshListener, BookClassifyListContract.View<BookClassifyListBean>, BaseQuickAdapter.RequestLoadMoreListener {
 
     private static final String INTENT_BOOK_LIST_TYPE = "intent_book_list_type";
     private static final String INTENT_BOOK_CLASSIFY_TYPE = "intent_book_classify_type";
@@ -35,19 +36,19 @@ public class BookLClassifyistFragment extends BaseFragment implements SwipeRefre
     RecyclerView mRvBookList;
     @BindView(R.id.swipe_layout)
     SwipeRefreshLayout mSwipeLayout;
-    private List<BookClassifyListBean.BooksBean> mBooks;
+    private List<BookClassifyListBean.BooksBean> mBooks = new ArrayList<>();
     private BookClassifyListPresenter mPresenter;
     private BookClassifyListAdapter mAdapter;
     private int start;
     private BookClassifyListActivity mBookClassifyListActivity;
-    String mMinor;
-    String mMajor;
-    String type;
-    String gender;
+    private String mMinor;
+    private String mMajor;
+    private String type;
+    private String gender = "";
 
-    public static BookLClassifyistFragment newInstance(String major, String gender, String minor, String type) {
+    public static BookLClassifyListFragment newInstance(String major, String gender, String minor, String type) {
         Bundle args = new Bundle();
-        BookLClassifyistFragment fragment = new BookLClassifyistFragment();
+        BookLClassifyListFragment fragment = new BookLClassifyListFragment();
         args.putString(INTENT_BOOK_CLASSIFY_TYPE, gender);
         args.putString(INTENT_BOOK_LIST_MINOR, minor);
         args.putString(INTENT_BOOK_LIST_MAJOR, major);
@@ -109,15 +110,13 @@ public class BookLClassifyistFragment extends BaseFragment implements SwipeRefre
     @Override
     public void setData(BookClassifyListBean data, boolean isRefresh) {
         mSwipeLayout.setRefreshing(false);
-        if (data==null||data.getBooks() == null || data.getBooks().size() == 0) {
+        if (data == null || data.getBooks() == null || data.getBooks().size() == 0) {
             mAdapter.loadMoreComplete();
         } else {
             if (isRefresh) {
                 if (mBooks != null) mBooks.clear();
-                mBooks = data.getBooks();
-            } else {
-                mBooks.addAll(data.getBooks());
             }
+            mBooks.addAll(data.getBooks());
             mAdapter.setNewData(mBooks);
             mAdapter.setEnableLoadMore(true);
             start = start + data.getBooks().size();

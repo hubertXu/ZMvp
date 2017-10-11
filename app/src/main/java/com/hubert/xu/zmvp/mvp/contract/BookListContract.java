@@ -1,7 +1,6 @@
 package com.hubert.xu.zmvp.mvp.contract;
 
 import com.hubert.xu.zmvp.base.BaseContract;
-import com.hubert.xu.zmvp.entity.BookListBean;
 
 /**
  * Author: Hubert.Xu
@@ -11,12 +10,12 @@ import com.hubert.xu.zmvp.entity.BookListBean;
 
 public interface BookListContract extends BaseContract {
 
-    interface View<B> extends BaseView {
-        void setData(BookListBean data);
+    interface View<BookListBean> extends BaseView {
+        void setData(BookListBean data, boolean isRefresh);
     }
 
 
     interface Presenter extends BasePresenter {
-        void getData();
+        void getData(String duration, String tag, String gender, int start, String sort);
     }
 }

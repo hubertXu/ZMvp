@@ -4,8 +4,6 @@ import com.hubert.xu.zmvp.http.BaseObserver;
 import com.hubert.xu.zmvp.http.RetrofitClient;
 import com.hubert.xu.zmvp.http.api.ApiService;
 
-import java.util.HashMap;
-
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
 
@@ -15,15 +13,15 @@ import io.reactivex.schedulers.Schedulers;
  * Desc  :
  */
 
-public class BookListMananger {
-    private static final BookListMananger ourInstance = new BookListMananger();
+public class BookListDetailMananger {
+    private static final BookListDetailMananger ourInstance = new BookListDetailMananger();
 
-    public static BookListMananger getInstance() {
+    public static BookListDetailMananger getInstance() {
         return ourInstance;
     }
 
-    public void getBookList(HashMap map, BaseObserver observer) {
+    public void getBookListDetail(String bookListId, BaseObserver observer) {
         ApiService apiService = RetrofitClient.getInstance().create(ApiService.class);
-        apiService.getBookList(map).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).subscribe(observer);
+        apiService.getBookListDetail(bookListId).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).subscribe(observer);
     }
 }

@@ -15,15 +15,15 @@ import io.reactivex.schedulers.Schedulers;
  * Desc  :
  */
 
-public class BookListMananger {
-    private static final BookListMananger ourInstance = new BookListMananger();
+public class BookClassifyListMananger {
+    private static final BookClassifyListMananger ourInstance = new BookClassifyListMananger();
 
-    public static BookListMananger getInstance() {
+    public static BookClassifyListMananger getInstance() {
         return ourInstance;
     }
 
-    public void getBookList(HashMap map, BaseObserver observer) {
+    public void getBookClassifyList(HashMap map, BaseObserver observer) {
         ApiService apiService = RetrofitClient.getInstance().create(ApiService.class);
-        apiService.getBookList(map).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).subscribe(observer);
+        apiService.getBooksByClassify(map).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).subscribe(observer);
     }
 }

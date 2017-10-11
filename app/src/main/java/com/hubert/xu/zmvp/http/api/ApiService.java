@@ -3,6 +3,7 @@ package com.hubert.xu.zmvp.http.api;
 import com.hubert.xu.zmvp.entity.AllRankTypeBean;
 import com.hubert.xu.zmvp.entity.BookClassifyBean;
 import com.hubert.xu.zmvp.entity.BookClassifyLv2Bean;
+import com.hubert.xu.zmvp.entity.BookListDetailBean;
 import com.hubert.xu.zmvp.entity.BookTagBean;
 import com.hubert.xu.zmvp.entity.BookHelpListBean;
 import com.hubert.xu.zmvp.entity.BookClassifyListBean;
@@ -163,7 +164,7 @@ public interface ApiService {
      * @return
      */
     @GET("/book-list")
-    Observable<BookListBean> getListOfBook(@QueryMap HashMap<String, String> map);
+    Observable<BookListBean> getBookList(@QueryMap HashMap<String, String> map);
 
 
     /**
@@ -173,4 +174,12 @@ public interface ApiService {
      */
     @GET("/book-list/tagType")
     Observable<BookTagBean> getBookListTags();
+
+    /**
+     * 获取书单详情
+     *
+     * @return
+     */
+    @GET("/book-list/{bookListId}")
+    Observable<BookListDetailBean> getBookListDetail(@Path("bookListId") String bookListId);
 }

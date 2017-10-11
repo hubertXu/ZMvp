@@ -14,7 +14,7 @@ import com.afollestad.materialdialogs.MaterialDialog;
 import com.hubert.xu.zmvp.R;
 import com.hubert.xu.zmvp.base.BaseActivity;
 import com.hubert.xu.zmvp.entity.BookclassifyLocalBean;
-import com.hubert.xu.zmvp.mvp.view.fragment.BookLClassifyistFragment;
+import com.hubert.xu.zmvp.mvp.view.fragment.BookLClassifyListFragment;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -80,9 +80,9 @@ public class BookClassifyListActivity extends BaseActivity {
         }
         mTvTitle.setText(mData.getName());
         String[] bookClassifys = getResources().getStringArray(R.array.book_classify);
-        List<BookLClassifyistFragment> fragments = new ArrayList<>();
+        List<BookLClassifyListFragment> fragments = new ArrayList<>();
         for (int i = 0; i < bookClassifys.length; i++) {
-            fragments.add(BookLClassifyistFragment.newInstance(mData.getName(), mData.getType(), mData.getLv2ClassifyNames().size() == 0 ? "" : mData.getLv2ClassifyNames().get(0), getResources().getStringArray(R.array.book_classify_type)[i]));
+            fragments.add(BookLClassifyListFragment.newInstance(mData.getName(), mData.getType(), mData.getLv2ClassifyNames().size() == 0 ? "" : mData.getLv2ClassifyNames().get(0), getResources().getStringArray(R.array.book_classify_type)[i]));
         }
         mVpBookList.setOffscreenPageLimit(3);
         mVpBookList.setAdapter(new FragmentPagerAdapter(getSupportFragmentManager()) {

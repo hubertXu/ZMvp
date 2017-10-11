@@ -1,5 +1,7 @@
 package com.hubert.xu.zmvp.entity;
 
+import com.hubert.xu.zmvp.http.BookBaseBean;
+
 import java.util.List;
 
 /**
@@ -8,7 +10,7 @@ import java.util.List;
  * Desc  :
  */
 
-public class BookListBean {
+public class BookListBean extends BookBaseBean {
 
     /**
      * total : 22448
@@ -17,7 +19,6 @@ public class BookListBean {
      */
 
     private int total;
-    private boolean ok;
     private List<BookListsBean> bookLists;
 
     public int getTotal() {
@@ -28,13 +29,6 @@ public class BookListBean {
         this.total = total;
     }
 
-    public boolean isOk() {
-        return ok;
-    }
-
-    public void setOk(boolean ok) {
-        this.ok = ok;
-    }
 
     public List<BookListsBean> getBookLists() {
         return bookLists;
