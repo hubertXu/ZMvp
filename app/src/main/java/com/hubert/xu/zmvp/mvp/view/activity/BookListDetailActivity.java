@@ -107,5 +107,4 @@ public class BookListDetailActivity extends BaseActivity implements SwipeRefresh
     public void complete() {
 
     }
-
 }

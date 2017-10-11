@@ -52,6 +52,8 @@ public class BookListActivity extends BaseActivity implements BookListTagContrac
     private String tag = "";
     HashMap<Integer, TagChangeLisenter> mTagChangeLisenters = new HashMap<>();
     HashMap<Integer, List<LocalBookTagsBean.BookTag>> mTagMaps = new HashMap<>();
+    HashMap<Integer, Boolean> isFirstLoadMaps = new HashMap();
+    private int mTabPosition;
 
 
     public interface TagChangeLisenter {
@@ -72,6 +74,9 @@ public class BookListActivity extends BaseActivity implements BookListTagContrac
     @Override
     protected void initView() {
         mTvTitle.setText(getString(R.string.book_list));
+        isFirstLoadMaps.put(0, true);
+        isFirstLoadMaps.put(1, true);
+        isFirstLoadMaps.put(2, true);
         String[] bookListTabs = getResources().getStringArray(R.array.book_list_tab);
         List<BookListFragment> fragments = new ArrayList<>();
         for (int i = 0; i < 3; i++) {
@@ -98,7 +103,8 @@ public class BookListActivity extends BaseActivity implements BookListTagContrac
         mTablayoutBookList.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
-                mVpBookList.setCurrentItem(tab.getPosition(), false);
+                mTabPosition = tab.getPosition();
+                mVpBookList.setCurrentItem(mTabPosition, false);
             }
 
             @Override
@@ -139,7 +145,7 @@ public class BookListActivity extends BaseActivity implements BookListTagContrac
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == R.id.action_filter) {
             mPopupWindow.showAsDropDown(mToolbar);
-            if (isFirstDataPrepare) {
+            if (isFirstLoadMaps.get(mTabPosition)) {
                 onRefresh();
             } else {
                 mAdapter.setNewData(mTagMaps.get(mTablayoutBookList.getSelectedTabPosition()));
@@ -151,46 +157,33 @@ public class BookListActivity extends BaseActivity implements BookListTagContrac
     @Override
     public void setTagData(LocalBookTagsBean data) {
         mSwipeRefreshLayout.setRefreshing(false);
-        mSwipeRefreshLayout.setEnabled(false);
-        List<LocalBookTagsBean.BookTag> bookTags1 = new ArrayList<>();
-        List<LocalBookTagsBean.BookTag> bookTags2 = new ArrayList<>();
-        List<LocalBookTagsBean.BookTag> bookTags3 = new ArrayList<>();
-
-        for (LocalBookTagsBean.BookTag bookTag : data.getBookTags()) {
-            bookTags1.add(bookTag);
-        }
-        for (LocalBookTagsBean.BookTag bookTag : data.getBookTags()) {
-            bookTags2.add(bookTag);
-        }
-        for (LocalBookTagsBean.BookTag bookTag : data.getBookTags()) {
-            bookTags3.add(bookTag);
-        }
-        mTagMaps.put(0, bookTags1);
-        mTagMaps.put(1, bookTags2);
-        mTagMaps.put(2, bookTags3);
-        mAdapter = new BookTagAdatper(data.getBookTags());
-        mAdapter.setSpanSizeLookup((gridLayoutManager, position) -> data.getBookTags().get(position).getSign() == Constants.BOOK_TYPE_SIGN ? 4 : 1);
-        mRvBookTag.setAdapter(mAdapter);
-        mAdapter.setOnItemClickListener((adapter, view, position) -> {
-            List<LocalBookTagsBean.BookTag> bookTags = mTagMaps.get(mTablayoutBookList.getSelectedTabPosition());
-            if (bookTags.get(position).getSign() == Constants.BOOK_TYPE_NAME) {
-                if (position == 1 || position == 2) {
-                    bookTags.get(position - 1 == 0 ? 2 : 1).setSelsect(false);
-                    gender = position == 1 ? "male" : "famale";
-                } else {
-                    if (mTagSelectPosition != 2 && mTagSelectPosition != 1) {
-                        bookTags.get(mTagSelectPosition).setSelsect(false);
-                        mTagSelectPosition = position;
-                        tag = bookTags.get(position).getName();
+        mTagMaps.put(mTablayoutBookList.getSelectedTabPosition(), data.getBookTags());
+        if (mAdapter == null) {
+            mAdapter = new BookTagAdatper(data.getBookTags());
+            mAdapter.setSpanSizeLookup((gridLayoutManager, position) -> data.getBookTags().get(position).getSign() == Constants.BOOK_TYPE_SIGN ? 4 : 1);
+            mRvBookTag.setAdapter(mAdapter);
+            mAdapter.setOnItemClickListener((adapter, view, position) -> {
+                List<LocalBookTagsBean.BookTag> bookTags = mTagMaps.get(mTablayoutBookList.getSelectedTabPosition());
+                if (bookTags.get(position).getSign() == Constants.BOOK_TYPE_NAME) {
+                    if (position == 1 || position == 2) {
+                        bookTags.get(position - 1 == 0 ? 2 : 1).setSelsect(false);
+                        gender = position == 1 ? "male" : "famale";
+                    } else {
+                        if (mTagSelectPosition != 2 && mTagSelectPosition != 1) {
+                            bookTags.get(mTagSelectPosition).setSelsect(false);
+                            mTagSelectPosition = position;
+                            tag = bookTags.get(position).getName();
+                        }
                     }
+                    bookTags.get(position).setSelsect(true);
+                    mPopupWindow.dismiss();
+                    mTagMaps.put(mTablayoutBookList.getSelectedTabPosition(), bookTags);
+                    mTagChangeLisenters.get(mTablayoutBookList.getSelectedTabPosition()).tagChange(gender, tag);
                 }
-                bookTags.get(position).setSelsect(true);
-                mPopupWindow.dismiss();
-                mTagMaps.put(mTablayoutBookList.getSelectedTabPosition(), bookTags);
-                mTagChangeLisenters.get(mTablayoutBookList.getSelectedTabPosition()).tagChange(gender, tag);
-            }
-        });
-        isFirstDataPrepare = false;
+            });
+        }
+        mAdapter.setNewData(mTagMaps.get(mTablayoutBookList.getSelectedTabPosition()));
+        isFirstLoadMaps.put(mTabPosition,false);
     }
 
     @Override
