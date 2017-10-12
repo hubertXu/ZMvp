@@ -12,7 +12,7 @@ import android.widget.TextView;
 import com.hubert.xu.zmvp.R;
 import com.hubert.xu.zmvp.base.BaseActivity;
 import com.hubert.xu.zmvp.constant.Constants;
-import com.hubert.xu.zmvp.entity.BookListDetailBean;
+import com.hubert.xu.zmvp.mvp.model.entity.BookListDetailBean;
 import com.hubert.xu.zmvp.mvp.contract.BookListDetailContract;
 import com.hubert.xu.zmvp.mvp.presenter.BookListDetailPresenter;
 import com.hubert.xu.zmvp.mvp.view.adapter.BookListDetailAdapter;
@@ -70,13 +70,14 @@ public class BookListDetailActivity extends BaseActivity implements SwipeRefresh
         mSwipeLayout.setOnRefreshListener(this);
         mRvBookListDetail.setLayoutManager(new LinearLayoutManager(this));
         mAdapter = new BookListDetailAdapter(R.layout.item_book_list_detail, mBooks);
-        View hearer = LayoutInflater.from(this).inflate(R.layout.header_book_list_detail, mRvBookListDetail,false);
+        View hearer = LayoutInflater.from(this).inflate(R.layout.header_book_list_detail, mRvBookListDetail, false);
         mTvBookListTitle = (TextView) hearer.findViewById(R.id.tv_book_list_title);
         mTvBookListDesc = (TextView) hearer.findViewById(R.id.tv_book_list_desc);
         mTvUserName = (TextView) hearer.findViewById(R.id.tv_user_name);
         mIvUserAvatar = (CircleImageView) hearer.findViewById(R.id.iv_user_avatar);
         mAdapter.addHeaderView(hearer);
         mRvBookListDetail.setAdapter(mAdapter);
+        mAdapter.setOnItemClickListener((adapter, view, position) -> BookDetailActivity.startActivity(BookListDetailActivity.this, mBooks.get(position).getBook().getTitle(), mBooks.get(position).getBook().get_id()));
         onRefresh();
     }
 

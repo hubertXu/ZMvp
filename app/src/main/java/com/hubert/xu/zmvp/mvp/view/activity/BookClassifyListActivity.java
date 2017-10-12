@@ -13,7 +13,7 @@ import android.view.MenuItem;
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.hubert.xu.zmvp.R;
 import com.hubert.xu.zmvp.base.BaseActivity;
-import com.hubert.xu.zmvp.entity.BookclassifyLocalBean;
+import com.hubert.xu.zmvp.mvp.model.entity.BookclassifyLocalBean;
 import com.hubert.xu.zmvp.mvp.view.fragment.BookLClassifyListFragment;
 
 import java.util.ArrayList;

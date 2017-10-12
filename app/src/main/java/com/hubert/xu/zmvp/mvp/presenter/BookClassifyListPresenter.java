@@ -1,9 +1,9 @@
 package com.hubert.xu.zmvp.mvp.presenter;
 
-import com.hubert.xu.zmvp.entity.BookClassifyListBean;
+import com.hubert.xu.zmvp.mvp.model.entity.BookClassifyListBean;
 import com.hubert.xu.zmvp.http.BaseObserver;
 import com.hubert.xu.zmvp.mvp.contract.BookClassifyListContract;
-import com.hubert.xu.zmvp.mvp.model.BookClassifyListMananger;
+import com.hubert.xu.zmvp.mvp.model.RemoteDataManager;
 
 import java.util.HashMap;
 
@@ -33,7 +33,7 @@ public class BookClassifyListPresenter implements BookClassifyListContract.Prese
         params.put("start", start + "");
         params.put("gender", sign);
         params.put("minor", minor);
-        BookClassifyListMananger.getInstance().getBookClassifyList(params, new BaseObserver<BookClassifyListBean>() {
+        RemoteDataManager.getInstance().getBookClassifyList(params, new BaseObserver<BookClassifyListBean>() {
             @Override
             public void subscribe(Disposable d) {
 

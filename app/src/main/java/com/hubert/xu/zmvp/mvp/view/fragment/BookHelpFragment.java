@@ -8,7 +8,7 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.hubert.xu.zmvp.R;
 import com.hubert.xu.zmvp.base.BaseFragment;
 import com.hubert.xu.zmvp.constant.Constants;
-import com.hubert.xu.zmvp.entity.BookHelpListBean;
+import com.hubert.xu.zmvp.mvp.model.entity.BookHelpListBean;
 import com.hubert.xu.zmvp.mvp.contract.BookHelpContract;
 import com.hubert.xu.zmvp.mvp.presenter.BookHelpPresenter;
 import com.hubert.xu.zmvp.mvp.view.adapter.BookHelpAdapter;

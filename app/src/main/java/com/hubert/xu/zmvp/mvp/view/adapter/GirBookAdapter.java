@@ -12,7 +12,7 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.hubert.xu.zmvp.R;
 import com.hubert.xu.zmvp.constant.Constants;
-import com.hubert.xu.zmvp.entity.GirlBookListBean;
+import com.hubert.xu.zmvp.mvp.model.entity.GirlBookListBean;
 import com.hubert.xu.zmvp.utils.TimeFormatUtil;
 import com.hubert.xu.zmvp.utils.imageload.GlideImageLoader;
 

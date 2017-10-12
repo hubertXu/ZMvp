@@ -1,4 +1,4 @@
-package com.hubert.xu.zmvp.entity;
+package com.hubert.xu.zmvp.mvp.model.entity;
 
 import java.util.List;
 

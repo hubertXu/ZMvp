@@ -17,7 +17,7 @@ import android.widget.PopupWindow;
 import com.hubert.xu.zmvp.R;
 import com.hubert.xu.zmvp.base.BaseActivity;
 import com.hubert.xu.zmvp.constant.Constants;
-import com.hubert.xu.zmvp.entity.LocalBookTagsBean;
+import com.hubert.xu.zmvp.mvp.model.entity.LocalBookTagsBean;
 import com.hubert.xu.zmvp.mvp.contract.BookListTagContract;
 import com.hubert.xu.zmvp.mvp.presenter.BookTagsPresenter;
 import com.hubert.xu.zmvp.mvp.view.adapter.BookTagAdatper;

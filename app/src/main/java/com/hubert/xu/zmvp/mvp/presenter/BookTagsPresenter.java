@@ -1,9 +1,9 @@
 package com.hubert.xu.zmvp.mvp.presenter;
 
-import com.hubert.xu.zmvp.entity.LocalBookTagsBean;
+import com.hubert.xu.zmvp.mvp.model.entity.LocalBookTagsBean;
 import com.hubert.xu.zmvp.http.BaseObserver;
 import com.hubert.xu.zmvp.mvp.contract.BookListTagContract;
-import com.hubert.xu.zmvp.mvp.model.BookTagMananger;
+import com.hubert.xu.zmvp.mvp.model.RemoteDataManager;
 
 import io.reactivex.disposables.Disposable;
 
@@ -25,7 +25,7 @@ public class BookTagsPresenter implements BookListTagContract.Presenter {
 
     @Override
     public void getTagData() {
-        BookTagMananger.getInstance().getBookTag(new BaseObserver<LocalBookTagsBean>() {
+        RemoteDataManager.getInstance().getBookTag(new BaseObserver<LocalBookTagsBean>() {
             @Override
             public void subscribe(Disposable d) {
 

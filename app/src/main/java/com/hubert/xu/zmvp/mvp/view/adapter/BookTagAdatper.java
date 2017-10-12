@@ -7,7 +7,7 @@ import com.chad.library.adapter.base.BaseViewHolder;
 import com.chad.library.adapter.base.util.MultiTypeDelegate;
 import com.hubert.xu.zmvp.R;
 import com.hubert.xu.zmvp.constant.Constants;
-import com.hubert.xu.zmvp.entity.LocalBookTagsBean;
+import com.hubert.xu.zmvp.mvp.model.entity.LocalBookTagsBean;
 
 import java.util.List;
 

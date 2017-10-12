@@ -1,17 +1,22 @@
 package com.hubert.xu.zmvp.http.api;
 
-import com.hubert.xu.zmvp.entity.AllRankTypeBean;
-import com.hubert.xu.zmvp.entity.BookClassifyBean;
-import com.hubert.xu.zmvp.entity.BookClassifyLv2Bean;
-import com.hubert.xu.zmvp.entity.BookListDetailBean;
-import com.hubert.xu.zmvp.entity.BookTagBean;
-import com.hubert.xu.zmvp.entity.BookHelpListBean;
-import com.hubert.xu.zmvp.entity.BookClassifyListBean;
-import com.hubert.xu.zmvp.entity.BookReviewListBean;
-import com.hubert.xu.zmvp.entity.DiscussListBean;
-import com.hubert.xu.zmvp.entity.GirlBookListBean;
-import com.hubert.xu.zmvp.entity.BookListBean;
-import com.hubert.xu.zmvp.entity.RankingBean;
+import com.hubert.xu.zmvp.mvp.model.entity.AllRankTypeBean;
+import com.hubert.xu.zmvp.mvp.model.entity.BookClassifyBean;
+import com.hubert.xu.zmvp.mvp.model.entity.BookClassifyListBean;
+import com.hubert.xu.zmvp.mvp.model.entity.BookClassifyLv2Bean;
+import com.hubert.xu.zmvp.mvp.model.entity.BookDetailBean;
+import com.hubert.xu.zmvp.mvp.model.entity.BookHelpListBean;
+import com.hubert.xu.zmvp.mvp.model.entity.BookListBean;
+import com.hubert.xu.zmvp.mvp.model.entity.BookListDetailBean;
+import com.hubert.xu.zmvp.mvp.model.entity.BookReviewListBean;
+import com.hubert.xu.zmvp.mvp.model.entity.BookTagBean;
+import com.hubert.xu.zmvp.mvp.model.entity.DiscussListBean;
+import com.hubert.xu.zmvp.mvp.model.entity.GirlBookListBean;
+import com.hubert.xu.zmvp.mvp.model.entity.HotReviewBean;
+import com.hubert.xu.zmvp.mvp.model.entity.HotWordBean;
+import com.hubert.xu.zmvp.mvp.model.entity.RankingBean;
+import com.hubert.xu.zmvp.mvp.model.entity.RecommendBookBean;
+import com.hubert.xu.zmvp.mvp.model.entity.RecommendBookListBean;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -19,6 +24,7 @@ import java.util.Map;
 import io.reactivex.Observable;
 import retrofit2.http.GET;
 import retrofit2.http.Path;
+import retrofit2.http.Query;
 import retrofit2.http.QueryMap;
 
 /**
@@ -182,4 +188,78 @@ public interface ApiService {
      */
     @GET("/book-list/{bookListId}")
     Observable<BookListDetailBean> getBookListDetail(@Path("bookListId") String bookListId);
+
+    /**
+     * 获取热词
+     *
+     * @return
+     */
+    @GET("/book/hot-word")
+    Observable<HotWordBean> getHotWord();
+
+    /**
+     * 获取书籍详情页
+     *
+     * @return
+     */
+    @GET("/book/{bookId}")
+    Observable<BookDetailBean> getBookDetail(@Path("bookId") String bookId);
+
+
+    /**
+     * 根据书籍推荐书单
+     *
+     * @param bookId
+     * @param limit
+     * @return
+     */
+    @GET("/book-list/{bookId}/recommend")
+    Observable<RecommendBookListBean> getRecommendBookList(@Path("bookId") String bookId, @Query("limit") String limit);
+
+    /**
+     * 根据书籍推荐书
+     *
+     * @param bookId
+     * @param limit
+     * @return
+     */
+    @GET("/book/{bookId}/recommend")
+    Observable<RecommendBookBean> getRecommendBook(@Path("bookId") String bookId, @Query("limit") String limit);
+
+
+    /**
+     * 获取当前书籍的热门评论
+     *
+     * @param book
+     * @return
+     */
+    @GET("/post/review/best-by-book")
+    Observable<HotReviewBean> getBookHotReview(@Query("book") String book);
+
+    /**
+     * 获取书籍详情讨论列表
+     * <p>
+     * book  bookId
+     * sort  updated(默认排序)|created(最新发布)|comment-count(最多评论)
+     * type  normal|vote
+     * start 0
+     * limit 20
+     *
+     * @return
+     */
+    @GET("/post/by-book")
+    Observable<DiscussListBean> getDisscussionListByBook(@QueryMap HashMap<String, String> map);
+
+    /**
+     * 获取书籍详情书评列表
+     * <p>
+     * book  bookId
+     * sort  updated(默认排序)|created(最新发布)|comment-count(最多评论)
+     * start 0
+     * limit 20
+     *
+     * @return
+     */
+    @GET("/post/review/by-book")
+    Observable<HotReviewBean> getReviewListByBook(@QueryMap HashMap<String, String> map);
 }

@@ -8,7 +8,7 @@ import com.chad.library.adapter.base.BaseViewHolder;
 import com.chad.library.adapter.base.util.MultiTypeDelegate;
 import com.hubert.xu.zmvp.R;
 import com.hubert.xu.zmvp.constant.Constants;
-import com.hubert.xu.zmvp.entity.LocalAllRankingTypeBean;
+import com.hubert.xu.zmvp.mvp.model.entity.LocalAllRankingTypeBean;
 
 import java.util.List;
 

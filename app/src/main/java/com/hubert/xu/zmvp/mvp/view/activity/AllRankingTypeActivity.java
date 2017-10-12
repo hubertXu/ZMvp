@@ -7,7 +7,7 @@ import android.support.v7.widget.RecyclerView;
 import com.hubert.xu.zmvp.R;
 import com.hubert.xu.zmvp.base.BaseActivity;
 import com.hubert.xu.zmvp.constant.Constants;
-import com.hubert.xu.zmvp.entity.LocalAllRankingTypeBean;
+import com.hubert.xu.zmvp.mvp.model.entity.LocalAllRankingTypeBean;
 import com.hubert.xu.zmvp.mvp.contract.AllRankTypeContract;
 import com.hubert.xu.zmvp.mvp.presenter.AllRankTypePresenter;
 import com.hubert.xu.zmvp.mvp.view.adapter.ALlRankingTypeAdapter;

@@ -1,9 +1,9 @@
 package com.hubert.xu.zmvp.mvp.presenter;
 
-import com.hubert.xu.zmvp.entity.BookListBean;
+import com.hubert.xu.zmvp.mvp.model.entity.BookListBean;
 import com.hubert.xu.zmvp.http.BaseObserver;
 import com.hubert.xu.zmvp.mvp.contract.BookListContract;
-import com.hubert.xu.zmvp.mvp.model.BookListMananger;
+import com.hubert.xu.zmvp.mvp.model.RemoteDataManager;
 
 import java.util.HashMap;
 
@@ -34,7 +34,7 @@ public class BookListPresenter implements BookListContract.Presenter {
         map.put("limit", 20 + "");
         map.put("start", start + "");
         map.put("sort", sort);
-        BookListMananger.getInstance().getBookList(map, new BaseObserver<BookListBean>() {
+        RemoteDataManager.getInstance().getBookList(map, new BaseObserver<BookListBean>() {
             @Override
             public void subscribe(Disposable d) {
 

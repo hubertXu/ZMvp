@@ -1,4 +1,4 @@
-package com.hubert.xu.zmvp.entity;
+package com.hubert.xu.zmvp.mvp.model.entity;
 
 import com.hubert.xu.zmvp.http.BookBaseBean;
 
@@ -10,39 +10,45 @@ import java.util.List;
  * Desc  :
  */
 
-public class BookHelpListBean extends BookBaseBean {
+public class GirlBookListBean extends BookBaseBean {
 
-    private List<HelpsBean> helps;
+    private List<PostsBean> posts;
 
-    public List<HelpsBean> getHelps() {
-        return helps;
+    public List<PostsBean> getPosts() {
+        return posts;
     }
 
-    public void setHelps(List<HelpsBean> helps) {
-        this.helps = helps;
+    public void setPosts(List<PostsBean> posts) {
+        this.posts = posts;
     }
 
-    public static class HelpsBean {
+    public static class PostsBean {
         /**
-         * _id : 59c1cd4758c2d61a62990904
-         * author : {"_id":"56e903c1febd4661455a0692","avatar":"/avatar/7b/e1/7be142f47d8ef8834727b1dd2c7bbbc1","nickname":"追书家的眼镜娘","activityAvatar":"/activities/20170120/4.jpg","type":"official","lv":9,"gender":"female"}
-         * likeCount : 1163
-         * haveImage : false
-         * state : normal
-         * updated : 2017-09-22T09:33:56.116Z
-         * created : 2017-09-20T02:07:03.922Z
-         * commentCount : 9752
-         * title : 【追刊】我吃西红柿：位列“五大至尊”之一，重塑全新武侠世界 ‖书评征集奖励
+         * _id : 59c31b9307c5fa2962bdeefd
+         * author : {"_id":"5559b73846fb7ff0496ccc97","avatar":"/avatar/e9/0d/e90d9e4bbd80560961a2f9b043025f2d","nickname":"追书家的小姝姝","activityAvatar":"/activities/20170120/3.jpg","type":"official","lv":6,"gender":"female"}
+         * type : normal
+         * likeCount : 101
+         * block : ramble
+         * haveImage : true
+         * state : distillate
+         * updated : 2017-09-22T10:24:49.301Z
+         * created : 2017-09-21T01:53:23.440Z
+         * commentCount : 676
+         * voteCount : 0
+         * title : 《龙王传说》三少正版授权，追书携手推荐，下载必得追书券！
          */
 
         private String _id;
         private AuthorBean author;
+        private String type;
         private int likeCount;
+        private String block;
         private boolean haveImage;
         private String state;
         private String updated;
         private String created;
         private int commentCount;
+        private int voteCount;
         private String title;
 
         public String get_id() {
@@ -61,12 +67,28 @@ public class BookHelpListBean extends BookBaseBean {
             this.author = author;
         }
 
+        public String getType() {
+            return type;
+        }
+
+        public void setType(String type) {
+            this.type = type;
+        }
+
         public int getLikeCount() {
             return likeCount;
         }
 
         public void setLikeCount(int likeCount) {
             this.likeCount = likeCount;
+        }
+
+        public String getBlock() {
+            return block;
+        }
+
+        public void setBlock(String block) {
+            this.block = block;
         }
 
         public boolean isHaveImage() {
@@ -109,6 +131,14 @@ public class BookHelpListBean extends BookBaseBean {
             this.commentCount = commentCount;
         }
 
+        public int getVoteCount() {
+            return voteCount;
+        }
+
+        public void setVoteCount(int voteCount) {
+            this.voteCount = voteCount;
+        }
+
         public String getTitle() {
             return title;
         }
@@ -119,12 +149,12 @@ public class BookHelpListBean extends BookBaseBean {
 
         public static class AuthorBean {
             /**
-             * _id : 56e903c1febd4661455a0692
-             * avatar : /avatar/7b/e1/7be142f47d8ef8834727b1dd2c7bbbc1
-             * nickname : 追书家的眼镜娘
-             * activityAvatar : /activities/20170120/4.jpg
+             * _id : 5559b73846fb7ff0496ccc97
+             * avatar : /avatar/e9/0d/e90d9e4bbd80560961a2f9b043025f2d
+             * nickname : 追书家的小姝姝
+             * activityAvatar : /activities/20170120/3.jpg
              * type : official
-             * lv : 9
+             * lv : 6
              * gender : female
              */
 

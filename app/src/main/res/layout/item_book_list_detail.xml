@@ -46,7 +46,7 @@
             app:layout_constraintTop_toBottomOf="@+id/tv_book_name"/>
 
         <TextView
-            android:id="@+id/tv_book_reader_counts"
+            android:id="@+id/tv_reader_counts"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="TextView"
@@ -62,7 +62,7 @@
             android:layout_marginStart="8dp"
             android:text="TextView"
             app:layout_constraintBottom_toBottomOf="@+id/iv_book_cover"
-            app:layout_constraintLeft_toRightOf="@+id/tv_book_reader_counts"
+            app:layout_constraintLeft_toRightOf="@+id/tv_reader_counts"
             />
 
         <View
@@ -76,11 +76,11 @@
             android:layout_marginStart="4dp"
             android:layout_marginTop="2dp"
             android:background="@color/gray"
-            app:layout_constraintBottom_toBottomOf="@+id/tv_book_reader_counts"
+            app:layout_constraintBottom_toBottomOf="@+id/tv_reader_counts"
             app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintLeft_toRightOf="@+id/tv_book_reader_counts"
+            app:layout_constraintLeft_toRightOf="@+id/tv_reader_counts"
             app:layout_constraintRight_toLeftOf="@+id/tv_book_word_count"
-            app:layout_constraintTop_toTopOf="@+id/tv_book_reader_counts"
+            app:layout_constraintTop_toTopOf="@+id/tv_reader_counts"
             app:layout_constraintVertical_bias="0.0"/>
 
         <View

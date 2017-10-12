@@ -8,7 +8,7 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.hubert.xu.zmvp.R;
 import com.hubert.xu.zmvp.base.BaseFragment;
 import com.hubert.xu.zmvp.constant.Constants;
-import com.hubert.xu.zmvp.entity.DiscussListBean;
+import com.hubert.xu.zmvp.mvp.model.entity.DiscussListBean;
 import com.hubert.xu.zmvp.mvp.contract.ComplexDiscussContract;
 import com.hubert.xu.zmvp.mvp.presenter.ComplexDiscussPresenter;
 import com.hubert.xu.zmvp.mvp.view.adapter.ComplexDiscussAdapter;

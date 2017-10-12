@@ -1,9 +1,9 @@
 package com.hubert.xu.zmvp.mvp.presenter;
 
-import com.hubert.xu.zmvp.entity.BookListDetailBean;
+import com.hubert.xu.zmvp.mvp.model.entity.BookListDetailBean;
 import com.hubert.xu.zmvp.http.BaseObserver;
 import com.hubert.xu.zmvp.mvp.contract.BookListDetailContract;
-import com.hubert.xu.zmvp.mvp.model.BookListDetailMananger;
+import com.hubert.xu.zmvp.mvp.model.RemoteDataManager;
 
 import io.reactivex.disposables.Disposable;
 
@@ -25,7 +25,7 @@ public class BookListDetailPresenter implements BookListDetailContract.Presenter
 
     @Override
     public void getData(String bookListid) {
-        BookListDetailMananger.getInstance().getBookListDetail(bookListid, new BaseObserver<BookListDetailBean>() {
+        RemoteDataManager.getInstance().getBookListDetail(bookListid, new BaseObserver<BookListDetailBean>() {
             @Override
             public void subscribe(Disposable d) {
 

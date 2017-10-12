@@ -9,7 +9,7 @@ import android.support.v7.widget.RecyclerView;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.hubert.xu.zmvp.R;
 import com.hubert.xu.zmvp.base.BaseFragment;
-import com.hubert.xu.zmvp.entity.BookClassifyListBean;
+import com.hubert.xu.zmvp.mvp.model.entity.BookClassifyListBean;
 import com.hubert.xu.zmvp.mvp.contract.BookClassifyListContract;
 import com.hubert.xu.zmvp.mvp.presenter.BookClassifyListPresenter;
 import com.hubert.xu.zmvp.mvp.view.activity.BookClassifyListActivity;
