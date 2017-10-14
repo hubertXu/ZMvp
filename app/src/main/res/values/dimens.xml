@@ -4,6 +4,7 @@
     <dimen name="capition_12sp">12sp</dimen>
     <dimen name="body_14sp">14sp</dimen>
     <dimen name="subhead_16sp">16sp</dimen>
+    <dimen name="subhead_18sp">18sp</dimen>
     <dimen name="title_20sp">20sp</dimen>
     <dimen name="headline_24sp">24sp</dimen>
     <!-- Default screen margins, per the Android Design guidelines. -->

@@ -70,8 +70,9 @@ public class BookClassifyActivity extends BaseActivity implements SwipeRefreshLa
             mAdapter = new BookClassifyAdapter(data.getLocalBookclassifys());
             mAdapter.setSpanSizeLookup((gridLayoutManager, position) -> data.getLocalBookclassifys().get(position).getSign() == Constants.BOOK_TYPE_SIGN ? 3 : 1);
             mRvBookClassify.setAdapter(mAdapter);
+        }else {
             mAdapter.setOnItemClickListener((adapter, view, position) -> {
-                
+                BookListActivity.startActivity(BookClassifyActivity.this, data.getLocalBookclassifys().get(position).getName(), data.getLocalBookclassifys().get(position).getLv2ClassifyNames());
             });
         }
         mAdapter.setNewData(data.getLocalBookclassifys());
