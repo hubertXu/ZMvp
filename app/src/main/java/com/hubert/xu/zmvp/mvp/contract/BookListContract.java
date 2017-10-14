@@ -16,7 +16,6 @@ public interface BookListContract extends BaseContract {
 
 
     interface Presenter extends BasePresenter {
-        void getData(int start, String sign, String type, String major, String minor);
+        void getData(String duration, String tag, String gender, int start, String sort);
     }
-
 }

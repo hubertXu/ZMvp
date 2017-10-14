@@ -1,9 +1,9 @@
 package com.hubert.xu.zmvp.mvp.presenter;
 
-import com.hubert.xu.zmvp.entity.BookclassifyLocalBean;
+import com.hubert.xu.zmvp.mvp.model.entity.BookclassifyLocalBean;
 import com.hubert.xu.zmvp.http.BaseObserver;
 import com.hubert.xu.zmvp.mvp.contract.BookClassifyContract;
-import com.hubert.xu.zmvp.mvp.model.BookClassifyMannager;
+import com.hubert.xu.zmvp.mvp.model.RemoteDataManager;
 
 import io.reactivex.disposables.Disposable;
 
@@ -24,7 +24,7 @@ public class BookClassifyPresenter implements BookClassifyContract.Presenter {
 
     @Override
     public void getData() {
-        BookClassifyMannager.getInstance().getBookClassify(new BaseObserver<BookclassifyLocalBean>() {
+        RemoteDataManager.getInstance().getBookClassify(new BaseObserver<BookclassifyLocalBean>() {
             @Override
             public void subscribe(Disposable d) {
 

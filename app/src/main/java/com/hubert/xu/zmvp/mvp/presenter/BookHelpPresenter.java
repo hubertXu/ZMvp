@@ -1,9 +1,9 @@
 package com.hubert.xu.zmvp.mvp.presenter;
 
-import com.hubert.xu.zmvp.entity.BookHelpListBean;
+import com.hubert.xu.zmvp.mvp.model.entity.BookHelpListBean;
 import com.hubert.xu.zmvp.http.BaseObserver;
 import com.hubert.xu.zmvp.mvp.contract.BookHelpContract;
-import com.hubert.xu.zmvp.mvp.model.BookHelpMannager;
+import com.hubert.xu.zmvp.mvp.model.RemoteDataManager;
 
 import java.util.HashMap;
 
@@ -31,7 +31,7 @@ public class BookHelpPresenter implements BookHelpContract.Presenter {
         parmasMap.put("start", start + "");
         parmasMap.put("limit", 20 + "");
         parmasMap.put("distillate", "");
-        BookHelpMannager.getInstance().getBookHelpList(parmasMap, new BaseObserver<BookHelpListBean>() {
+        RemoteDataManager.getInstance().getBookHelpList(parmasMap, new BaseObserver<BookHelpListBean>() {
             @Override
             public void subscribe(Disposable d) {
 

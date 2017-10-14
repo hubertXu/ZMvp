@@ -8,7 +8,7 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.hubert.xu.zmvp.R;
 import com.hubert.xu.zmvp.base.BaseFragment;
 import com.hubert.xu.zmvp.constant.Constants;
-import com.hubert.xu.zmvp.entity.BookHelpListBean;
+import com.hubert.xu.zmvp.mvp.model.entity.BookHelpListBean;
 import com.hubert.xu.zmvp.mvp.contract.BookHelpContract;
 import com.hubert.xu.zmvp.mvp.presenter.BookHelpPresenter;
 import com.hubert.xu.zmvp.mvp.view.adapter.BookHelpAdapter;
@@ -71,17 +71,20 @@ public class BookHelpFragment extends BaseFragment implements BookHelpContract.V
     @Override
     public void setData(BookHelpListBean data, boolean isRefresh) {
         mSwipeLayout.setRefreshing(false);
-        if (isRefresh) {
-            if (mData != null) mData.clear();
-            mData = data.getHelps();
-            mRvBookHelp.scrollToPosition(0);
+        if (data == null || data.getHelps() == null || data.getHelps().size() == 0) {
+            mBookHelpAdapter.loadMoreComplete();
         } else {
-            mData.addAll(data.getHelps());
+            if (isRefresh) {
+                if (mData != null) mData.clear();
+                mData = data.getHelps();
+            } else {
+                mData.addAll(data.getHelps());
+            }
+            mSwipeLayout.setEnabled(true);
+            mBookHelpAdapter.setEnableLoadMore(true);
+            mBookHelpAdapter.setNewData(mData);
+            start = start + data.getHelps().size();
         }
-        mSwipeLayout.setEnabled(true);
-        mBookHelpAdapter.setEnableLoadMore(true);
-        mBookHelpAdapter.setNewData(mData);
-        start = start + data.getHelps().size();
     }
 
     @Override

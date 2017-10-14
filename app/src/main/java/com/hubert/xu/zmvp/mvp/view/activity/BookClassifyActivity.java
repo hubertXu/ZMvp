@@ -7,12 +7,10 @@ import android.support.v7.widget.RecyclerView;
 import com.hubert.xu.zmvp.R;
 import com.hubert.xu.zmvp.base.BaseActivity;
 import com.hubert.xu.zmvp.constant.Constants;
-import com.hubert.xu.zmvp.entity.BookclassifyLocalBean;
+import com.hubert.xu.zmvp.mvp.model.entity.BookclassifyLocalBean;
 import com.hubert.xu.zmvp.mvp.contract.BookClassifyContract;
 import com.hubert.xu.zmvp.mvp.presenter.BookClassifyPresenter;
 import com.hubert.xu.zmvp.mvp.view.adapter.BookClassifyAdapter;
-
-import java.util.List;
 
 import butterknife.BindView;
 
@@ -24,7 +22,6 @@ public class BookClassifyActivity extends BaseActivity implements SwipeRefreshLa
     @BindView(R.id.swipe_layout)
     SwipeRefreshLayout mSwipeLayout;
     private BookClassifyPresenter mClassifyPresenter;
-    private List<BookclassifyLocalBean.LocalBookClassifyBean> mLocalBookclassifys;
     private BookClassifyAdapter mAdapter;
 
     @Override
@@ -66,15 +63,23 @@ public class BookClassifyActivity extends BaseActivity implements SwipeRefreshLa
     @Override
     public void setData(BookclassifyLocalBean data) {
         mSwipeLayout.setRefreshing(false);
-        if (mAdapter == null) {
-            mAdapter = new BookClassifyAdapter(data.getLocalBookclassifys());
-            mAdapter.setSpanSizeLookup((gridLayoutManager, position) -> data.getLocalBookclassifys().get(position).getSign() == Constants.BOOK_TYPE_SIGN ? 3 : 1);
-            mRvBookClassify.setAdapter(mAdapter);
-        }else {
-            mAdapter.setOnItemClickListener((adapter, view, position) -> {
-                BookListActivity.startActivity(BookClassifyActivity.this, data.getLocalBookclassifys().get(position).getName(), data.getLocalBookclassifys().get(position).getLv2ClassifyNames());
-            });
+        if (data == null || data.getLocalBookclassifys() == null || data.getLocalBookclassifys().size() == 0) {
+            mAdapter.loadMoreComplete();
+        } else {
+            if (mAdapter == null) {
+                mAdapter = new BookClassifyAdapter(data.getLocalBookclassifys());
+                mAdapter.setSpanSizeLookup((gridLayoutManager, position) -> data.getLocalBookclassifys().get(position).getSign() == Constants.BOOK_TYPE_SIGN ? 3 : 1);
+                mRvBookClassify.setAdapter(mAdapter);
+                mAdapter.setOnItemClickListener((adapter, view, position) -> {
+                    if (data.getLocalBookclassifys().get(position).getType().equals(Constants.BOOK_TYPE_FEMAL) || data.getLocalBookclassifys().get(position).getType().equals(Constants.BOOK_TYPE_MALE)) {
+                        BookClassifyListActivity.startActivity(BookClassifyActivity.this, data.getLocalBookclassifys().get(position));
+                    } else {
+                        BookListSubActivity.startActivity(BookClassifyActivity.this, data.getLocalBookclassifys().get(position));
+                    }
+                });
+            }
+            mAdapter.setNewData(data.getLocalBookclassifys());
         }
-        mAdapter.setNewData(data.getLocalBookclassifys());
+
     }
 }

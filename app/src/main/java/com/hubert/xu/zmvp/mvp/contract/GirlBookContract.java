@@ -1,7 +1,7 @@
 package com.hubert.xu.zmvp.mvp.contract;
 
 import com.hubert.xu.zmvp.base.BaseContract;
-import com.hubert.xu.zmvp.entity.GirlBookListBean;
+import com.hubert.xu.zmvp.mvp.model.entity.GirlBookListBean;
 
 /**
  * Author: Hubert.Xu

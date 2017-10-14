@@ -1,9 +1,9 @@
 package com.hubert.xu.zmvp.mvp.presenter;
 
-import com.hubert.xu.zmvp.entity.AllRankTypeBean;
+import com.hubert.xu.zmvp.mvp.model.entity.LocalAllRankingTypeBean;
 import com.hubert.xu.zmvp.http.BaseObserver;
 import com.hubert.xu.zmvp.mvp.contract.AllRankTypeContract;
-import com.hubert.xu.zmvp.mvp.model.AllRankingTypeMannager;
+import com.hubert.xu.zmvp.mvp.model.RemoteDataManager;
 
 import io.reactivex.disposables.Disposable;
 
@@ -24,17 +24,16 @@ public class AllRankTypePresenter implements AllRankTypeContract.Presenter {
 
     @Override
     public void getData() {
-        AllRankingTypeMannager.getInstance().getBookHelpList(new BaseObserver<AllRankTypeBean>() {
+        RemoteDataManager.getInstance().getAllRankingType(new BaseObserver<LocalAllRankingTypeBean>() {
             @Override
             public void subscribe(Disposable d) {
 
             }
 
             @Override
-            public void next(AllRankTypeBean allRankTypeBean) {
-                mView.setData(allRankTypeBean);
+            public void next(LocalAllRankingTypeBean localAllRankingTypeBean) {
+                mView.setData(localAllRankingTypeBean);
             }
-
 
             @Override
             public void error(Throwable e) {
@@ -45,7 +44,6 @@ public class AllRankTypePresenter implements AllRankTypeContract.Presenter {
             public void completed() {
 
             }
-
         });
     }
 }

@@ -1,9 +1,9 @@
 package com.hubert.xu.zmvp.mvp.presenter;
 
-import com.hubert.xu.zmvp.entity.GirlBookListBean;
+import com.hubert.xu.zmvp.mvp.model.entity.GirlBookListBean;
 import com.hubert.xu.zmvp.http.BaseObserver;
 import com.hubert.xu.zmvp.mvp.contract.GirlBookContract;
-import com.hubert.xu.zmvp.mvp.model.GirlBookListManager;
+import com.hubert.xu.zmvp.mvp.model.RemoteDataManager;
 
 import java.util.HashMap;
 
@@ -37,7 +37,7 @@ public class GirlBookPresenter implements GirlBookContract.Presenter {
         defaultParamsMap.put("start", start + "");
         defaultParamsMap.put("limit", mLimit + "");
         defaultParamsMap.put("distillate", "");
-        GirlBookListManager.getInstance().getGirlBookList(defaultParamsMap, new BaseObserver<GirlBookListBean>() {
+        RemoteDataManager.getInstance().getGirlBookList(defaultParamsMap, new BaseObserver<GirlBookListBean>() {
             @Override
             public void subscribe(Disposable d) {
 

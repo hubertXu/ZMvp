@@ -8,7 +8,7 @@ import android.support.v7.widget.RecyclerView;
 
 import com.hubert.xu.zmvp.R;
 import com.hubert.xu.zmvp.base.BaseActivity;
-import com.hubert.xu.zmvp.entity.RankingBean;
+import com.hubert.xu.zmvp.mvp.model.entity.RankingBean;
 import com.hubert.xu.zmvp.mvp.contract.RankingContract;
 import com.hubert.xu.zmvp.mvp.presenter.RankingPresenter;
 import com.hubert.xu.zmvp.mvp.view.adapter.RankingAdapter;
@@ -70,6 +70,7 @@ public class OtherRankingActivity extends BaseActivity implements SwipeRefreshLa
     @Override
     public void setData(RankingBean data) {
         mSwipeLayout.setRefreshing(false);
+        if (data==null||data.getRanking() == null) mRankingAdapter.loadMoreComplete();
         mRankingAdapter.setNewData(data.getRanking().getBooks());
     }
 

@@ -8,7 +8,7 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.hubert.xu.zmvp.R;
 import com.hubert.xu.zmvp.base.BaseFragment;
 import com.hubert.xu.zmvp.constant.Constants;
-import com.hubert.xu.zmvp.entity.DiscussListBean;
+import com.hubert.xu.zmvp.mvp.model.entity.DiscussListBean;
 import com.hubert.xu.zmvp.mvp.contract.ComplexDiscussContract;
 import com.hubert.xu.zmvp.mvp.presenter.ComplexDiscussPresenter;
 import com.hubert.xu.zmvp.mvp.view.adapter.ComplexDiscussAdapter;
@@ -65,18 +65,22 @@ public class ComplexDiscussFragment extends BaseFragment implements ComplexDiscu
 
     @Override
     public void setData(DiscussListBean data, boolean isRefresh) {
-        List<DiscussListBean.PostsBean> list = data.getPosts();
-        if (isRefresh) {
-            if (mData != null) mData.clear();
-            mData = list;
+        if (data == null || data.getPosts() == null || data.getPosts().size() == 0) {
+            mComplexDiscussAdapter.loadMoreComplete();
         } else {
-            mData.addAll(list);
+            if (isRefresh) {
+                if (mData != null) mData.clear();
+                mData = data.getPosts();
+            } else {
+                mData.addAll(data.getPosts());
+            }
+            mComplexDiscussAdapter.setNewData(mData);
+            mSwipeLayout.setRefreshing(false);
+            mSwipeLayout.setEnabled(true);
+            mComplexDiscussAdapter.setEnableLoadMore(true);
+            start = start + data.getPosts().size();
         }
-        mComplexDiscussAdapter.setNewData(mData);
-        mSwipeLayout.setRefreshing(false);
-        mSwipeLayout.setEnabled(true);
-        mComplexDiscussAdapter.setEnableLoadMore(true);
-        start = start + list.size();
+
     }
 
     @Override

@@ -1,9 +1,9 @@
 package com.hubert.xu.zmvp.mvp.presenter;
 
-import com.hubert.xu.zmvp.entity.DiscussListBean;
+import com.hubert.xu.zmvp.mvp.model.entity.DiscussListBean;
 import com.hubert.xu.zmvp.http.BaseObserver;
 import com.hubert.xu.zmvp.mvp.contract.ComplexDiscussContract;
-import com.hubert.xu.zmvp.mvp.model.ComplexDiscussManager;
+import com.hubert.xu.zmvp.mvp.model.RemoteDataManager;
 
 import java.util.HashMap;
 
@@ -37,7 +37,7 @@ public class ComplexDiscussPresenter implements ComplexDiscussContract.Presenter
         defaultParamsMap.put("start", start + "");
         defaultParamsMap.put("limit", mLimit + "");
         defaultParamsMap.put("distillate", "");
-        ComplexDiscussManager.getInstance().getOriginalList(defaultParamsMap, new BaseObserver<DiscussListBean>() {
+        RemoteDataManager.getInstance().getDiscussList(defaultParamsMap, new BaseObserver<DiscussListBean>() {
             @Override
             public void subscribe(Disposable d) {
 

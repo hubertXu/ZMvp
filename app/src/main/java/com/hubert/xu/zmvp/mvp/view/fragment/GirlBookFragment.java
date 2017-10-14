@@ -8,7 +8,7 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.hubert.xu.zmvp.R;
 import com.hubert.xu.zmvp.base.BaseFragment;
 import com.hubert.xu.zmvp.constant.Constants;
-import com.hubert.xu.zmvp.entity.GirlBookListBean;
+import com.hubert.xu.zmvp.mvp.model.entity.GirlBookListBean;
 import com.hubert.xu.zmvp.mvp.contract.GirlBookContract;
 import com.hubert.xu.zmvp.mvp.presenter.GirlBookPresenter;
 import com.hubert.xu.zmvp.mvp.view.adapter.GirBookAdapter;
@@ -72,17 +72,22 @@ public class GirlBookFragment extends BaseFragment implements GirlBookContract.V
     @Override
     public void setData(GirlBookListBean data, boolean isRefresh) {
         mSwipeLayout.setRefreshing(false);
-        if (isRefresh) {
-            if (mData != null) mData.clear();
-            mData = data.getPosts();
-            mRvBookGirl.scrollToPosition(0);
-        } else {
-            mData.addAll(data.getPosts());
+        if (data==null||data.getPosts()==null||data.getPosts().size()==0){
+            mGirBookAdapter.loadMoreComplete();
+        }else {
+            if (isRefresh) {
+                if (mData != null) mData.clear();
+                mData = data.getPosts();
+                mRvBookGirl.scrollToPosition(0);
+            } else {
+                mData.addAll(data.getPosts());
+            }
+            mSwipeLayout.setEnabled(true);
+            mGirBookAdapter.setEnableLoadMore(true);
+            mGirBookAdapter.setNewData(mData);
+            start = start + data.getPosts().size();
         }
-        mSwipeLayout.setEnabled(true);
-        mGirBookAdapter.setEnableLoadMore(true);
-        mGirBookAdapter.setNewData(mData);
-        start = start + data.getPosts().size();
+
     }
 
     @Override

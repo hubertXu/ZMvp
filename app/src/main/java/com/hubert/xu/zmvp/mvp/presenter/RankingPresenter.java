@@ -1,9 +1,9 @@
 package com.hubert.xu.zmvp.mvp.presenter;
 
-import com.hubert.xu.zmvp.entity.RankingBean;
+import com.hubert.xu.zmvp.mvp.model.entity.RankingBean;
 import com.hubert.xu.zmvp.http.BaseObserver;
 import com.hubert.xu.zmvp.mvp.contract.RankingContract;
-import com.hubert.xu.zmvp.mvp.model.RankingMannager;
+import com.hubert.xu.zmvp.mvp.model.RemoteDataManager;
 
 import io.reactivex.disposables.Disposable;
 
@@ -24,7 +24,7 @@ public class RankingPresenter implements RankingContract.Presenter {
 
     @Override
     public void getData(String rankingId) {
-        RankingMannager.getInstance().getRankingList(rankingId, new BaseObserver<RankingBean>() {
+        RemoteDataManager.getInstance().getRankingList(rankingId, new BaseObserver<RankingBean>() {
             @Override
             public void subscribe(Disposable d) {
 

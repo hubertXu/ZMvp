@@ -14,49 +14,10 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <android.support.v4.widget.NestedScrollView
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/rv_all_ranking"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
-            <LinearLayout
-                android:id="@+id/llt_ranking_content"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="vertical"
-                android:visibility="gone"
-                >
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:paddingBottom="4dp"
-                    android:paddingLeft="12dp"
-                    android:paddingTop="8dp"
-                    android:text="男生"
-                    android:textSize="@dimen/subhead_16sp"
-                    />
-
-                <android.support.v7.widget.RecyclerView
-                    android:id="@+id/rv_ranking_male"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"/>
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:paddingBottom="4dp"
-                    android:paddingLeft="12dp"
-                    android:paddingTop="8dp"
-                    android:text="女生"
-                    android:textSize="@dimen/subhead_16sp"
-                    />
-
-                <android.support.v7.widget.RecyclerView
-                    android:id="@+id/rv_ranking_female"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"/>
-            </LinearLayout>
-
-        </android.support.v4.widget.NestedScrollView>
+            android:layout_height="match_parent"/>
     </android.support.v4.widget.SwipeRefreshLayout>
 
 </LinearLayout>

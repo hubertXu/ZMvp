@@ -7,10 +7,7 @@
               tools:context=".mvp.view.activity.GuideActivity">
 
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="hello world"/>
+
 
 
 </LinearLayout>
