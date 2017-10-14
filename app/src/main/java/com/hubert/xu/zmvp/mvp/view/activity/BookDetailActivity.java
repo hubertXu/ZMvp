@@ -2,9 +2,14 @@ package com.hubert.xu.zmvp.mvp.view.activity;
 
 import android.content.Context;
 import android.content.Intent;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.SpannableString;
+import android.text.Spanned;
+import android.text.style.ForegroundColorSpan;
+import android.text.style.RelativeSizeSpan;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.RatingBar;
@@ -18,6 +23,7 @@ import com.hubert.xu.zmvp.mvp.model.entity.BookDetailBean;
 import com.hubert.xu.zmvp.mvp.model.entity.LocalBookdetailBean;
 import com.hubert.xu.zmvp.mvp.model.entity.RecommendBookListBean;
 import com.hubert.xu.zmvp.mvp.presenter.BookDetailPresenter;
+import com.hubert.xu.zmvp.mvp.view.adapter.BookDetailTagAdapter;
 import com.hubert.xu.zmvp.mvp.view.adapter.RecommendBookListAdapter;
 import com.hubert.xu.zmvp.utils.StringUtil;
 import com.hubert.xu.zmvp.utils.TimeFormatUtil;
@@ -60,6 +66,11 @@ public class BookDetailActivity extends BaseActivity implements BookDetailContra
     private TextView mTvDalyUpdateWords;
     private TextView mTvBookDesc;
     private TextView mTvScorerCount;
+    private ForegroundColorSpan mColorSpan;
+    private RelativeSizeSpan mSizeSpan;
+    private RecyclerView mRvBookTag;
+    private List<String> mTags;
+    private BookDetailTagAdapter mDetailTagAdapter;
 
     public static void startActivity(Context context, String bookName, String bookId) {
         context.startActivity(new Intent(context, BookDetailActivity.class)
@@ -113,6 +124,12 @@ public class BookDetailActivity extends BaseActivity implements BookDetailContra
         mTvDiscussCounts = (TextView) headerBookDetail.findViewById(R.id.tv_discuss_counts);
         mTvDalyUpdateWords = (TextView) headerBookDetail.findViewById(R.id.tv_dayly_update_words);
         mTvBookDesc = (TextView) headerBookDetail.findViewById(R.id.tv_book_desc);
+        mRvBookTag = (RecyclerView) headerBookDetail.findViewById(R.id.rv_book_tag);
+        mRvBookTag.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
+        mDetailTagAdapter = new BookDetailTagAdapter(R.layout.item_tag, mTags);
+        mRvBookTag.setAdapter(mDetailTagAdapter);
+        mColorSpan = new ForegroundColorSpan(ContextCompat.getColor(BookDetailActivity.this, R.color.normalGray));
+        mSizeSpan = new RelativeSizeSpan(0.8f);
     }
 
 
@@ -126,16 +143,30 @@ public class BookDetailActivity extends BaseActivity implements BookDetailContra
         mTvBookAuthor.setText(bookDetail.getAuthor());
         mTvBookClassify.setText(bookDetail.getMajorCate());
         mRatingBarBook.setMax(5);
-        mRatingBarBook.setRating((float) (bookDetail.getRating().getScore()/2));
+        mRatingBarBook.setRating((float) (bookDetail.getRating().getScore() / 2));
         mTvBookScore.setText(new DecimalFormat("0.00").format(bookDetail.getRating().getScore()) + "分");
         mTvScorerCount.setText(bookDetail.getRating().getCount() + "人评");
         mTvBookWordCount.setText(StringUtil.formatWordCount(bookDetail.getWordCount()));
         mTvBookUpdateTime.setText(TimeFormatUtil.formatTime(bookDetail.getUpdated()));
-        mTvReaderCounts.setText("追书人气\n" + bookDetail.getLatelyFollower() + "");
-        mTvReaderRetained.setText(bookDetail.getRetentionRatio() + "%");
-        mTvDiscussCounts.setText(bookDetail.getPostCount() + "");
-        mTvDalyUpdateWords.setText(bookDetail.getSerializeWordCount() + "");
-        mTvBookDesc.setText(bookDetail.getLongIntro());
+        SpannableString strReaderCounts = new SpannableString("追书人气\n" + bookDetail.getLatelyFollower());
+        strReaderCounts.setSpan(mColorSpan, 0, 4, Spanned.SPAN_INCLUSIVE_EXCLUSIVE);
+        strReaderCounts.setSpan(mSizeSpan, 0, 4, Spanned.SPAN_INCLUSIVE_EXCLUSIVE);
+        SpannableString strReaderTetained = new SpannableString("读者留存\n" + bookDetail.getRetentionRatio() + "%");
+        strReaderTetained.setSpan(mColorSpan, 0, 4, Spanned.SPAN_INCLUSIVE_EXCLUSIVE);
+        strReaderTetained.setSpan(mSizeSpan, 0, 4, Spanned.SPAN_INCLUSIVE_EXCLUSIVE);
+        SpannableString strPostCounts = new SpannableString("社区帖子\n" + bookDetail.getPostCount());
+        strPostCounts.setSpan(mColorSpan, 0, 4, Spanned.SPAN_INCLUSIVE_EXCLUSIVE);
+        strPostCounts.setSpan(mSizeSpan, 0, 4, Spanned.SPAN_INCLUSIVE_EXCLUSIVE);
+        SpannableString strDalyUpdateWords = new SpannableString("日更新字\n" + bookDetail.getSerializeWordCount());
+        strDalyUpdateWords.setSpan(mColorSpan, 0, 5, Spanned.SPAN_INCLUSIVE_EXCLUSIVE);
+        strDalyUpdateWords.setSpan(mSizeSpan, 0, 5, Spanned.SPAN_INCLUSIVE_EXCLUSIVE);
+        mTvReaderCounts.setText(strReaderCounts);
+        mTvReaderRetained.setText(strReaderTetained);
+        mTvDiscussCounts.setText(strPostCounts);
+        mTvDalyUpdateWords.setText(strDalyUpdateWords);
+        mTvBookDesc.setText("  " + bookDetail.getLongIntro());
+        mTags = bookDetail.getTags();
+        mDetailTagAdapter.setNewData(mTags);
         new GlideImageLoader().getRequestManager(this).load(Constants.IMG_BASE_URL + bookDetail.getCover()).into(mIvBookCover);
     }
 

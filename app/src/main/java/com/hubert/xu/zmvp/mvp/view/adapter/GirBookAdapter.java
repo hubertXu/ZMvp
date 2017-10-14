@@ -36,7 +36,7 @@ public class GirBookAdapter extends BaseQuickAdapter<GirlBookListBean.PostsBean,
     @Override
     protected void convert(BaseViewHolder helper, GirlBookListBean.PostsBean item) {
         SpannableString spannableString = new SpannableString(item.getAuthor().getNickname() + "lv." + item.getAuthor().getLv());
-        spannableString.setSpan(new ForegroundColorSpan(ContextCompat.getColor(mContext, R.color.half_black)), item.getAuthor().getNickname().length(), spannableString.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+        spannableString.setSpan(new ForegroundColorSpan(ContextCompat.getColor(mContext, R.color.halfBlack)), item.getAuthor().getNickname().length(), spannableString.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
         helper.setText(R.id.tv_user_name, spannableString)
                 .setText(R.id.tv_discuss_content, item.getTitle())
                 .setText(R.id.tv_comment_count, item.getCommentCount() + "")

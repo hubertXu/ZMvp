@@ -91,4 +91,41 @@ public class Constants {
             put(TYPE_BOOKE_DMTR, "耽美同人");
         }
     };
+
+    public static List<String> colorRandom = new ArrayList<String>(){
+        {
+            add("#303F9F");
+            add("#FF4081");
+            add("#59dbe0");
+            add("#f57f68");
+            add("#87d288");
+            add("#f8b552");
+            add("#990099");
+            add("#90a4ae");
+            add("#7baaf7");
+            add("#4dd0e1");
+            add("#4db6ac");
+            add("#aed581");
+            add("#fdd835");
+            add("#f2a600");
+            add("#ff8a65");
+            add("#f48fb1");
+            add("#7986cb");
+            add("#FFFFE0");
+            add("#ADD8E6");
+            add("#DEB887");
+            add("#C0C0C0");
+            add("#AFEEEE");
+            add("#F0FFF0");
+            add("#FF69B4");
+            add("#FFE4B5");
+            add("#FFE4E1");
+            add("#FFEBCD");
+            add("#FFEFD5");
+            add("#FFF0F5");
+            add("#FFF5EE");
+            add("#FFF8DC");
+            add("#FFFACD");
+        }
+    };
 }
