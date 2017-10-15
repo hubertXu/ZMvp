@@ -297,7 +297,7 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="8dp"
             android:layout_marginLeft="0dp"
-            android:layout_marginTop="24dp"
+            android:layout_marginTop="8dp"
             android:clipToPadding="true"
             android:scrollbars="none|horizontal"
             app:layout_constraintBottom_toBottomOf="parent"
