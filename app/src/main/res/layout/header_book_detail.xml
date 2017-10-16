@@ -292,20 +292,18 @@
             />
 
         <android.support.v7.widget.RecyclerView
+            android:paddingBottom="4dp"
             android:id="@+id/rv_book_tag"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="8dp"
             android:layout_marginLeft="0dp"
-            android:layout_marginTop="8dp"
+            android:layout_marginTop="4dp"
             android:clipToPadding="true"
             android:scrollbars="none|horizontal"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintLeft_toLeftOf="@+id/textView2"
             app:layout_constraintRight_toRightOf="@+id/view10"
             app:layout_constraintTop_toBottomOf="@+id/textView2"
-            app:layout_constraintVertical_bias="1.0"
             tools:listitem="@layout/item_tag"/>
 
     </android.support.constraint.ConstraintLayout>
