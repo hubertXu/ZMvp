@@ -6,7 +6,6 @@
     style="@style/CardViewStyle"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:clickable="true"
     app:cardCornerRadius="2dp">
 
     <android.support.constraint.ConstraintLayout
@@ -24,7 +23,7 @@
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.0"
-            app:srcCompat="@color/half_black"/>
+            app:srcCompat="@color/halfBlack"/>
 
         <TextView
             android:id="@+id/tv_book_name"
@@ -34,7 +33,7 @@
             android:layout_marginStart="16dp"
             android:text="TextView"
             android:textColor="@color/colorPrimaryDark"
-            android:textSize="@dimen/title_20sp"
+            android:textSize="@dimen/subhead_18sp"
             app:layout_constraintLeft_toRightOf="@+id/iv_book_cover"
             app:layout_constraintTop_toTopOf="@+id/iv_book_cover"/>
 
@@ -44,14 +43,14 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:text="TextView"
-            android:textColor="@color/normal_gray"
-            android:textSize="@dimen/sp_16"
+            android:textColor="@color/normalGray"
+            android:textSize="@dimen/body_14sp"
             app:layout_constraintLeft_toLeftOf="@+id/tv_book_name"
             app:layout_constraintTop_toBottomOf="@+id/tv_book_name"/>
 
         <View
             android:id="@+id/view4"
-            android:layout_width="1px"
+            android:layout_width="1dp"
             android:layout_height="0dp"
             android:layout_marginBottom="2dp"
             android:layout_marginLeft="8dp"
@@ -65,7 +64,7 @@
 
         <View
             android:id="@+id/view5"
-            android:layout_width="1px"
+            android:layout_width="1dp"
             android:layout_height="0dp"
             android:layout_marginBottom="2dp"
             android:layout_marginLeft="8dp"
@@ -84,8 +83,8 @@
             android:layout_marginLeft="8dp"
             android:layout_marginStart="8dp"
             android:text="TextView"
-            android:textColor="@color/normal_gray"
-            android:textSize="@dimen/sp_16"
+            android:textColor="@color/normalGray"
+            android:textSize="@dimen/body_14sp"
             app:layout_constraintBottom_toBottomOf="@+id/tv_book_author"
             app:layout_constraintLeft_toRightOf="@+id/view4"
             app:layout_constraintTop_toTopOf="@+id/tv_book_author"/>
@@ -96,8 +95,8 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:text="TextView"
-            android:textColor="@color/normal_gray"
-            android:textSize="@dimen/sp_16"
+            android:textColor="@color/normalGray"
+            android:textSize="@dimen/body_14sp"
             app:layout_constraintLeft_toLeftOf="@+id/tv_book_author"
             app:layout_constraintTop_toBottomOf="@+id/ratingBar_book"/>
 
@@ -106,10 +105,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="8dp"
-            android:textColor="@color/normal_gray"
             android:layout_marginStart="8dp"
             android:text="TextView"
-            android:textSize="@dimen/sp_16"
+            android:textColor="@color/normalGray"
+            android:textSize="@dimen/body_14sp"
             app:layout_constraintBottom_toBottomOf="@+id/tv_book_word_count"
             app:layout_constraintLeft_toRightOf="@+id/view5"
             app:layout_constraintTop_toTopOf="@+id/tv_book_word_count"/>
@@ -130,7 +129,7 @@
             android:layout_marginLeft="8dp"
             android:layout_marginStart="8dp"
             android:text="TextView"
-            android:textColor="@color/half_black"
+            android:textColor="@color/halfBlack"
             android:textSize="@dimen/sp_12"
             app:layout_constraintBottom_toBottomOf="@+id/ratingBar_book"
             app:layout_constraintLeft_toRightOf="@+id/ratingBar_book"
@@ -155,8 +154,10 @@
             android:id="@+id/llt1"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
             android:layout_marginLeft="8dp"
             android:layout_marginRight="8dp"
+            android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
             android:gravity="center"
             android:orientation="horizontal"
@@ -164,9 +165,7 @@
             app:layout_constraintLeft_toLeftOf="@+id/view9"
             app:layout_constraintRight_toRightOf="@+id/view9"
             app:layout_constraintTop_toTopOf="@+id/view9"
-            app:layout_constraintVertical_bias="1.0"
-            android:layout_marginStart="8dp"
-            android:layout_marginEnd="8dp">
+            app:layout_constraintVertical_bias="1.0">
 
             <TextView
                 android:id="@+id/tv_reader_counts"
@@ -175,45 +174,50 @@
                 android:layout_marginBottom="8dp"
                 android:layout_marginRight="8dp"
                 android:layout_marginTop="8dp"
-                android:gravity="center"
                 android:layout_weight="1"
+                android:gravity="center"
+                android:lineSpacingMultiplier="1.2"
                 android:text="TextView"
-                android:textColor="@color/normal_gray"
+                android:textColor="@color/colorPrimaryLight"
                 android:textSize="@dimen/sp_16"
                 />
 
             <TextView
                 android:id="@+id/tv_reader_retained"
                 android:layout_width="0dp"
-                android:gravity="center"
                 android:layout_height="wrap_content"
                 android:layout_marginRight="8dp"
                 android:layout_weight="1"
+                android:gravity="center"
+                android:lineSpacingMultiplier="1.2"
                 android:text="TextView"
-                android:textColor="@color/normal_gray"
+                android:textColor="@color/colorPrimaryLight"
                 android:textSize="@dimen/sp_16"/>
 
             <TextView
                 android:id="@+id/tv_discuss_counts"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:gravity="center"
                 android:layout_marginRight="8dp"
                 android:layout_weight="1"
+                android:gravity="center"
+                android:lineSpacingMultiplier="1.2"
                 android:text="TextView"
-                android:textColor="@color/normal_gray"
+                android:textColor="@color/colorPrimaryLight"
                 android:textSize="@dimen/sp_16"/>
 
             <TextView
                 android:id="@+id/tv_dayly_update_words"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:gravity="center"
                 android:layout_weight="1"
+                android:gravity="center"
+                android:lineSpacingMultiplier="1.2"
                 android:text="TextView"
-                android:textColor="@color/normal_gray"
+                android:textColor="@color/colorPrimaryLight"
                 android:textSize="@dimen/sp_16"/>
         </LinearLayout>
+
         <View
             android:id="@+id/view10"
             android:layout_width="0dp"
@@ -232,19 +236,21 @@
             android:id="@+id/tv_book_desc"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:layout_marginEnd="8dp"
             android:layout_marginLeft="8dp"
+            android:layout_marginRight="8dp"
+            android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
             android:text="TextView"
-            android:textColor="@color/normal_gray"
+            android:textColor="@color/normalGray"
             android:textSize="@dimen/sp_16"
-            app:layout_constraintLeft_toLeftOf="@+id/view10"
-            app:layout_constraintTop_toTopOf="@+id/view10"
-            android:layout_marginRight="8dp"
-            app:layout_constraintRight_toRightOf="@+id/view10"
             app:layout_constraintBottom_toBottomOf="parent"
-            android:layout_marginBottom="8dp"
-            android:layout_marginStart="8dp"
-            android:layout_marginEnd="8dp"/>
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintLeft_toLeftOf="@+id/view10"
+            app:layout_constraintRight_toRightOf="@+id/view10"
+            app:layout_constraintTop_toBottomOf="@+id/textView"
+            app:layout_constraintVertical_bias="0.0"/>
 
         <TextView
             android:id="@+id/tv_scorer_count"
@@ -253,12 +259,55 @@
             android:layout_marginLeft="8dp"
             android:layout_marginStart="8dp"
             android:text="TextView"
-            android:textColor="@color/half_black"
+            android:textColor="@color/halfBlack"
             android:textSize="@dimen/sp_12"
+            app:layout_constraintBottom_toBottomOf="@+id/tv_book_score"
             app:layout_constraintLeft_toRightOf="@+id/tv_book_score"
             app:layout_constraintTop_toTopOf="@+id/ratingBar_book"
-            app:layout_constraintBottom_toBottomOf="@+id/tv_book_score"
             />
 
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="8dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:text="简介"
+            android:textColor="@color/colorPrimaryDark"
+            android:textSize="@dimen/subhead_18sp"
+            app:layout_constraintLeft_toLeftOf="@+id/view10"
+            app:layout_constraintTop_toBottomOf="@+id/view10"/>
+
+        <TextView
+            android:id="@+id/textView2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="标签"
+            android:textColor="@color/colorPrimaryDark"
+            android:textSize="@dimen/subhead_18sp"
+            app:layout_constraintLeft_toLeftOf="@+id/tv_book_desc"
+            app:layout_constraintTop_toBottomOf="@+id/tv_book_desc"
+            />
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/rv_book_tag"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:layout_marginLeft="0dp"
+            android:layout_marginTop="8dp"
+            android:clipToPadding="true"
+            android:scrollbars="none|horizontal"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintLeft_toLeftOf="@+id/textView2"
+            app:layout_constraintRight_toRightOf="@+id/view10"
+            app:layout_constraintTop_toBottomOf="@+id/textView2"
+            app:layout_constraintVertical_bias="1.0"
+            tools:listitem="@layout/item_tag"/>
+
     </android.support.constraint.ConstraintLayout>
+
 </android.support.v7.widget.CardView>

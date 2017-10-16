@@ -36,7 +36,7 @@ public class BookHelpAdapter extends BaseQuickAdapter<BookHelpListBean.HelpsBean
     @Override
     protected void convert(BaseViewHolder helper, BookHelpListBean.HelpsBean item) {
         SpannableString spannableString = new SpannableString(item.getAuthor().getNickname() + "lv." + item.getAuthor().getLv());
-        spannableString.setSpan(new ForegroundColorSpan(ContextCompat.getColor(mContext, R.color.half_black)), item.getAuthor().getNickname().length(), spannableString.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+        spannableString.setSpan(new ForegroundColorSpan(ContextCompat.getColor(mContext, R.color.halfBlack)), item.getAuthor().getNickname().length(), spannableString.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
         helper.setText(R.id.tv_user_name, spannableString);
         helper.setText(R.id.tv_discuss_content, item.getTitle());
         helper.setText(R.id.tv_like_count, item.getLikeCount() + "");
