@@ -22,10 +22,12 @@ import com.hubert.xu.zmvp.mvp.contract.BookDetailContract;
 import com.hubert.xu.zmvp.mvp.model.entity.BookDetailBean;
 import com.hubert.xu.zmvp.mvp.model.entity.HotReviewBean;
 import com.hubert.xu.zmvp.mvp.model.entity.LocalBookdetailBean;
+import com.hubert.xu.zmvp.mvp.model.entity.RecommendBookBean;
 import com.hubert.xu.zmvp.mvp.model.entity.RecommendBookListBean;
 import com.hubert.xu.zmvp.mvp.presenter.BookDetailPresenter;
 import com.hubert.xu.zmvp.mvp.view.adapter.BookDetailTagAdapter;
 import com.hubert.xu.zmvp.mvp.view.adapter.HotReviewAdapter;
+import com.hubert.xu.zmvp.mvp.view.adapter.RecommendBookAdapter;
 import com.hubert.xu.zmvp.mvp.view.adapter.RecommendBookListAdapter;
 import com.hubert.xu.zmvp.utils.StringUtil;
 import com.hubert.xu.zmvp.utils.TimeFormatUtil;
@@ -35,7 +37,6 @@ import java.text.DecimalFormat;
 import java.util.List;
 
 import butterknife.BindView;
-import de.hdodenhof.circleimageview.CircleImageView;
 
 /**
  * Author: Hubert.Xu
@@ -49,8 +50,8 @@ public class BookDetailActivity extends BaseActivity implements BookDetailContra
     private static final String INTENT_BOOK_ID = "intent_book_id";
     @BindView(R.id.swipe_layout)
     SwipeRefreshLayout mSwipeLayout;
-    @BindView(R.id.rv_book_detail)
-    RecyclerView mRvBookDetail;
+    @BindView(R.id.rv_recommend_book_list)
+    RecyclerView mRvRecommendBookList;
     private String mBookId;
     private BookDetailPresenter mPresenter;
     private RecommendBookListAdapter mRecommendBookListAdapter;
@@ -74,16 +75,11 @@ public class BookDetailActivity extends BaseActivity implements BookDetailContra
     private RecyclerView mRvBookTag;
     private List<String> mTags;
     private BookDetailTagAdapter mDetailTagAdapter;
-    private CircleImageView mIvUserAvatar;
-    private TextView mTvUserName;
-    private TextView mTvReviewTime;
-    private TextView mTvPreiseCount;
-    private TextView mTvReviewTime1;
-    private TextView mTvReview;
-    private RatingBar mRatingBarFromeUser;
     private RecyclerView mRvHotReview;
     private List<HotReviewBean.ReviewsBean> mHotReviews;
     private HotReviewAdapter mHotReviewAdapter;
+    private List<RecommendBookBean.BooksBean> mBooks;
+    private RecommendBookAdapter mRecommendBookAdapter;
 
     public static void startActivity(Context context, String bookName, String bookId) {
         context.startActivity(new Intent(context, BookDetailActivity.class)
@@ -106,23 +102,22 @@ public class BookDetailActivity extends BaseActivity implements BookDetailContra
         mTvTitle.setText(getIntent().getStringExtra(INTENT_BOOK_NAME));
         mBookId = getIntent().getStringExtra(INTENT_BOOK_ID);
         mPresenter = new BookDetailPresenter(this);
-        mRvBookDetail.setLayoutManager(new LinearLayoutManager(this));
-        mRecommendBookListAdapter = new RecommendBookListAdapter(R.layout.item_reccomend_book_list, mBookLists);
+        LinearLayoutManager layoutManager = new LinearLayoutManager(this);
+        mRvRecommendBookList.setLayoutManager(layoutManager);
+        mRecommendBookListAdapter = new RecommendBookListAdapter(R.layout.item_recommend_book_list, mBookLists);
         initHeaderView();
-        mRvBookDetail.setAdapter(mRecommendBookListAdapter);
         mSwipeLayout.setOnRefreshListener(this);
+        mRvRecommendBookList.setAdapter(mRecommendBookListAdapter);
         onRefresh();
     }
 
     private void initHeaderView() {
-        View headerBookDetail = getLayoutInflater().inflate(R.layout.header_book_detail, mRvBookDetail, false);
-        View headerHotReview = getLayoutInflater().inflate(R.layout.header_hot_review, mRvBookDetail, false);
-        View headerHotReviewSign = getLayoutInflater().inflate(R.layout.header_hot_review_sign, mRvBookDetail, false);
-        View headerRecommendBook = getLayoutInflater().inflate(R.layout.header_recommend_book, mRvBookDetail, false);
+        View headerBookDetail = getLayoutInflater().inflate(R.layout.header_book_detail, mRvRecommendBookList, false);
+        View headerHotReview = getLayoutInflater().inflate(R.layout.header_hot_review, mRvRecommendBookList, false);
+        View headerRecommendBook = getLayoutInflater().inflate(R.layout.header_recommend_book, mRvRecommendBookList, false);
         mRecommendBookListAdapter.addHeaderView(headerBookDetail, 0);
         mRecommendBookListAdapter.addHeaderView(headerHotReview, 1);
-        mRecommendBookListAdapter.addHeaderView(headerHotReviewSign, 3);
-        mRecommendBookListAdapter.addHeaderView(headerRecommendBook, 4);
+        mRecommendBookListAdapter.addHeaderView(headerRecommendBook, 3);
         // book详情
         mIvBookCover = (ImageView) headerBookDetail.findViewById(R.id.iv_book_cover);
         mTvBookName = (TextView) headerBookDetail.findViewById(R.id.tv_book_name);
@@ -149,6 +144,13 @@ public class BookDetailActivity extends BaseActivity implements BookDetailContra
         mRvHotReview.setLayoutManager(new LinearLayoutManager(this));
         mHotReviewAdapter = new HotReviewAdapter(R.layout.item_hot_review, mHotReviews);
         mRvHotReview.setAdapter(mHotReviewAdapter);
+        // 推荐的书
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
+        RecyclerView rvRecommendBook = (RecyclerView) headerRecommendBook.findViewById(R.id.rv_recommend_book);
+        linearLayoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
+        rvRecommendBook.setLayoutManager(linearLayoutManager);
+        mRecommendBookAdapter = new RecommendBookAdapter(R.layout.item_reccomend_book, mBooks);
+        rvRecommendBook.setAdapter(mRecommendBookAdapter);
     }
 
 
@@ -188,6 +190,10 @@ public class BookDetailActivity extends BaseActivity implements BookDetailContra
         new GlideImageLoader().getRequestManager(this).load(Constants.IMG_BASE_URL + bookDetail.getCover()).into(mIvBookCover);
         // 热评
         mHotReviewAdapter.setNewData(data.getHotReview().getReviews());
+        // 推荐书籍
+        mRecommendBookAdapter.setNewData(data.getRecommendBook().getBooks());
+        // 推荐书单
+        mRecommendBookListAdapter.setNewData(data.getBookList().getBooklists());
     }
 
     @Override
