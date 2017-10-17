@@ -21,11 +21,11 @@
         android:layout_height="wrap_content"
         android:gravity="center"
         android:paddingTop="4dp"
-        android:maxLines="2"
+        android:maxLines="3"
         android:ellipsize="end"
         android:text="书单名"
         android:textColor="@color/colorPrimaryLight"
-        android:textSize="@dimen/body_14sp"
+        android:textSize="@dimen/capition_12sp"
         />
 
 </LinearLayout>
