@@ -10,9 +10,9 @@ import android.support.v7.widget.RecyclerView;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.hubert.xu.zmvp.R;
 import com.hubert.xu.zmvp.base.BaseActivity;
+import com.hubert.xu.zmvp.mvp.contract.BookClassifyListContract;
 import com.hubert.xu.zmvp.mvp.model.entity.BookClassifyListBean;
 import com.hubert.xu.zmvp.mvp.model.entity.BookclassifyLocalBean;
-import com.hubert.xu.zmvp.mvp.contract.BookClassifyListContract;
 import com.hubert.xu.zmvp.mvp.presenter.BookClassifyListPresenter;
 import com.hubert.xu.zmvp.mvp.view.adapter.BookClassifyListAdapter;
 
@@ -62,6 +62,7 @@ public class BookListSubActivity extends BaseActivity implements SwipeRefreshLay
         mRvBookListSub.setAdapter(mAdapter);
         mAdapter.setOnLoadMoreListener(this);
         mSwipeLayout.setOnRefreshListener(this);
+        mAdapter.setOnItemClickListener((adapter, view, position) -> BookDetailActivity.startActivity(BookListSubActivity.this, mBooks.get(position).getTitle(), mBooks.get(position).get_id()));
         onRefresh();
     }
 
@@ -82,7 +83,7 @@ public class BookListSubActivity extends BaseActivity implements SwipeRefreshLay
     @Override
     public void setData(BookClassifyListBean data, boolean isRefresh) {
         mSwipeLayout.setRefreshing(false);
-        if (data==null||data.getBooks() == null || data.getBooks().size() == 0) {
+        if (data == null || data.getBooks() == null || data.getBooks().size() == 0) {
             mAdapter.loadMoreComplete();
         } else {
             if (isRefresh) {

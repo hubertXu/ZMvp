@@ -86,6 +86,7 @@ public class BookDetailActivity extends BaseActivity implements BookDetailContra
     private List<RecommendBookBean.BooksBean> mBooks;
     private RecommendBookAdapter mRecommendBookAdapter;
     private RecommendBookListAdapter mRecommendBookListAdapter;
+    private TextView mTvTag;
 
     public static void startActivity(Context context, String bookName, String bookId) {
         context.startActivity(new Intent(context, BookDetailActivity.class)
@@ -141,6 +142,7 @@ public class BookDetailActivity extends BaseActivity implements BookDetailContra
         mTvDiscussCounts = (TextView) headerBookDetail.findViewById(tv_discuss_counts);
         mTvDalyUpdateWords = (TextView) headerBookDetail.findViewById(R.id.tv_dayly_update_words);
         mTvBookDesc = (TextView) headerBookDetail.findViewById(R.id.tv_book_desc);
+        mTvTag = (TextView) headerBookDetail.findViewById(R.id.tv_tag);
         mRvBookTag = (RecyclerView) headerBookDetail.findViewById(R.id.rv_book_tag);
 
         mRvBookTag.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
@@ -150,21 +152,20 @@ public class BookDetailActivity extends BaseActivity implements BookDetailContra
         mSizeSpan = new RelativeSizeSpan(0.8f);
         // 热评
         mRvHotReview = (RecyclerView) headerHotReview.findViewById(R.id.rv_hot_review);
-        TextView tvMoreHotReview = (TextView)headerHotReview.findViewById(R.id.tv_more_hot_review);
+        TextView tvMoreHotReview = (TextView) headerHotReview.findViewById(R.id.tv_more_hot_review);
         mRvHotReview.setLayoutManager(new LinearLayoutManager(this));
         mHotReviewAdapter = new HotReviewAdapter(R.layout.item_hot_review, mHotReviews);
         mRvHotReview.setAdapter(mHotReviewAdapter);
+        mDetailTagAdapter.setOnItemClickListener(this);
         // 推荐的书
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
         RecyclerView rvRecommendBook = (RecyclerView) headerRecommendBook.findViewById(R.id.rv_recommend_book);
-        TextView tvMoreRecommendBook = (TextView)headerRecommendBook.findViewById(R.id.tv_more_recommend_book);
         linearLayoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
         rvRecommendBook.setLayoutManager(linearLayoutManager);
         mRecommendBookAdapter = new RecommendBookAdapter(R.layout.item_reccomend_book, mBooks);
         rvRecommendBook.setAdapter(mRecommendBookAdapter);
         // 推荐书单
         RecyclerView rvRecommendBookList = (RecyclerView) headerRecommendBookList.findViewById(R.id.rv_recommend_book_list);
-        TextView tvMoreBookList = (TextView)headerRecommendBookList.findViewById(R.id.tv_more_book_list);
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
         layoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
         rvRecommendBookList.setLayoutManager(layoutManager);
@@ -174,8 +175,6 @@ public class BookDetailActivity extends BaseActivity implements BookDetailContra
         mRecommendBookAdapter.setOnItemClickListener(this);
         mHotReviewAdapter.setOnItemClickListener(this);
         tvMoreHotReview.setOnClickListener(this);
-        tvMoreRecommendBook.setOnClickListener(this);
-        tvMoreBookList.setOnClickListener(this);
         mTvDiscussCounts.setOnClickListener(this);
     }
 
@@ -184,7 +183,13 @@ public class BookDetailActivity extends BaseActivity implements BookDetailContra
     public void setData(LocalBookdetailBean data) {
         mSwipeLayout.setRefreshing(false);
         mBookLists = data.getBookList().getBooklists();
+        mBooks = data.getRecommendBook().getBooks();
         BookDetailBean bookDetail = data.getBookDetail();
+        mTags = bookDetail.getTags();
+        if (bookDetail.getTags() == null || bookDetail.getTags().size() == 0) {
+            mTvTag.setVisibility(View.GONE);
+            mRvBookTag.setVisibility(View.VISIBLE);
+        }
         // 设置书籍详情
         mTvBookName.setText(bookDetail.getTitle());
         mTvBookAuthor.setText(bookDetail.getAuthor());
@@ -212,15 +217,14 @@ public class BookDetailActivity extends BaseActivity implements BookDetailContra
         mTvDiscussCounts.setText(strPostCounts);
         mTvDalyUpdateWords.setText(strDalyUpdateWords);
         mTvBookDesc.setText("  " + bookDetail.getLongIntro());
-        mTags = bookDetail.getTags();
         mDetailTagAdapter.setNewData(mTags);
         new GlideImageLoader().getRequestManager(this).load(Constants.IMG_BASE_URL + bookDetail.getCover()).into(mIvBookCover);
         // 热评
         mHotReviewAdapter.setNewData(data.getHotReview().getReviews());
         // 推荐书籍
-        mRecommendBookAdapter.setNewData(data.getRecommendBook().getBooks());
+        mRecommendBookAdapter.setNewData(mBooks);
         // 推荐书单
-        mRecommendBookListAdapter.setNewData(data.getBookList().getBooklists());
+        mRecommendBookListAdapter.setNewData(mBookLists);
         mRvBookDtail.setVisibility(View.VISIBLE);
     }
 
@@ -242,7 +246,13 @@ public class BookDetailActivity extends BaseActivity implements BookDetailContra
 
     @Override
     public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-
+        if (adapter.equals(mRecommendBookAdapter)) {
+            BookDetailActivity.startActivity(this, mBooks.get(position).getTitle(), mBooks.get(position).get_id());
+        } else if (adapter.equals(mRecommendBookListAdapter)) {
+            BookListDetailActivity.startActivity(this, mBookLists.get(position).getId());
+        }else if (adapter.equals(mDetailTagAdapter)){
+            BookListTagActivity.startActivity(this, mTags.get(position));
+        }
     }
 
     @Override
@@ -253,12 +263,6 @@ public class BookDetailActivity extends BaseActivity implements BookDetailContra
                 break;
             case R.id.tv_more_hot_review:
                 ToastUtil.show("跟多热评");
-                break;
-            case R.id.tv_more_recommend_book:
-                ToastUtil.show("推荐书籍");
-                break;
-            case R.id.tv_more_book_list:
-                ToastUtil.show("推荐书单");
                 break;
         }
     }

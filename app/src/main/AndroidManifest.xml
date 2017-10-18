@@ -71,6 +71,7 @@
         <activity android:name=".mvp.view.activity.BookListActivity"/>
         <activity android:name=".mvp.view.activity.BookListDetailActivity"/>
         <activity android:name=".mvp.view.activity.BookDetailActivity"/>
+        <activity android:name=".mvp.view.activity.BookListTagActivity"/>
     </application>
 
 </manifest>

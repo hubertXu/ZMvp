@@ -286,7 +286,7 @@
             app:layout_constraintTop_toBottomOf="@+id/view10"/>
 
         <TextView
-            android:id="@+id/textView2"
+            android:id="@+id/tv_tag"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
@@ -307,9 +307,9 @@
             android:paddingBottom="4dp"
             android:scrollbars="none|horizontal"
             app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintLeft_toLeftOf="@+id/textView2"
+            app:layout_constraintLeft_toLeftOf="@+id/tv_tag"
             app:layout_constraintRight_toRightOf="@+id/view10"
-            app:layout_constraintTop_toBottomOf="@+id/textView2"
+            app:layout_constraintTop_toBottomOf="@+id/tv_tag"
             tools:listitem="@layout/item_tag"/>
 
     </android.support.constraint.ConstraintLayout>

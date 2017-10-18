@@ -7,6 +7,7 @@ import com.hubert.xu.zmvp.http.api.ApiService;
 import com.hubert.xu.zmvp.mvp.model.entity.AllRankTypeBean;
 import com.hubert.xu.zmvp.mvp.model.entity.BookClassifyBean;
 import com.hubert.xu.zmvp.mvp.model.entity.BookClassifyLv2Bean;
+import com.hubert.xu.zmvp.mvp.model.entity.BookListTagBean;
 import com.hubert.xu.zmvp.mvp.model.entity.BookTagBean;
 import com.hubert.xu.zmvp.mvp.model.entity.BookclassifyLocalBean;
 import com.hubert.xu.zmvp.mvp.model.entity.LocalAllRankingTypeBean;
@@ -180,5 +181,9 @@ public class RemoteDataManager {
                     localBookdetail.setRecommendBook(recommendBookBean);
                     return localBookdetail;
                 }).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).subscribe(observer);
+    }
+
+    public void getBookListByTag(HashMap map, BaseObserver<BookListTagBean> observer) {
+        mApiService.getBookListByTag(map).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).subscribe(observer);
     }
 }

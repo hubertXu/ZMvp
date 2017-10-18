@@ -4,7 +4,6 @@ import com.hubert.xu.zmvp.http.BaseObserver;
 import com.hubert.xu.zmvp.mvp.contract.BookDetailContract;
 import com.hubert.xu.zmvp.mvp.model.RemoteDataManager;
 import com.hubert.xu.zmvp.mvp.model.entity.LocalBookdetailBean;
-import com.hubert.xu.zmvp.utils.LogUtil;
 
 import io.reactivex.disposables.Disposable;
 
@@ -25,7 +24,6 @@ public class BookDetailPresenter implements BookDetailContract.Presenter {
 
     @Override
     public void getData(String bookId) {
-        LogUtil.info("bookId",bookId);
         RemoteDataManager.getInstance().getBookDetail(bookId, new BaseObserver<LocalBookdetailBean>() {
             @Override
             public void subscribe(Disposable d) {

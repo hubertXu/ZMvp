@@ -8,6 +8,7 @@ import com.hubert.xu.zmvp.mvp.model.entity.BookDetailBean;
 import com.hubert.xu.zmvp.mvp.model.entity.BookHelpListBean;
 import com.hubert.xu.zmvp.mvp.model.entity.BookListBean;
 import com.hubert.xu.zmvp.mvp.model.entity.BookListDetailBean;
+import com.hubert.xu.zmvp.mvp.model.entity.BookListTagBean;
 import com.hubert.xu.zmvp.mvp.model.entity.BookReviewListBean;
 import com.hubert.xu.zmvp.mvp.model.entity.BookTagBean;
 import com.hubert.xu.zmvp.mvp.model.entity.DiscussListBean;
@@ -262,4 +263,7 @@ public interface ApiService {
      */
     @GET("/post/review/by-book")
     Observable<HotReviewBean> getReviewListByBook(@QueryMap HashMap<String, String> map);
+
+    @GET("/book/by-tags")
+    Observable<BookListTagBean> getBookListByTag(@QueryMap HashMap<String, String> map);
 }
