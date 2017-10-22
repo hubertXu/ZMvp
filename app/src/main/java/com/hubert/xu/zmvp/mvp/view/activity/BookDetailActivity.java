@@ -87,6 +87,8 @@ public class BookDetailActivity extends BaseActivity implements BookDetailContra
     private RecommendBookAdapter mRecommendBookAdapter;
     private RecommendBookListAdapter mRecommendBookListAdapter;
     private TextView mTvTag;
+    private float mRating;
+    private BookDetailBean mBookDetail;
 
     public static void startActivity(Context context, String bookName, String bookId) {
         context.startActivity(new Intent(context, BookDetailActivity.class)
@@ -182,43 +184,45 @@ public class BookDetailActivity extends BaseActivity implements BookDetailContra
     @Override
     public void setData(LocalBookdetailBean data) {
         mSwipeLayout.setRefreshing(false);
+        mHotReviews = data.getHotReview().getReviews();
         mBookLists = data.getBookList().getBooklists();
         mBooks = data.getRecommendBook().getBooks();
-        BookDetailBean bookDetail = data.getBookDetail();
-        mTags = bookDetail.getTags();
-        if (bookDetail.getTags() == null || bookDetail.getTags().size() == 0) {
+        mBookDetail = data.getBookDetail();
+        mTags = mBookDetail.getTags();
+        if (mBookDetail.getTags() == null || mBookDetail.getTags().size() == 0) {
             mTvTag.setVisibility(View.GONE);
             mRvBookTag.setVisibility(View.VISIBLE);
         }
         // 设置书籍详情
-        mTvBookName.setText(bookDetail.getTitle());
-        mTvBookAuthor.setText(bookDetail.getAuthor());
-        mTvBookClassify.setText(bookDetail.getMajorCate());
+        mTvBookName.setText(mBookDetail.getTitle());
+        mTvBookAuthor.setText(mBookDetail.getAuthor());
+        mTvBookClassify.setText(mBookDetail.getMajorCate());
         mRatingBarBook.setMax(5);
-        mRatingBarBook.setRating((float) (bookDetail.getRating().getScore() / 2));
-        mTvBookScore.setText(new DecimalFormat("0.00").format(bookDetail.getRating().getScore()) + "分");
-        mTvScorerCount.setText(bookDetail.getRating().getCount() + "人评");
-        mTvBookWordCount.setText(StringUtil.formatWordCount(bookDetail.getWordCount()));
-        mTvBookUpdateTime.setText(TimeFormatUtil.formatTime(bookDetail.getUpdated()));
-        SpannableString strReaderCounts = new SpannableString("追书人气\n" + bookDetail.getLatelyFollower());
+        mRating = (float) (mBookDetail.getRating().getScore() / 2);
+        mRatingBarBook.setRating(mRating);
+        mTvBookScore.setText(new DecimalFormat("0.00").format(mBookDetail.getRating().getScore()) + "分");
+        mTvScorerCount.setText(mBookDetail.getRating().getCount() + "人评");
+        mTvBookWordCount.setText(StringUtil.formatWordCount(mBookDetail.getWordCount()));
+        mTvBookUpdateTime.setText(TimeFormatUtil.formatTime(mBookDetail.getUpdated()));
+        SpannableString strReaderCounts = new SpannableString("追书人气\n" + mBookDetail.getLatelyFollower());
         strReaderCounts.setSpan(mColorSpan, 0, 4, Spanned.SPAN_INCLUSIVE_EXCLUSIVE);
         strReaderCounts.setSpan(mSizeSpan, 0, 4, Spanned.SPAN_INCLUSIVE_EXCLUSIVE);
-        SpannableString strReaderTetained = new SpannableString("读者留存\n" + bookDetail.getRetentionRatio() + "%");
+        SpannableString strReaderTetained = new SpannableString("读者留存\n" + mBookDetail.getRetentionRatio() + "%");
         strReaderTetained.setSpan(mColorSpan, 0, 4, Spanned.SPAN_INCLUSIVE_EXCLUSIVE);
         strReaderTetained.setSpan(mSizeSpan, 0, 4, Spanned.SPAN_INCLUSIVE_EXCLUSIVE);
-        SpannableString strPostCounts = new SpannableString("社区帖子\n" + bookDetail.getPostCount());
+        SpannableString strPostCounts = new SpannableString("社区帖子\n" + mBookDetail.getPostCount());
         strPostCounts.setSpan(mColorSpan, 0, 4, Spanned.SPAN_INCLUSIVE_EXCLUSIVE);
         strPostCounts.setSpan(mSizeSpan, 0, 4, Spanned.SPAN_INCLUSIVE_EXCLUSIVE);
-        SpannableString strDalyUpdateWords = new SpannableString("日更新字\n" + bookDetail.getSerializeWordCount());
+        SpannableString strDalyUpdateWords = new SpannableString("日更新字\n" + mBookDetail.getSerializeWordCount());
         strDalyUpdateWords.setSpan(mColorSpan, 0, 5, Spanned.SPAN_INCLUSIVE_EXCLUSIVE);
         strDalyUpdateWords.setSpan(mSizeSpan, 0, 5, Spanned.SPAN_INCLUSIVE_EXCLUSIVE);
         mTvReaderCounts.setText(strReaderCounts);
         mTvReaderRetained.setText(strReaderTetained);
         mTvDiscussCounts.setText(strPostCounts);
         mTvDalyUpdateWords.setText(strDalyUpdateWords);
-        mTvBookDesc.setText("  " + bookDetail.getLongIntro());
+        mTvBookDesc.setText("  " + mBookDetail.getLongIntro());
         mDetailTagAdapter.setNewData(mTags);
-        new GlideImageLoader().getRequestManager(this).load(Constants.IMG_BASE_URL + bookDetail.getCover()).into(mIvBookCover);
+        new GlideImageLoader().getRequestManager(this).load(Constants.IMG_BASE_URL + mBookDetail.getCover()).into(mIvBookCover);
         // 热评
         mHotReviewAdapter.setNewData(data.getHotReview().getReviews());
         // 推荐书籍
@@ -250,8 +254,10 @@ public class BookDetailActivity extends BaseActivity implements BookDetailContra
             BookDetailActivity.startActivity(this, mBooks.get(position).getTitle(), mBooks.get(position).get_id());
         } else if (adapter.equals(mRecommendBookListAdapter)) {
             BookListDetailActivity.startActivity(this, mBookLists.get(position).getId());
-        }else if (adapter.equals(mDetailTagAdapter)){
+        } else if (adapter.equals(mDetailTagAdapter)) {
             BookListTagActivity.startActivity(this, mTags.get(position));
+        } else if (adapter.equals(mHotReviewAdapter)) {
+            CommentDetailActivity.startActivity(this, mHotReviews.get(position).get_id(), (float) (mBookDetail.getRating().getScore() / 2));
         }
     }
 

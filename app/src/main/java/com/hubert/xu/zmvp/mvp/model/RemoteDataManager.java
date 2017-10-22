@@ -10,9 +10,12 @@ import com.hubert.xu.zmvp.mvp.model.entity.BookClassifyLv2Bean;
 import com.hubert.xu.zmvp.mvp.model.entity.BookListTagBean;
 import com.hubert.xu.zmvp.mvp.model.entity.BookTagBean;
 import com.hubert.xu.zmvp.mvp.model.entity.BookclassifyLocalBean;
+import com.hubert.xu.zmvp.mvp.model.entity.CommentListBean;
 import com.hubert.xu.zmvp.mvp.model.entity.LocalAllRankingTypeBean;
 import com.hubert.xu.zmvp.mvp.model.entity.LocalBookTagsBean;
 import com.hubert.xu.zmvp.mvp.model.entity.LocalBookdetailBean;
+import com.hubert.xu.zmvp.mvp.model.entity.CommentDetailBean;
+import com.hubert.xu.zmvp.mvp.model.entity.ReviewDetailBean;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -23,6 +26,7 @@ import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.annotations.NonNull;
 import io.reactivex.functions.BiFunction;
 import io.reactivex.functions.Function;
+import io.reactivex.functions.Function3;
 import io.reactivex.schedulers.Schedulers;
 
 /**
@@ -185,5 +189,26 @@ public class RemoteDataManager {
 
     public void getBookListByTag(HashMap map, BaseObserver<BookListTagBean> observer) {
         mApiService.getBookListByTag(map).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).subscribe(observer);
+    }
+
+    public void getDicussDetailRefresh(String discussId, HashMap<String, String> map, BaseObserver<CommentDetailBean> observer) {
+        Observable.zip(mApiService.getReviewDetail(discussId),
+                mApiService.getBestComment(discussId),
+                mApiService.getBookDisscussionComments(discussId, map),
+                new Function3<ReviewDetailBean, CommentListBean, CommentListBean, CommentDetailBean>() {
+                    @Override
+                    public CommentDetailBean apply(@NonNull ReviewDetailBean reviewDetailBean, @NonNull CommentListBean bestComment, @NonNull CommentListBean commentList) throws Exception {
+                        CommentDetailBean localDiscussDetail = new CommentDetailBean();
+                        localDiscussDetail.ok = true;
+                        localDiscussDetail.setCommentList(commentList);
+                        localDiscussDetail.setBestComment(bestComment);
+                        localDiscussDetail.setReviewDetail(reviewDetailBean);
+                        return localDiscussDetail;
+                    }
+                }).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).subscribe(observer);
+    }
+
+    public void getDiscussMore(String discussId, HashMap<String, String> map, BaseObserver<CommentListBean> observer) {
+        mApiService.getBookDisscussionComments(discussId, map).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).subscribe(observer);
     }
 }
