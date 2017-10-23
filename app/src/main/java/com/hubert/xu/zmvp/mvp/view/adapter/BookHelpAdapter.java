@@ -39,7 +39,7 @@ public class BookHelpAdapter extends BaseQuickAdapter<BookHelpListBean.HelpsBean
         spannableString.setSpan(new ForegroundColorSpan(ContextCompat.getColor(mContext, R.color.halfBlack)), item.getAuthor().getNickname().length(), spannableString.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
         helper.setText(R.id.tv_user_name, spannableString);
         helper.setText(R.id.tv_discuss_content, item.getTitle());
-        helper.setText(R.id.tv_like_count, item.getLikeCount() + "");
+        helper.setText(R.id.tv_comment_time, item.getLikeCount() + "");
         helper.setText(R.id.tv_comment_count, item.getCommentCount() + "");
         if (TextUtils.equals("hot", item.getState())) {
             helper.setVisible(R.id.btn_type_hot, true);

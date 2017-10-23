@@ -31,7 +31,7 @@ public class ComplexDiscussAdapter extends BaseQuickAdapter<DiscussListBean.Post
         helper.setText(R.id.tv_user_name, item.getAuthor().getNickname())
                 .setText(R.id.tv_discuss_content, item.getTitle())
                 .setText(R.id.tv_comment_count, item.getCommentCount() + "")
-                .setText(R.id.tv_like_count, item.getLikeCount() + "");
+                .setText(R.id.tv_comment_time, item.getLikeCount() + "");
         if (TextUtils.equals("hot", item.getState())) {
             helper.setVisible(R.id.btn_type_hot, true);
             helper.setVisible(R.id.btn_type_fine, false);

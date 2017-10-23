@@ -22,6 +22,7 @@ import com.hubert.xu.zmvp.mvp.model.entity.CommentDetailBean;
 import com.hubert.xu.zmvp.mvp.model.entity.CommentListBean;
 import com.hubert.xu.zmvp.mvp.model.entity.ReviewDetailBean;
 import com.hubert.xu.zmvp.mvp.presenter.CommentDetailPresenter;
+import com.hubert.xu.zmvp.mvp.view.adapter.BaseCommentAdapter;
 import com.hubert.xu.zmvp.mvp.view.adapter.ComementListAdapter;
 import com.hubert.xu.zmvp.utils.TimeFormatUtil;
 import com.hubert.xu.zmvp.utils.imageload.GlideImageLoader;
@@ -61,6 +62,13 @@ public class CommentDetailActivity extends BaseActivity implements SwipeRefreshL
     private TextView mTvCommentTitle;
     private CardView mCardBook;
     private ReviewDetailBean.PostBean mReviewDetail;
+    private TextView mTvAgreeCount;
+    private TextView mTvDisagreeCount;
+    private RecyclerView mRvBestComment;
+    private List<CommentListBean.CommentsBean> mBestComments;
+    private BaseCommentAdapter mBaseCommentAdapter;
+    private View mHeaderBestComment;
+    private TextView mTvCommentCount;
 
     public static void startActivity(Context context, String discussId, float rating) {
 
@@ -89,7 +97,7 @@ public class CommentDetailActivity extends BaseActivity implements SwipeRefreshL
         mAdapter = new ComementListAdapter(R.layout.item_comment_list, mComments);
         mRvCommentDetail.setAdapter(mAdapter);
         View headerCommentDetail = LayoutInflater.from(this).inflate(R.layout.header_comment_detail, mRvCommentDetail, false);
-        View headerBestComment = LayoutInflater.from(this).inflate(R.layout.header_best_comment, mRvCommentDetail, false);
+        mHeaderBestComment = LayoutInflater.from(this).inflate(R.layout.header_best_comment, mRvCommentDetail, false);
         View headerCommentCount = LayoutInflater.from(this).inflate(R.layout.header_comment_count, mRvCommentDetail, false);
         // 书评详情
         mIvUserAvatar = (CircleImageView) headerCommentDetail.findViewById(R.id.iv_user_avatar);
@@ -101,10 +109,19 @@ public class CommentDetailActivity extends BaseActivity implements SwipeRefreshL
         mIvBookCover = (ImageView) headerCommentDetail.findViewById(R.id.iv_book_cover);
         mRatBook = (RatingBar) headerCommentDetail.findViewById(R.id.ratingBar_book);
         mCardBook = (CardView) headerCommentDetail.findViewById(R.id.card_book);
+        mTvAgreeCount = (TextView) headerCommentDetail.findViewById(R.id.tv_agree_count);
+        mTvDisagreeCount = (TextView) headerCommentDetail.findViewById(R.id.tv_disagree_count);
         mCardBook.setOnClickListener(this);
         mRatBook.setMax(5);
+        // 神评
+        mRvBestComment = (RecyclerView) mHeaderBestComment.findViewById(R.id.rv_best_comment);
+        mRvBestComment.setLayoutManager(new LinearLayoutManager(this));
+        mBaseCommentAdapter = new BaseCommentAdapter(R.layout.item_best_cooment, mBestComments);
+        mRvBestComment.setAdapter(mBaseCommentAdapter);
+        // 评论
+        mTvCommentCount = (TextView) headerCommentCount.findViewById(R.id.tv_comment_count);
         mAdapter.addHeaderView(headerCommentDetail);
-        mAdapter.addHeaderView(headerBestComment);
+        mAdapter.addHeaderView(mHeaderBestComment);
         mAdapter.addHeaderView(headerCommentCount);
         mAdapter.setOnLoadMoreListener(this);
         mSwipeLayout.setOnRefreshListener(this);
@@ -127,9 +144,11 @@ public class CommentDetailActivity extends BaseActivity implements SwipeRefreshL
     @Override
     public void setRefreshData(CommentDetailBean data) {
         mSwipeLayout.setRefreshing(false);
+//        if (mComments != null || mComments.size() != 0) mComments.clear();
         mComments = data.getCommentList().getComments();
         mReviewDetail = data.getReviewDetail().getPost();
-        List<CommentListBean.CommentsBean> bestComments = data.getBestComment().getComments();
+        mBestComments = data.getBestComment().getComments();
+        // 评论详情
         RequestManager glidManager = new GlideImageLoader().getRequestManager(this);
         glidManager.load(Constants.IMG_BASE_URL + mReviewDetail.getAuthor().getAvatar()).into(mIvUserAvatar);
         glidManager.load(Constants.IMG_BASE_URL + mReviewDetail.getBook().getCover()).into(mIvBookCover);
@@ -139,12 +158,25 @@ public class CommentDetailActivity extends BaseActivity implements SwipeRefreshL
         mTvCommentTime.setText(TimeFormatUtil.formatTime(mReviewDetail.getCreated()));
         mTvUserName.setText(mReviewDetail.getAuthor().getNickname() + mReviewDetail.getAuthor().getLv());
         mTvCommentContent.setText(mReviewDetail.getContent());
+        mTvAgreeCount.setText(mReviewDetail.getLikeCount() + "");
+        mTvDisagreeCount.setText(mReviewDetail.getVoteCount() + "");
+        // 神评
+        mHeaderBestComment.setVisibility(mBestComments == null || mBestComments.size() == 0 ? View.GONE : View.VISIBLE);
+        mBaseCommentAdapter.setNewData(mBestComments);
+        // 评论
+        mTvCommentCount.setText("共" + mReviewDetail.getCommentCount() + "评论");
+        mAdapter.setNewData(mComments);
+        mAdapter.setEnableLoadMore(!(mComments == null || mComments.size() < 20));
         mRvCommentDetail.setVisibility(View.VISIBLE);
     }
 
     @Override
     public void setMoreData(CommentListBean data) {
-
+        mSwipeLayout.setRefreshing(false);
+        mAdapter.setEnableLoadMore(!(mComments == null || mComments.size() < 20));
+        mComments.addAll(data.getComments());
+        mAdapter.setNewData(mComments);
+        start = start + data.getComments().size();
     }
 
     @Override
@@ -159,9 +191,9 @@ public class CommentDetailActivity extends BaseActivity implements SwipeRefreshL
 
     @Override
     public void onClick(View v) {
-        switch (v.getId()){
+        switch (v.getId()) {
             case R.id.card_book:
-                BookDetailActivity.startActivity(this,mReviewDetail.getBook().getTitle(),mReviewDetail.getBook().get_id());
+                BookDetailActivity.startActivity(this, mReviewDetail.getBook().getTitle(), mReviewDetail.getBook().get_id());
                 break;
         }
     }

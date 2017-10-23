@@ -1,6 +1,5 @@
 package com.hubert.xu.zmvp.mvp.view.adapter;
 
-
 import android.support.annotation.LayoutRes;
 import android.support.annotation.Nullable;
 import android.support.v4.content.ContextCompat;
@@ -13,21 +12,24 @@ import com.chad.library.adapter.base.BaseViewHolder;
 import com.hubert.xu.zmvp.R;
 import com.hubert.xu.zmvp.constant.Constants;
 import com.hubert.xu.zmvp.mvp.model.entity.CommentListBean;
+import com.hubert.xu.zmvp.utils.TimeFormatUtil;
 import com.hubert.xu.zmvp.utils.imageload.GlideImageLoader;
 
 import java.util.List;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
+
 /**
  * author: XQ
- * time  : 2017/10/22
+ * time  : 2017/10/23
  * desc  :
  */
 
-public class ComementListAdapter extends BaseQuickAdapter<CommentListBean.CommentsBean, BaseViewHolder> {
+public class BaseCommentAdapter extends BaseQuickAdapter<CommentListBean.CommentsBean, BaseViewHolder> {
 
-    public ComementListAdapter(@LayoutRes int layoutResId, @Nullable List<CommentListBean.CommentsBean> data) {
+
+    public BaseCommentAdapter(@LayoutRes int layoutResId, @Nullable List<CommentListBean.CommentsBean> data) {
         super(layoutResId, data);
     }
 
@@ -37,7 +39,7 @@ public class ComementListAdapter extends BaseQuickAdapter<CommentListBean.Commen
         SpannableString strUserNameInfo = new SpannableString(userNameInfo);
         strUserNameInfo.setSpan(new ForegroundColorSpan(ContextCompat.getColor(mContext, R.color.brown)), (item.getFloor() + "").length(), userNameInfo.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
         helper.setText(R.id.tv_user_name, userNameInfo)
-                .setText(R.id.tv_comment_time, item.getLikeCount() + "次同感")
+                .setText(R.id.tv_comment_time, TimeFormatUtil.formatTime(item.getCreated()))
                 .setText(R.id.tv_comment, item.getContent());
         new GlideImageLoader().getRequestManager(mContext).load(Constants.IMG_BASE_URL + item.getAuthor().getAvatar()).into((CircleImageView) helper.getView(R.id.iv_user_avatar));
     }
