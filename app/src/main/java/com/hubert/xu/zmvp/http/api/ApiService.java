@@ -8,8 +8,10 @@ import com.hubert.xu.zmvp.mvp.model.entity.BookDetailBean;
 import com.hubert.xu.zmvp.mvp.model.entity.BookHelpListBean;
 import com.hubert.xu.zmvp.mvp.model.entity.BookListBean;
 import com.hubert.xu.zmvp.mvp.model.entity.BookListDetailBean;
+import com.hubert.xu.zmvp.mvp.model.entity.BookListTagBean;
 import com.hubert.xu.zmvp.mvp.model.entity.BookReviewListBean;
 import com.hubert.xu.zmvp.mvp.model.entity.BookTagBean;
+import com.hubert.xu.zmvp.mvp.model.entity.CommentListBean;
 import com.hubert.xu.zmvp.mvp.model.entity.DiscussListBean;
 import com.hubert.xu.zmvp.mvp.model.entity.GirlBookListBean;
 import com.hubert.xu.zmvp.mvp.model.entity.HotReviewBean;
@@ -17,6 +19,7 @@ import com.hubert.xu.zmvp.mvp.model.entity.HotWordBean;
 import com.hubert.xu.zmvp.mvp.model.entity.RankingBean;
 import com.hubert.xu.zmvp.mvp.model.entity.RecommendBookBean;
 import com.hubert.xu.zmvp.mvp.model.entity.RecommendBookListBean;
+import com.hubert.xu.zmvp.mvp.model.entity.ReviewDetailBean;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -262,4 +265,42 @@ public interface ApiService {
      */
     @GET("/post/review/by-book")
     Observable<HotReviewBean> getReviewListByBook(@QueryMap HashMap<String, String> map);
+
+    /**
+     * 通过tag获取当前类型书
+     *
+     * @param map
+     * @return
+     */
+    @GET("/book/by-tags")
+    Observable<BookListTagBean> getBookListByTag(@QueryMap HashMap<String, String> map);
+
+    /**
+     * 获取书评详情
+     *
+     * @param dicussionId
+     * @return
+     */
+    @GET("/post/{disscussionId}")
+    Observable<ReviewDetailBean> getReviewDetail(@Path("disscussionId") String dicussionId);
+
+    /**
+     * 获取神评
+     *
+     * @param dicussionId
+     * @return
+     */
+    @GET("/post/{disscussionId}/comment/best")
+    Observable<CommentListBean> getBestComment(@Path("disscussionId") String dicussionId);
+
+    /**
+     * 获取综合讨论区帖子详情内的评论列表
+     *
+     * @param disscussionId
+     * @param map
+     * @return
+     */
+    @GET("/post/{disscussionId}/comment")
+    Observable<CommentListBean> getBookDisscussionComments(@Path("disscussionId") String disscussionId, @QueryMap HashMap<String, String> map);
+
 }

@@ -20,23 +20,25 @@
             android:layout_marginStart="8dp"
             android:paddingBottom="8dp"
             android:layout_marginTop="8dp"
-            android:text="推荐书籍"
+            android:text="推荐书单"
             android:textColor="@color/colorPrimaryDark"
             android:textSize="@dimen/subhead_18sp"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintTop_toTopOf="parent"/>
 
         <android.support.v7.widget.RecyclerView
-            android:id="@+id/rv_recommend_book"
+            android:id="@+id/rv_recommend_book_list"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginBottom="8dp"
             android:layout_marginTop="0dp"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView4"
-            android:layout_marginLeft="0dp"
-            app:layout_constraintLeft_toLeftOf="parent"/>
+            android:layout_marginRight="0dp"
+            app:layout_constraintRight_toRightOf="parent"
+            android:layout_marginLeft="0dp"/>
     </android.support.constraint.ConstraintLayout>
+
 
 </android.support.v7.widget.CardView>

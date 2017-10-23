@@ -9,10 +9,11 @@ import android.support.v7.widget.RecyclerView;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.hubert.xu.zmvp.R;
 import com.hubert.xu.zmvp.base.BaseFragment;
-import com.hubert.xu.zmvp.mvp.model.entity.BookClassifyListBean;
 import com.hubert.xu.zmvp.mvp.contract.BookClassifyListContract;
+import com.hubert.xu.zmvp.mvp.model.entity.BookClassifyListBean;
 import com.hubert.xu.zmvp.mvp.presenter.BookClassifyListPresenter;
 import com.hubert.xu.zmvp.mvp.view.activity.BookClassifyListActivity;
+import com.hubert.xu.zmvp.mvp.view.activity.BookDetailActivity;
 import com.hubert.xu.zmvp.mvp.view.adapter.BookClassifyListAdapter;
 
 import java.util.ArrayList;
@@ -84,6 +85,7 @@ public class BookLClassifyListFragment extends BaseFragment implements SwipeRefr
             mMinor = lv2Type;
             onRefresh();
         });
+        mAdapter.setOnItemClickListener((adapter, view, position) -> BookDetailActivity.startActivity(mContext, mBooks.get(position).getTitle(), mBooks.get(position).get_id()));
         onRefresh();
     }
 

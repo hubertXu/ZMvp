@@ -10,6 +10,7 @@ import com.hubert.xu.zmvp.base.BaseFragment;
 import com.hubert.xu.zmvp.mvp.model.entity.RankingBean;
 import com.hubert.xu.zmvp.mvp.contract.RankingContract;
 import com.hubert.xu.zmvp.mvp.presenter.RankingPresenter;
+import com.hubert.xu.zmvp.mvp.view.activity.BookDetailActivity;
 import com.hubert.xu.zmvp.mvp.view.adapter.RankingAdapter;
 
 import java.util.List;
@@ -57,7 +58,7 @@ public class RankingFragment extends BaseFragment implements SwipeRefreshLayout.
         mRvRanking.setAdapter(mRankingAdapter);
         mSwipeLayout.setOnRefreshListener(this);
         mRankingAdapter.setOnItemClickListener((adapter, view, position) -> {
-
+            BookDetailActivity.startActivity(mContext, mBooks.get(position).getTitle(), mBooks.get(position).get_id());
         });
         onRefresh();
     }
@@ -82,7 +83,8 @@ public class RankingFragment extends BaseFragment implements SwipeRefreshLayout.
     @Override
     public void setData(RankingBean data) {
         mSwipeLayout.setRefreshing(false);
-        if (data==null||data.getRanking() == null) mRankingAdapter.loadMoreComplete();
-        mRankingAdapter.setNewData(data.getRanking().getBooks());
+        if (data == null || data.getRanking() == null) mRankingAdapter.loadMoreComplete();
+        mBooks = data.getRanking().getBooks();
+        mRankingAdapter.setNewData(mBooks);
     }
 }
