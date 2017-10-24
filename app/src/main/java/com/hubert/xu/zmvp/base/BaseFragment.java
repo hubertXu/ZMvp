@@ -88,7 +88,9 @@ public abstract class BaseFragment extends RxFragment {
     }
 
     protected void onVisible() {
-        if (!mIsUseLazyLoad) return;
+        if (!mIsUseLazyLoad){
+            return;
+        }
         lazyLoad();
     }
 

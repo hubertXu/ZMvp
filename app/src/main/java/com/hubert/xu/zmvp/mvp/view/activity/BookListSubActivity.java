@@ -87,7 +87,9 @@ public class BookListSubActivity extends BaseActivity implements SwipeRefreshLay
             mAdapter.loadMoreComplete();
         } else {
             if (isRefresh) {
-                if (mBooks != null) mBooks.clear();
+                if (mBooks != null) {
+                    mBooks.clear();
+                }
                 mBooks = data.getBooks();
             } else {
                 mBooks.addAll(data.getBooks());

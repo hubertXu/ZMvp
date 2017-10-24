@@ -69,7 +69,9 @@ public class ComplexDiscussFragment extends BaseFragment implements ComplexDiscu
             mComplexDiscussAdapter.loadMoreComplete();
         } else {
             if (isRefresh) {
-                if (mData != null) mData.clear();
+                if (mData != null) {
+                    mData.clear();
+                }
                 mData = data.getPosts();
             } else {
                 mData.addAll(data.getPosts());

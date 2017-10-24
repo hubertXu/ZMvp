@@ -34,7 +34,8 @@ public class BaseRxPresenter implements BaseContract.BasePresenter {
     }
 
     protected void unSubscribe() {
-        if (mCompositeDisposable != null)
+        if (mCompositeDisposable != null){
             mCompositeDisposable.clear();
+        }
     }
 }

@@ -75,7 +75,9 @@ public class BookHelpFragment extends BaseFragment implements BookHelpContract.V
             mBookHelpAdapter.loadMoreComplete();
         } else {
             if (isRefresh) {
-                if (mData != null) mData.clear();
+                if (mData != null){
+                    mData.clear();
+                }
                 mData = data.getHelps();
             } else {
                 mData.addAll(data.getHelps());

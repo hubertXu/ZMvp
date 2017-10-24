@@ -116,7 +116,9 @@ public class BookLClassifyListFragment extends BaseFragment implements SwipeRefr
             mAdapter.loadMoreComplete();
         } else {
             if (isRefresh) {
-                if (mBooks != null) mBooks.clear();
+                if (mBooks != null) {
+                    mBooks.clear();
+                }
             }
             mBooks.addAll(data.getBooks());
             mAdapter.setNewData(mBooks);

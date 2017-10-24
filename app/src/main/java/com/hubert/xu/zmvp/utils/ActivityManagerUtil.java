@@ -38,11 +38,12 @@ public class ActivityManagerUtil {
      * @param activity
      */
     public void removeFromStack(Activity activity) {
-        if (activityStack != null && activityStack.size() > 0)
+        if (activityStack != null && activityStack.size() > 0){
             if (activity != null) {
                 activityStack.remove(activity);
                 activity.finish();
             }
+        }
     }
 
     /**
@@ -74,8 +75,9 @@ public class ActivityManagerUtil {
      */
     public void finishActivity(Class<?> cls) {
         for (Activity activity : activityStack) {
-            if (activity.getClass().equals(cls))
+            if (activity.getClass().equals(cls)){
                 finishActivity(activity);
+            }
         }
     }
 
@@ -85,8 +87,9 @@ public class ActivityManagerUtil {
     public void finishAllActivity() {
         try {
             for (Activity activity : activityStack) {
-                if (null != activity) ;
-                activity.finish();
+                if (null != activity) {
+                    activity.finish();
+                }
             }
             activityStack.clear();
         } catch (Exception e) {

@@ -119,7 +119,9 @@ public class BookListFragment extends BaseFragment implements SwipeRefreshLayout
             mAdapter.loadMoreComplete();
         } else {
             if (isRefresh) {
-                if (mBookLists != null) mBookLists.clear();
+                if (mBookLists != null) {
+                    mBookLists.clear();
+                }
             }
             mBookLists.addAll(data.getBookLists());
             mAdapter.setNewData(mBookLists);

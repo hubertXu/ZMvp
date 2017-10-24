@@ -90,7 +90,9 @@ public class BookReviewFragment extends BaseFragment implements BookReviewContra
             mBookReviewAdapter.loadMoreComplete();
         } else {
             if (isRefresh) {
-                if (mData != null) mData.clear();
+                if (mData != null) {
+                    mData.clear();
+                }
                 mData = data.getReviews();
             } else {
                 mData.addAll(data.getReviews());

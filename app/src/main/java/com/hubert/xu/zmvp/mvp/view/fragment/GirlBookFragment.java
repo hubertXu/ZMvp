@@ -76,7 +76,9 @@ public class GirlBookFragment extends BaseFragment implements GirlBookContract.V
             mGirBookAdapter.loadMoreComplete();
         }else {
             if (isRefresh) {
-                if (mData != null) mData.clear();
+                if (mData != null) {
+                    mData.clear();
+                }
                 mData = data.getPosts();
                 mRvBookGirl.scrollToPosition(0);
             } else {

@@ -33,11 +33,10 @@ import butterknife.BindView;
 import de.hdodenhof.circleimageview.CircleImageView;
 
 /**
- * author: XQ
+ * @author: XQ
  * time  : 2017/10/21
  * desc  :
  */
-
 public class CommentDetailActivity extends BaseActivity implements SwipeRefreshLayout.OnRefreshListener, BaseQuickAdapter.RequestLoadMoreListener, CommentDetailContract.View<CommentDetailBean>, View.OnClickListener {
 
 
@@ -123,7 +122,7 @@ public class CommentDetailActivity extends BaseActivity implements SwipeRefreshL
         mAdapter.addHeaderView(headerCommentDetail);
         mAdapter.addHeaderView(mHeaderBestComment);
         mAdapter.addHeaderView(headerCommentCount);
-        mAdapter.setOnLoadMoreListener(this);
+        mAdapter.setOnLoadMoreListener(this,mRvCommentDetail);
         mSwipeLayout.setOnRefreshListener(this);
         onRefresh();
     }

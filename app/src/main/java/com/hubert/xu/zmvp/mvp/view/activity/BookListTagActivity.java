@@ -87,7 +87,9 @@ public class BookListTagActivity extends BaseActivity implements SwipeRefreshLay
             mAdapter.loadMoreComplete();
         } else {
             if (mStart == 0) {
-                if (mBooks != null) mBooks.clear();
+                if (mBooks != null) {
+                    mBooks.clear();
+                }
                 mBooks = data.getBooks();
             } else {
                 mBooks.addAll(data.getBooks());

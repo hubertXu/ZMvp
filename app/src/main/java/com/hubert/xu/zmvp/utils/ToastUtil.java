@@ -41,7 +41,9 @@ public class ToastUtil {
      */
     public static void showToast(CharSequence text, int duration) {
         // 当连续弹出Toast时,是要弹出新吐司还是只修改文本内容,默认为只修改内容;
-        if (mIsShowWhenMore) cancelToast();
+        if (mIsShowWhenMore) {
+            cancelToast();
+        }
         if (mToast == null) {
             mToast = Toast.makeText(mContext, text, duration);
         } else {

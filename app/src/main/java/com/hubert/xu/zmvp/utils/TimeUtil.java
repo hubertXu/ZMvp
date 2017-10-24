@@ -729,8 +729,10 @@ public class TimeUtil {
     public static String getFriendlyTimeSpanByNow(final long millis) {
         long now = System.currentTimeMillis();
         long span = now - millis;
-        if (span < 0)
+        if (span < 0){
             return String.format("%tc", millis);// U can ic_launcher http://www.apihome.cn/api/java/Formatter.html to understand it.
+
+        }
         if (span < 1000) {
             return "刚刚";
         } else if (span < TimeConstants.MIN) {
@@ -1604,10 +1606,14 @@ public class TimeUtil {
     }
 
     private static String millis2FitTimeSpan(long millis, int precision) {
-        if (millis < 0 || precision <= 0) return null;
+        if (millis < 0 || precision <= 0) {
+            return null;
+        }
         precision = Math.min(precision, 5);
         String[] units = {"天", "小时", "分钟", "秒", "毫秒"};
-        if (millis == 0) return 0 + units[precision - 1];
+        if (millis == 0) {
+            return 0 + units[precision - 1];
+        }
         StringBuilder sb = new StringBuilder();
         int[] unitLen = {86400000, 3600000, 60000, 1000, 1};
         for (int i = 0; i < precision; i++) {
