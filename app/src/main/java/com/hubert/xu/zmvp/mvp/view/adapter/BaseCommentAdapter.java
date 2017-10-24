@@ -6,6 +6,7 @@ import android.support.v4.content.ContextCompat;
 import android.text.SpannableString;
 import android.text.Spanned;
 import android.text.style.ForegroundColorSpan;
+import android.text.style.RelativeSizeSpan;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
@@ -35,10 +36,12 @@ public class BaseCommentAdapter extends BaseQuickAdapter<CommentListBean.Comment
 
     @Override
     protected void convert(BaseViewHolder helper, CommentListBean.CommentsBean item) {
-        String userNameInfo = item.getFloor() + "楼" + item.getAuthor().getNickname() + "lv" + item.getAuthor().getLv();
+        String userNameInfo = item.getFloor() + "楼" + " " + item.getAuthor().getNickname() + "lv" + item.getAuthor().getLv();
         SpannableString strUserNameInfo = new SpannableString(userNameInfo);
-        strUserNameInfo.setSpan(new ForegroundColorSpan(ContextCompat.getColor(mContext, R.color.brown)), (item.getFloor() + "").length(), userNameInfo.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
-        helper.setText(R.id.tv_user_name, userNameInfo)
+        strUserNameInfo.setSpan(new ForegroundColorSpan(ContextCompat.getColor(mContext, R.color.brown)), (item.getFloor() + "楼").length(), userNameInfo.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+        strUserNameInfo.setSpan(new RelativeSizeSpan(0.8f), 0, (item.getFloor() + "楼").length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+        strUserNameInfo.setSpan(new RelativeSizeSpan(0.8f), (item.getFloor() + "楼 "+ item.getAuthor().getNickname()).length(),strUserNameInfo.length() , Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+        helper.setText(R.id.tv_user_name, strUserNameInfo)
                 .setText(R.id.tv_comment_time, TimeFormatUtil.formatTime(item.getCreated()))
                 .setText(R.id.tv_comment, item.getContent());
         new GlideImageLoader().getRequestManager(mContext).load(Constants.IMG_BASE_URL + item.getAuthor().getAvatar()).into((CircleImageView) helper.getView(R.id.iv_user_avatar));

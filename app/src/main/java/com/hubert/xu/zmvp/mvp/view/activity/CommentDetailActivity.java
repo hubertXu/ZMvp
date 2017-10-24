@@ -130,20 +130,18 @@ public class CommentDetailActivity extends BaseActivity implements SwipeRefreshL
     @Override
     public void onRefresh() {
         start = 0;
-        mRvCommentDetail.scrollToPosition(0);
         mSwipeLayout.setRefreshing(true);
         mPresenter.getRefreshData(mDiscussId);
     }
 
     @Override
     public void onLoadMoreRequested() {
-
+        mPresenter.getMoreData(mDiscussId,start);
     }
 
     @Override
     public void setRefreshData(CommentDetailBean data) {
         mSwipeLayout.setRefreshing(false);
-//        if (mComments != null || mComments.size() != 0) mComments.clear();
         mComments = data.getCommentList().getComments();
         mReviewDetail = data.getReviewDetail().getPost();
         mBestComments = data.getBestComment().getComments();
