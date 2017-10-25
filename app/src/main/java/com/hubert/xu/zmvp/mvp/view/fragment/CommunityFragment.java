@@ -11,6 +11,7 @@ import com.hubert.xu.zmvp.R;
 import com.hubert.xu.zmvp.base.BaseFragment;
 import com.hubert.xu.zmvp.constant.Constants;
 import com.hubert.xu.zmvp.mvp.view.factory.CommunityFragmentFactory;
+import com.hubert.xu.zmvp.mvp.view.lisenter.DiscussSortLisenter;
 
 import java.util.HashMap;
 
@@ -43,10 +44,6 @@ public class CommunityFragment extends BaseFragment {
 
     HashMap<Integer, DiscussSortLisenter> discussSortLisenters = new HashMap<>();
 
-
-    public interface DiscussSortLisenter {
-        void refreshComplexDiscussData(String sortType);
-    }
 
     @Override
     protected int attachLayoutRes() {
@@ -99,7 +96,7 @@ public class CommunityFragment extends BaseFragment {
                         .items(R.array.book_type)
                         .itemsCallbackSingleChoice(selectType.get(mTabPosition), (dialog, itemView, which, text) -> {
                             selectType.put(mTabPosition, which);
-                            discussSortLisenters.get(mTabPosition).refreshComplexDiscussData(Constants.bookTypeList.get(which));
+                            discussSortLisenters.get(mTabPosition).refreshDiscussData(Constants.bookTypeList.get(which));
                             return true;
                         })
                         .show();
@@ -108,7 +105,7 @@ public class CommunityFragment extends BaseFragment {
                         .items(R.array.sort_type)
                         .itemsCallbackSingleChoice(selectType.get(mTabPosition), (dialog, itemView, which, text) -> {
                             selectType.put(mTabPosition, which);
-                            discussSortLisenters.get(mTabPosition).refreshComplexDiscussData(Constants.sortType.get(which));
+                            discussSortLisenters.get(mTabPosition).refreshDiscussData(Constants.sortType.get(which));
                             return true;
                         })
                         .show();

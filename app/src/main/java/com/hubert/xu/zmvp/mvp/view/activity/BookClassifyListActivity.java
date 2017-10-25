@@ -154,11 +154,6 @@ public class BookClassifyListActivity extends BaseActivity {
         return super.onPrepareOptionsMenu(menu);
     }
 
-    @Override
-    public void supportInvalidateOptionsMenu() {
-        super.supportInvalidateOptionsMenu();
-    }
-
     public void setGetBookListDataLisenter(GetLv2BookListDataLisenter getLv2BookListDataLisenter) {
         getLv2BookListDataLisenters.put(mTablayoutBookList.getSelectedTabPosition(), getLv2BookListDataLisenter);
     }

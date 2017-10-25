@@ -104,7 +104,6 @@
                     android:layout_alignTop="@id/iv_book_cover"
                     android:layout_marginTop="4dp"
                     android:layout_toRightOf="@id/iv_book_cover"
-                    android:text="我与休闲"
                     android:textColor="@color/colorPrimaryDark"
                     android:textSize="@dimen/subhead_16sp"
                     />

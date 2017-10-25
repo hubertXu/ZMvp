@@ -33,7 +33,6 @@ import com.hubert.xu.zmvp.mvp.view.adapter.RecommendBookAdapter;
 import com.hubert.xu.zmvp.mvp.view.adapter.RecommendBookListAdapter;
 import com.hubert.xu.zmvp.utils.StringUtil;
 import com.hubert.xu.zmvp.utils.TimeFormatUtil;
-import com.hubert.xu.zmvp.utils.ToastUtil;
 import com.hubert.xu.zmvp.utils.imageload.GlideImageLoader;
 
 import java.text.DecimalFormat;
@@ -89,6 +88,7 @@ public class BookDetailActivity extends BaseActivity implements BookDetailContra
     private TextView mTvTag;
     private float mRating;
     private BookDetailBean mBookDetail;
+    private String mBookName;
 
     public static void startActivity(Context context, String bookName, String bookId) {
         context.startActivity(new Intent(context, BookDetailActivity.class)
@@ -108,7 +108,8 @@ public class BookDetailActivity extends BaseActivity implements BookDetailContra
 
     @Override
     protected void initView() {
-        mTvTitle.setText(getIntent().getStringExtra(INTENT_BOOK_NAME));
+        mBookName = getIntent().getStringExtra(INTENT_BOOK_NAME);
+        mTvTitle.setText(mBookName);
         mBookId = getIntent().getStringExtra(INTENT_BOOK_ID);
         mPresenter = new BookDetailPresenter(this);
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
@@ -265,10 +266,9 @@ public class BookDetailActivity extends BaseActivity implements BookDetailContra
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.tv_discuss_counts:
-                ToastUtil.show("帖子");
                 break;
             case R.id.tv_more_hot_review:
-                ToastUtil.show("跟多热评");
+                BookCommunityActivity.startActivity(this, mBookName, mBookId);
                 break;
         }
     }

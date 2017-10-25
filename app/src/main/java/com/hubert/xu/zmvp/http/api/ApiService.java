@@ -239,37 +239,13 @@ public interface ApiService {
     @GET("/post/review/best-by-book")
     Observable<HotReviewBean> getBookHotReview(@Query("book") String book);
 
-    /**
-     * 获取书籍详情讨论列表
-     * <p>
-     * book  bookId
-     * sort  updated(默认排序)|created(最新发布)|comment-count(最多评论)
-     * type  normal|vote
-     * start 0
-     * limit 20
-     *
-     * @return
-     */
-    @GET("/post/by-book")
-    Observable<DiscussListBean> getDisscussionListByBook(@QueryMap HashMap<String, String> map);
-
-    /**
-     * 获取书籍详情书评列表
-     * <p>
-     * book  bookId
-     * sort  updated(默认排序)|created(最新发布)|comment-count(最多评论)
-     * start 0
-     * limit 20
-     *
-     * @return
-     */
-    @GET("/post/review/by-book")
-    Observable<HotReviewBean> getReviewListByBook(@QueryMap HashMap<String, String> map);
 
     /**
      * 通过tag获取当前类型书
      *
-     * @param map
+     * @param map tags       标签
+     *            start     开始位置
+     *            limit     条目数
      * @return
      */
     @GET("/book/by-tags")
@@ -302,5 +278,32 @@ public interface ApiService {
      */
     @GET("/post/{disscussionId}/comment")
     Observable<CommentListBean> getBookDisscussionComments(@Path("disscussionId") String disscussionId, @QueryMap HashMap<String, String> map);
+
+    /**
+     * 获取书籍社区讨论列表
+     * <p>
+     * book  bookId
+     * sort  updated(默认排序)|created(最新发布)|comment-count(最多评论)
+     * type  normal|vote
+     * start 0
+     * limit 20
+     *
+     * @return
+     */
+    @GET("/post/by-book")
+    Observable<DiscussListBean> getDisscussionListByBook(@QueryMap HashMap<String, String> map);
+
+    /**
+     * 获取书籍社区书评列表
+     * <p>
+     * book  bookid
+     * sort  updated(默认排序)|created(最新发布)|comment-count(最多评论)
+     * start 0
+     * limit 20
+     *
+     * @return
+     */
+    @GET("/post/review/by-book")
+    Observable<HotReviewBean> getReviewListByBook(@QueryMap HashMap<String, String> map);
 
 }

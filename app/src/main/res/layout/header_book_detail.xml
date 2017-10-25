@@ -305,7 +305,7 @@
             android:layout_marginTop="4dp"
             android:clipToPadding="true"
             android:paddingBottom="4dp"
-            android:scrollbars="none|horizontal"
+            android:scrollbars="none"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintLeft_toLeftOf="@+id/tv_tag"
             app:layout_constraintRight_toRightOf="@+id/view10"

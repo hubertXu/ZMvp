@@ -80,6 +80,5 @@ public class BookClassifyActivity extends BaseActivity implements SwipeRefreshLa
             }
             mAdapter.setNewData(data.getLocalBookclassifys());
         }
-
     }
 }

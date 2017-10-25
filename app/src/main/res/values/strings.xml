@@ -63,4 +63,10 @@
         <item>最新发布</item>
         <item>最多收藏</item>
     </array>
+
+    <array name="discuss_sort">
+        <item>默认排序</item>
+        <item>最新发布</item>
+        <item>最多评论</item>
+    </array>
 </resources>

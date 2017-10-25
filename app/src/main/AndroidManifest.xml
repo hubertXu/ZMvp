@@ -73,6 +73,7 @@
         <activity android:name=".mvp.view.activity.BookDetailActivity"/>
         <activity android:name=".mvp.view.activity.BookListTagActivity"/>
         <activity android:name=".mvp.view.activity.CommentDetailActivity"/>
+        <activity android:name=".mvp.view.activity.BookCommunityActivity"/>
     </application>
 
 </manifest>
