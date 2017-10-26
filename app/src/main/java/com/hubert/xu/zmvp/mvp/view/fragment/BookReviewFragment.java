@@ -8,8 +8,8 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.hubert.xu.zmvp.R;
 import com.hubert.xu.zmvp.base.BaseFragment;
 import com.hubert.xu.zmvp.constant.Constants;
-import com.hubert.xu.zmvp.mvp.model.entity.BookReviewListBean;
 import com.hubert.xu.zmvp.mvp.contract.BookReviewContract;
+import com.hubert.xu.zmvp.mvp.model.entity.BookReviewListBean;
 import com.hubert.xu.zmvp.mvp.presenter.BookReviewPresenter;
 import com.hubert.xu.zmvp.mvp.view.adapter.BookReviewAdapter;
 
@@ -48,11 +48,12 @@ public class BookReviewFragment extends BaseFragment implements BookReviewContra
         mBookReviewAdapter = new BookReviewAdapter(R.layout.item_book_review, mData);
         mRvBookReview.setAdapter(mBookReviewAdapter);
         mSwipeLayout.setOnRefreshListener(this);
-        mBookReviewAdapter.setOnLoadMoreListener(this);
+        mBookReviewAdapter.setOnLoadMoreListener(this, mRvBookReview);
         ((CommunityFragment) getParentFragment()).setDiscussSortLisenter(type -> {
             this.type = type;
             onRefresh();
         });
+        mBookReviewAdapter.disableLoadMoreIfNotFullPage(mRvBookReview);
         onRefresh();
     }
 
@@ -73,34 +74,26 @@ public class BookReviewFragment extends BaseFragment implements BookReviewContra
 
     @Override
     public void showError() {
-        mSwipeLayout.setEnabled(false);
+        mSwipeLayout.setRefreshing(false);
         mBookReviewAdapter.loadMoreFail();
     }
 
     @Override
     public void complete() {
-        mSwipeLayout.setEnabled(false);
         mBookReviewPresenter.getData(start, type);
     }
 
     @Override
     public void setData(BookReviewListBean data, boolean isRefresh) {
         mSwipeLayout.setRefreshing(false);
-        if (data == null || data.getReviews() == null || data.getReviews().size() == 0) {
-            mBookReviewAdapter.loadMoreComplete();
+        mBookReviewAdapter.loadMoreComplete();
+        if (isRefresh) {
+            mData = data.getReviews();
         } else {
-            if (isRefresh) {
-                if (mData != null) {
-                    mData.clear();
-                }
-                mData = data.getReviews();
-            } else {
-                mData.addAll(data.getReviews());
-            }
-            mSwipeLayout.setEnabled(true);
-            mBookReviewAdapter.setEnableLoadMore(true);
-            mBookReviewAdapter.setNewData(mData);
-            start = start + data.getReviews().size();
+            mData.addAll(data.getReviews());
         }
+        mBookReviewAdapter.setNewData(mData);
+        start = start + data.getReviews().size();
+        mBookReviewAdapter.setEnableLoadMore(data.getReviews() != null && data.getReviews().size() >= 20);
     }
 }

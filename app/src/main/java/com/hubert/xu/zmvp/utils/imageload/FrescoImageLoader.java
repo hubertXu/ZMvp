@@ -49,143 +49,126 @@ public class FrescoImageLoader implements ImageLoaderStrategy {
     }
 
 
-
     @Override
     public void cleanMemory(Context context) {
         Fresco.getImagePipeline().clearMemoryCaches();
     }
 
 
-
     private void showImgaeDrawee(ImageLoaderOptions options) {
-        View view=options.getViewContainer();
-        SimpleDraweeView drawee=null;
-        Class clazz=null;
-        GenericDraweeHierarchy hierarchy=null;
+        View view = options.getViewContainer();
+        SimpleDraweeView drawee = null;
+        Class clazz = null;
+        GenericDraweeHierarchy hierarchy = null;
         GenericDraweeHierarchyBuilder hierarchyBuilder = GenericDraweeHierarchyBuilder.newInstance(view.getContext().getResources());
-//        if (view instanceof SquareRImageView) {
-//            clazz= SquareRImageView.class;
-//            drawee=getDraweeView(view,clazz);
-//            if (drawee != null) {
-//                drawee.setAspectRatio(1);
-//            }
-//        }else if (view instanceof CircleImageView){
-//            clazz= CircleImageView.class;
-//            drawee=getDraweeView(view,clazz);
-//            hierarchyBuilder.setFadeDuration(400).setRoundingParams(RoundingParams.asCircle());
-//        }else
-        if (view instanceof SimpleDraweeView){
-            drawee= (SimpleDraweeView) view;
-            hierarchy=drawee.getHierarchy();
-        }else if(view instanceof ImageView){
-            clazz= ImageView.class;
-            drawee=getDraweeView(view,clazz);
-        }
-        else {
-            Log.i("","no type !!");
+        if (view instanceof SimpleDraweeView) {
+            drawee = (SimpleDraweeView) view;
+            hierarchy = drawee.getHierarchy();
+        } else if (view instanceof ImageView) {
+            clazz = ImageView.class;
+            drawee = getDraweeView(view, clazz);
+        } else {
+            Log.i("", "no type !!");
             return;
         }
 
         if (drawee != null) {
-            Uri uri=Uri.parse(options.getUrl());
+            Uri uri = Uri.parse(options.getUrl());
             // 本地路径
             if (options.getUrl() != null && !options.getUrl().contains("http")) {
-                uri=Uri.parse("file://"+options.getUrl());
+                uri = Uri.parse("file://" + options.getUrl());
             }
 
-            if (options.getHolderDrawable()!=-1) {
+            if (options.getHolderDrawable() != -1) {
                 hierarchyBuilder.setPlaceholderImage(options.getHolderDrawable());
             }
-            if (options.getErrorDrawable()!=-1) {
+            if (options.getErrorDrawable() != -1) {
                 hierarchyBuilder.setFailureImage(options.getErrorDrawable());
             }
 
             if (hierarchy == null) {
-                hierarchy= hierarchyBuilder.build();
+                hierarchy = hierarchyBuilder.build();
 
             }
 
             drawee.setHierarchy(hierarchy);
 
-            PipelineDraweeControllerBuilder controllerBuilder=Fresco.newDraweeControllerBuilder().setUri(uri).setAutoPlayAnimations(true);
+            PipelineDraweeControllerBuilder controllerBuilder = Fresco.newDraweeControllerBuilder().setUri(uri).setAutoPlayAnimations(true);
 
-            ImageRequestBuilder imageRequestBuilder= ImageRequestBuilder.newBuilderWithSource(uri);
+            ImageRequestBuilder imageRequestBuilder = ImageRequestBuilder.newBuilderWithSource(uri);
             if (options.getImageSize() != null) {
-                imageRequestBuilder.setResizeOptions(new ResizeOptions(getSize(options.getImageSize().getWidth(),view), getSize(options.getImageSize().getWidth(),view)));
+                imageRequestBuilder.setResizeOptions(new ResizeOptions(getSize(options.getImageSize().getWidth(), view), getSize(options.getImageSize().getWidth(), view)));
             }
-            if (options.isBlurImage()) {
-//                imageRequestBuilder.setPostprocessor(new BlurPostprocessor(view.getContext().getApplicationContext(), 15));
-            }
-            ImageRequest request =imageRequestBuilder.build();
+            ImageRequest request = imageRequestBuilder.build();
             controllerBuilder.setImageRequest(request);
-            DraweeController controller=controllerBuilder.build();
+            DraweeController controller = controllerBuilder.build();
 
             drawee.setController(controller);
 
         }
     }
 
-    public Bitmap copyBitmap(Bitmap source){
+    public Bitmap copyBitmap(Bitmap source) {
         int width = source.getWidth();
         int height = source.getHeight();
-        int scaledWidth = width / 1;
-        int scaledHeight = height / 1;
-        Bitmap blurredBitmap = Bitmap.createBitmap(scaledWidth, scaledHeight,source.getConfig());
-        if (source.getConfig()==blurredBitmap.getConfig()) {
-            Bitmaps.copyBitmap(blurredBitmap,source);
-        }else{
+        int scaledWidth = width;
+        int scaledHeight = height;
+        Bitmap blurredBitmap = Bitmap.createBitmap(scaledWidth, scaledHeight, source.getConfig());
+        if (source.getConfig() == blurredBitmap.getConfig()) {
+            Bitmaps.copyBitmap(blurredBitmap, source);
+        } else {
             Canvas canvas = new Canvas(blurredBitmap);
-            canvas.drawBitmap(source,0,0,null);
+            canvas.drawBitmap(source, 0, 0, null);
         }
         return blurredBitmap;
 
     }
 
-    private SimpleDraweeView getDraweeView(View viewContainer,Class<?> classType) {
-        if (viewContainer instanceof SimpleDraweeView){
+    private SimpleDraweeView getDraweeView(View viewContainer, Class<?> classType) {
+        if (viewContainer instanceof SimpleDraweeView) {
             return (SimpleDraweeView) viewContainer;
         }
-        SimpleDraweeView mDraweeView=null;
-        if (classType.isInstance(viewContainer)){
-            FrameLayout layout=new FrameLayout(viewContainer.getContext());
-            if(viewContainer.getParent() instanceof FrameLayout){
-                FrameLayout parent= (FrameLayout) viewContainer.getParent();
-                FrameLayout.LayoutParams params= (FrameLayout.LayoutParams) viewContainer.getLayoutParams();
+        SimpleDraweeView mDraweeView = null;
+        if (classType.isInstance(viewContainer)) {
+            FrameLayout layout = new FrameLayout(viewContainer.getContext());
+            if (viewContainer.getParent() instanceof FrameLayout) {
+                FrameLayout parent = (FrameLayout) viewContainer.getParent();
+                FrameLayout.LayoutParams params = (FrameLayout.LayoutParams) viewContainer.getLayoutParams();
                 layout.setLayoutParams(params);
-                mDraweeView=exchangeChilde(parent,viewContainer,params);
+                mDraweeView = exchangeChilde(parent, viewContainer, params);
 
-            }else if(viewContainer.getParent() instanceof RelativeLayout){
-                RelativeLayout parent= (RelativeLayout) viewContainer.getParent();
-                RelativeLayout.LayoutParams params= (RelativeLayout.LayoutParams) viewContainer.getLayoutParams();
+            } else if (viewContainer.getParent() instanceof RelativeLayout) {
+                RelativeLayout parent = (RelativeLayout) viewContainer.getParent();
+                RelativeLayout.LayoutParams params = (RelativeLayout.LayoutParams) viewContainer.getLayoutParams();
                 layout.setLayoutParams(params);
-                mDraweeView=exchangeChilde(parent,viewContainer,params);
+                mDraweeView = exchangeChilde(parent, viewContainer, params);
 
-            }else if(viewContainer.getParent() instanceof LinearLayout){
-                LinearLayout parent= (LinearLayout) viewContainer.getParent();
-                LinearLayout.LayoutParams params= (LinearLayout.LayoutParams) viewContainer.getLayoutParams();
+            } else if (viewContainer.getParent() instanceof LinearLayout) {
+                LinearLayout parent = (LinearLayout) viewContainer.getParent();
+                LinearLayout.LayoutParams params = (LinearLayout.LayoutParams) viewContainer.getLayoutParams();
                 layout.setLayoutParams(params);
-                exchangeView(parent,viewContainer,layout);
+                exchangeView(parent, viewContainer, layout);
                 layout.addView(viewContainer);
-                mDraweeView=exchangeChilde(layout,viewContainer,params);
+                mDraweeView = exchangeChilde(layout, viewContainer, params);
 
-            }else{
+            } else {
                 // 出现这种情况需要找到到底是其他的Layout还是null,然后做相应的处理，小爱项目基本只使用了上面三种布局
-                ViewParent parent=viewContainer.getParent();
-                Log.i("","parent exception");
+                ViewParent parent = viewContainer.getParent();
+                Log.i("", "parent exception");
             }
-        }else{
+        } else {
         }
         return mDraweeView;
     }
 
-    /*
+    /**
      * 将ViewGroup中的一个childView移除，在同原样的位置添加一个新的View
      */
-    private void exchangeView(ViewGroup parent, View viewOld, View viewNew){
+    private void exchangeView(ViewGroup parent, View viewOld, View viewNew) {
         for (int i = 0; i < parent.getChildCount(); i++) {
             if (parent.getChildAt(i).equals(viewOld)) {
                 parent.removeView(viewOld);
-                parent.addView(viewNew,i);
+                parent.addView(viewNew, i);
                 return;
             }
         }
@@ -193,24 +176,24 @@ public class FrescoImageLoader implements ImageLoaderStrategy {
     }
 
     private SimpleDraweeView exchangeChilde(ViewGroup parent, View testImageView, ViewGroup.LayoutParams layoutParams) {
-        SimpleDraweeView draweeview =null;
+        SimpleDraweeView draweeview = null;
         for (int i = 0; i < parent.getChildCount(); i++) {
             if (testImageView.equals(parent.getChildAt(i))) {
                 if (testImageView instanceof ImageView) {
-                    ImageView img= (ImageView) testImageView;
-                    img.setBackgroundDrawable(null);
+                    ImageView img = (ImageView) testImageView;
+                    img.setBackground(null);
                     img.setImageDrawable(null);
 
                 }
-                if (i+1<parent.getChildCount()) {
-                    View child=parent.getChildAt(i+1);
+                if (i + 1 < parent.getChildCount()) {
+                    View child = parent.getChildAt(i + 1);
                     if (child instanceof SimpleDraweeView) {
                         return (SimpleDraweeView) child;
                     }
                 }
-                draweeview=new SimpleDraweeView(testImageView.getContext());
+                draweeview = new SimpleDraweeView(testImageView.getContext());
                 draweeview.setLayoutParams(layoutParams);
-                parent.addView(draweeview,i+1);
+                parent.addView(draweeview, i + 1);
                 return draweeview;
             }
         }
@@ -219,9 +202,9 @@ public class FrescoImageLoader implements ImageLoaderStrategy {
 
     public ImagePipelineConfig getPipelineConfig(Context context) {
         // set the cache file path
-        DiskCacheConfig diskCacheConfig=DiskCacheConfig.newBuilder(context)
-                .setMaxCacheSize(30*1024*1024)
-                .setMaxCacheSizeOnLowDiskSpace(5*1024*1024)
+        DiskCacheConfig diskCacheConfig = DiskCacheConfig.newBuilder(context)
+                .setMaxCacheSize(30 * 1024 * 1024)
+                .setMaxCacheSizeOnLowDiskSpace(5 * 1024 * 1024)
                 .build();
 
         return ImagePipelineConfig.newBuilder(context)
@@ -247,7 +230,7 @@ public class FrescoImageLoader implements ImageLoaderStrategy {
                 return container.getContext().getResources().getDimensionPixelOffset(resSize);
             } catch (Resources.NotFoundException e) {
                 e.printStackTrace();
-                Log.e("","Resources.NotFoundException  I got !!!");
+                Log.e("", "Resources.NotFoundException  I got !!!");
                 return resSize;
             }
         }

@@ -586,7 +586,7 @@ public class EncryptUtil {
      * <p>填充方式有：NoPadding、ZerosPadding、PKCS5Padding</p>
      */
     public static String DES_Transformation = "DES/ECB/NoPadding";
-    private static final String DES_Algorithm = "DES";
+    private static final String DES_ALGORITHM = "DES";
 
     /**
      * DES加密后转为Base64编码
@@ -618,7 +618,7 @@ public class EncryptUtil {
      * @return 密文
      */
     public static byte[] encryptDES(final byte[] data, final byte[] key) {
-        return desTemplate(data, key, DES_Algorithm, DES_Transformation, true);
+        return desTemplate(data, key, DES_ALGORITHM, DES_Transformation, true);
     }
 
     /**
@@ -651,7 +651,7 @@ public class EncryptUtil {
      * @return 明文
      */
     public static byte[] decryptDES(final byte[] data, final byte[] key) {
-        return desTemplate(data, key, DES_Algorithm, DES_Transformation, false);
+        return desTemplate(data, key, DES_ALGORITHM, DES_Transformation, false);
     }
 
     ///////////////////////////////////////////////////////////////////////////
@@ -665,7 +665,7 @@ public class EncryptUtil {
      * <p>填充方式有：NoPadding、ZerosPadding、PKCS5Padding</p>
      */
     public static String TripleDES_Transformation = "DESede/ECB/NoPadding";
-    private static final String TripleDES_Algorithm = "DESede";
+    private static final String TRIPLEDES_ALGORITHM = "DESede";
 
 
     /**
@@ -698,7 +698,7 @@ public class EncryptUtil {
      * @return 密文
      */
     public static byte[] encrypt3DES(final byte[] data, final byte[] key) {
-        return desTemplate(data, key, TripleDES_Algorithm, TripleDES_Transformation, true);
+        return desTemplate(data, key, TRIPLEDES_ALGORITHM, TripleDES_Transformation, true);
     }
 
     /**
@@ -731,7 +731,7 @@ public class EncryptUtil {
      * @return 明文
      */
     public static byte[] decrypt3DES(final byte[] data, final byte[] key) {
-        return desTemplate(data, key, TripleDES_Algorithm, TripleDES_Transformation, false);
+        return desTemplate(data, key, TRIPLEDES_ALGORITHM, TripleDES_Transformation, false);
     }
 
     ///////////////////////////////////////////////////////////////////////////
@@ -744,8 +744,8 @@ public class EncryptUtil {
      * <p>加密模式有：电子密码本模式ECB、加密块链模式CBC、加密反馈模式CFB、输出反馈模式OFB</p>
      * <p>填充方式有：NoPadding、ZerosPadding、PKCS5Padding</p>
      */
-    public static String AES_Transformation = "AES/ECB/NoPadding";
-    private static final String AES_Algorithm = "AES";
+    public static String AES_TRANSFORMATION = "AES/ECB/NoPadding";
+    private static final String AES_ALGORITHM = "AES";
 
 
     /**
@@ -778,7 +778,7 @@ public class EncryptUtil {
      * @return 密文
      */
     public static byte[] encryptAES(final byte[] data, final byte[] key) {
-        return desTemplate(data, key, AES_Algorithm, AES_Transformation, true);
+        return desTemplate(data, key, AES_ALGORITHM, AES_TRANSFORMATION, true);
     }
 
     /**
@@ -811,7 +811,7 @@ public class EncryptUtil {
      * @return 明文
      */
     public static byte[] decryptAES(final byte[] data, final byte[] key) {
-        return desTemplate(data, key, AES_Algorithm, AES_Transformation, false);
+        return desTemplate(data, key, AES_ALGORITHM, AES_TRANSFORMATION, false);
     }
 
     /**
@@ -840,7 +840,7 @@ public class EncryptUtil {
         }
     }
 
-    private static final char hexDigits[] = {'0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'A', 'B', 'C', 'D', 'E', 'F'};
+    private static final char[] HEX_DIGITS = {'0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'A', 'B', 'C', 'D', 'E', 'F'};
 
     private static String bytes2HexString(final byte[] bytes) {
         if (bytes == null) {
@@ -852,8 +852,8 @@ public class EncryptUtil {
         }
         char[] ret = new char[len << 1];
         for (int i = 0, j = 0; i < len; i++) {
-            ret[j++] = hexDigits[bytes[i] >>> 4 & 0x0f];
-            ret[j++] = hexDigits[bytes[i] & 0x0f];
+            ret[j++] = HEX_DIGITS[bytes[i] >>> 4 & 0x0f];
+            ret[j++] = HEX_DIGITS[bytes[i] & 0x0f];
         }
         return new String(ret);
     }
@@ -894,7 +894,8 @@ public class EncryptUtil {
     }
 
     private static boolean isSpace(final String s) {
-        if (s == null) {return true;
+        if (s == null) {
+            return true;
 
         }
         for (int i = 0, len = s.length(); i < len; ++i) {

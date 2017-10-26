@@ -27,7 +27,7 @@ public class BookListPresenter implements BookListContract.Presenter {
 
     @Override
     public void getData(String duration, String tag, String gender, int start, String sort) {
-        HashMap<String, String> map = new HashMap<>();
+        HashMap<String, String> map = new HashMap<>(6);
         map.put("duration", duration);
         map.put("tag", tag);
         map.put("gender", gender);

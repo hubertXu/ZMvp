@@ -63,6 +63,8 @@ public class RankingActivity extends BaseActivity {
                         return RankingFragment.newInstance(month);
                     case 2:
                         return RankingFragment.newInstance(total);
+                    default:
+                        break;
                 }
                 return RankingFragment.newInstance(week);
             }

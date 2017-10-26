@@ -189,7 +189,7 @@ public class TimeUtil {
      * @param millis 毫秒时间戳
      * @return 时间字符串
      */
-    public static String millis2String(final long millis) {
+    synchronized public static String millis2String(final long millis) {
         return millis2String(millis, DEFAULT_FORMAT);
     }
 
@@ -212,7 +212,7 @@ public class TimeUtil {
      * @param time 时间字符串
      * @return 毫秒时间戳
      */
-    public static long string2Millis(final String time) {
+    synchronized public static long string2Millis(final String time) {
         return string2Millis(time, DEFAULT_FORMAT);
     }
 
@@ -240,7 +240,7 @@ public class TimeUtil {
      * @param time 时间字符串
      * @return Date类型
      */
-    public static Date string2Date(final String time) {
+    synchronized public static Date string2Date(final String time) {
         return string2Date(time, DEFAULT_FORMAT);
     }
 
@@ -268,7 +268,7 @@ public class TimeUtil {
      * @param date Date类型时间
      * @return 时间字符串
      */
-    public static String date2String(final Date date) {
+    synchronized public static String date2String(final Date date) {
         return date2String(date, DEFAULT_FORMAT);
     }
 
@@ -320,7 +320,7 @@ public class TimeUtil {
      *              </ul>
      * @return unit时间戳
      */
-    public static long getTimeSpan(final String time0, final String time1, @TimeConstants.Unit final int unit) {
+    synchronized public static long getTimeSpan(final String time0, final String time1, @TimeConstants.Unit final int unit) {
         return getTimeSpan(time0, time1, DEFAULT_FORMAT, unit);
     }
 
@@ -398,7 +398,7 @@ public class TimeUtil {
      *                  <p>precision &gt;= 5，返回天、小时、分钟、秒和毫秒</p>
      * @return 合适型两个时间差
      */
-    public static String getFitTimeSpan(final String time0, final String time1, final int precision) {
+    synchronized public static String getFitTimeSpan(final String time0, final String time1, final int precision) {
         return millis2FitTimeSpan(Math.abs(string2Millis(time0, DEFAULT_FORMAT) - string2Millis(time1, DEFAULT_FORMAT)), precision);
     }
 
@@ -473,7 +473,7 @@ public class TimeUtil {
      *
      * @return 时间字符串
      */
-    public static String getNowString() {
+    synchronized public static String getNowString() {
         return millis2String(System.currentTimeMillis(), DEFAULT_FORMAT);
     }
 
@@ -512,7 +512,7 @@ public class TimeUtil {
      *             </ul>
      * @return unit时间戳
      */
-    public static long getTimeSpanByNow(final String time, @TimeConstants.Unit final int unit) {
+    synchronized public static long getTimeSpanByNow(final String time, @TimeConstants.Unit final int unit) {
         return getTimeSpan(getNowString(), time, DEFAULT_FORMAT, unit);
     }
 
@@ -588,7 +588,7 @@ public class TimeUtil {
      *                  </ul>
      * @return 合适型与当前时间的差
      */
-    public static String getFitTimeSpanByNow(final String time, final int precision) {
+    synchronized public static String getFitTimeSpanByNow(final String time, final int precision) {
         return getFitTimeSpan(getNowString(), time, DEFAULT_FORMAT, precision);
     }
 
@@ -667,7 +667,7 @@ public class TimeUtil {
      * <li>时间不合法的情况全部日期和时间信息，如星期六 十月 27 14:21:20 CST 2007</li>
      * </ul>
      */
-    public static String getFriendlyTimeSpanByNow(final String time) {
+    synchronized public static String getFriendlyTimeSpanByNow(final String time) {
         return getFriendlyTimeSpanByNow(time, DEFAULT_FORMAT);
     }
 
@@ -729,9 +729,9 @@ public class TimeUtil {
     public static String getFriendlyTimeSpanByNow(final long millis) {
         long now = System.currentTimeMillis();
         long span = now - millis;
-        if (span < 0){
-            return String.format("%tc", millis);// U can ic_launcher http://www.apihome.cn/api/java/Formatter.html to understand it.
-
+        if (span < 0) {
+            // U can ic_launcher http://www.apihome.cn/api/java/Formatter.html to understand it.
+            return String.format("%tc", millis);
         }
         if (span < 1000) {
             return "刚刚";
@@ -795,7 +795,7 @@ public class TimeUtil {
      *                 </ul>
      * @return 与给定时间等于时间差的时间戳
      */
-    public static long getMillis(final String time, final long timeSpan, @TimeConstants.Unit final int unit) {
+    synchronized public static long getMillis(final String time, final long timeSpan, @TimeConstants.Unit final int unit) {
         return getMillis(time, DEFAULT_FORMAT, timeSpan, unit);
     }
 
@@ -855,7 +855,7 @@ public class TimeUtil {
      *                 </ul>
      * @return 与给定时间等于时间差的时间字符串
      */
-    public static String getString(final long millis, final long timeSpan, @TimeConstants.Unit final int unit) {
+    synchronized public static String getString(final long millis, final long timeSpan, @TimeConstants.Unit final int unit) {
         return getString(millis, DEFAULT_FORMAT, timeSpan, unit);
     }
 
@@ -896,7 +896,7 @@ public class TimeUtil {
      *                 </ul>
      * @return 与给定时间等于时间差的时间字符串
      */
-    public static String getString(final String time, final long timeSpan, @TimeConstants.Unit final int unit) {
+    synchronized public static String getString(final String time, final long timeSpan, @TimeConstants.Unit final int unit) {
         return getString(time, DEFAULT_FORMAT, timeSpan, unit);
     }
 
@@ -937,7 +937,7 @@ public class TimeUtil {
      *                 </ul>
      * @return 与给定时间等于时间差的时间字符串
      */
-    public static String getString(final Date date, final long timeSpan, @TimeConstants.Unit final int unit) {
+    synchronized public static String getString(final Date date, final long timeSpan, @TimeConstants.Unit final int unit) {
         return getString(date, DEFAULT_FORMAT, timeSpan, unit);
     }
 
@@ -997,7 +997,7 @@ public class TimeUtil {
      *                 </ul>
      * @return 与给定时间等于时间差的Date
      */
-    public static Date getDate(final String time, final long timeSpan, @TimeConstants.Unit final int unit) {
+    synchronized public static Date getDate(final String time, final long timeSpan, @TimeConstants.Unit final int unit) {
         return getDate(time, DEFAULT_FORMAT, timeSpan, unit);
     }
 
@@ -1074,7 +1074,7 @@ public class TimeUtil {
      *                 </ul>
      * @return 与当前时间等于时间差的时间字符串
      */
-    public static String getStringByNow(final long timeSpan, @TimeConstants.Unit final int unit) {
+    synchronized public static String getStringByNow(final long timeSpan, @TimeConstants.Unit final int unit) {
         return getStringByNow(timeSpan, DEFAULT_FORMAT, unit);
     }
 
@@ -1123,7 +1123,7 @@ public class TimeUtil {
      * @param time 时间字符串
      * @return {@code true}: 是<br>{@code false}: 否
      */
-    public static boolean isToday(final String time) {
+    synchronized public static boolean isToday(final String time) {
         return isToday(string2Millis(time, DEFAULT_FORMAT));
     }
 
@@ -1167,7 +1167,7 @@ public class TimeUtil {
      * @param time 时间字符串
      * @return {@code true}: 闰年<br>{@code false}: 平年
      */
-    public static boolean isLeapYear(final String time) {
+    synchronized public static boolean isLeapYear(final String time) {
         return isLeapYear(string2Date(time, DEFAULT_FORMAT));
     }
 
@@ -1223,7 +1223,7 @@ public class TimeUtil {
      * @param time 时间字符串
      * @return 中式星期
      */
-    public static String getChineseWeek(final String time) {
+    synchronized public static String getChineseWeek(final String time) {
         return getChineseWeek(string2Date(time, DEFAULT_FORMAT));
     }
 
@@ -1266,7 +1266,7 @@ public class TimeUtil {
      * @param time 时间字符串
      * @return 美式星期
      */
-    public static String getUSWeek(final String time) {
+    synchronized public static String getUSWeek(final String time) {
         return getUSWeek(string2Date(time, DEFAULT_FORMAT));
     }
 
@@ -1317,7 +1317,7 @@ public class TimeUtil {
      * @see Calendar#FRIDAY
      * @see Calendar#SATURDAY
      */
-    public static int getWeekIndex(final String time) {
+    synchronized public static int getWeekIndex(final String time) {
         return getWeekIndex(string2Date(time, DEFAULT_FORMAT));
     }
 
@@ -1387,7 +1387,7 @@ public class TimeUtil {
      * @param time 时间字符串
      * @return 1...5
      */
-    public static int getWeekOfMonth(final String time) {
+    synchronized public static int getWeekOfMonth(final String time) {
         return getWeekOfMonth(string2Date(time, DEFAULT_FORMAT));
     }
 
@@ -1436,7 +1436,7 @@ public class TimeUtil {
      * @param time 时间字符串
      * @return 1...54
      */
-    public static int getWeekOfYear(final String time) {
+    synchronized public static int getWeekOfYear(final String time) {
         return getWeekOfYear(string2Date(time, DEFAULT_FORMAT));
     }
 
@@ -1486,7 +1486,7 @@ public class TimeUtil {
      * @param time 时间字符串
      * @return 生肖
      */
-    public static String getChineseZodiac(final String time) {
+    synchronized public static String getChineseZodiac(final String time) {
         return getChineseZodiac(string2Date(time, DEFAULT_FORMAT));
     }
 
@@ -1544,7 +1544,7 @@ public class TimeUtil {
      * @param time 时间字符串
      * @return 生肖
      */
-    public static String getZodiac(final String time) {
+    synchronized public static String getZodiac(final String time) {
         return getZodiac(string2Date(time, DEFAULT_FORMAT));
     }
 

@@ -36,7 +36,7 @@ public class BookClassifyActivity extends BaseActivity implements SwipeRefreshLa
 
     @Override
     protected void initView() {
-        mTvTitle.setText(R.string.classify);
+        mTvTitle.setText(R.string.assort);
         mClassifyPresenter = new BookClassifyPresenter(this);
         mRvBookClassify.setLayoutManager(new GridLayoutManager(this, 3));
         mSwipeLayout.setOnRefreshListener(this);

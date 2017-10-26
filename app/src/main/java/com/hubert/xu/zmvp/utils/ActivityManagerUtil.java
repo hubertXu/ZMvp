@@ -61,7 +61,7 @@ public class ActivityManagerUtil {
      *
      * @param activity
      */
-    public void finishActivity(Activity activity) {
+     void finishActivity(Activity activity) {
         if (activity != null) {
             activityStack.remove(activity);
             activity.finish();
@@ -73,7 +73,7 @@ public class ActivityManagerUtil {
      *
      * @param cls
      */
-    public void finishActivity(Class<?> cls) {
+     void finishActivity(Class<?> cls) {
         for (Activity activity : activityStack) {
             if (activity.getClass().equals(cls)){
                 finishActivity(activity);

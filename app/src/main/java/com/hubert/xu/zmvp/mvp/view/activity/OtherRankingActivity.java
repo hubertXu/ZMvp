@@ -70,9 +70,7 @@ public class OtherRankingActivity extends BaseActivity implements SwipeRefreshLa
     @Override
     public void setData(RankingBean data) {
         mSwipeLayout.setRefreshing(false);
-        if (data==null||data.getRanking() == null) {
-            mRankingAdapter.loadMoreComplete();
-        }
+        mRankingAdapter.loadMoreComplete();
         mRankingAdapter.setNewData(data.getRanking().getBooks());
     }
 

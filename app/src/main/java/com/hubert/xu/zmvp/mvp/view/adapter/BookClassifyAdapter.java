@@ -39,10 +39,12 @@ public class BookClassifyAdapter extends BaseQuickAdapter<BookclassifyLocalBean.
         switch (helper.getItemViewType()) {
             case Constants.BOOK_TYPE_NAME:
                 helper.setText(R.id.tv_book_classify_name, item.getName())
-                        .setText(R.id.tv_book_classify_count, item.getBookCount()+"");
+                        .setText(R.id.tv_book_classify_count, item.getBookCount() + "");
                 break;
             case Constants.BOOK_TYPE_SIGN:
                 helper.setText(R.id.tv_book_sign, item.getName());
+                break;
+            default:
                 break;
         }
     }

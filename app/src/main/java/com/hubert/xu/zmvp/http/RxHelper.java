@@ -1,6 +1,5 @@
 package com.hubert.xu.zmvp.http;
 
-import android.content.DialogInterface;
 import android.support.annotation.NonNull;
 
 import com.gc.materialdesign.widgets.Dialog;
@@ -13,13 +12,8 @@ import com.trello.rxlifecycle2.components.support.RxFragment;
 
 import java.util.concurrent.TimeUnit;
 
-import io.reactivex.Observable;
-import io.reactivex.ObservableSource;
 import io.reactivex.ObservableTransformer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.disposables.Disposable;
-import io.reactivex.functions.Action;
-import io.reactivex.functions.Consumer;
 import io.reactivex.schedulers.Schedulers;
 
 /**
@@ -58,127 +52,67 @@ public class RxHelper {
     }
 
     public static <T> ObservableTransformer<T, T> applySchedulers(final LifecycleProvider provider) {
-        return new ObservableTransformer<T, T>() {
-            @Override public ObservableSource<T> apply(@NonNull Observable<T> upstream) {
-                return upstream
-                        .retryWhen(new RetryWithDelay())
-                        .subscribeOn(Schedulers.io())
-                        .observeOn(AndroidSchedulers.mainThread())
-                        .compose(RxHelper.<T>bindToLifecycle(provider));
-
-            }
-        };
+        return upstream -> upstream
+                .retryWhen(new RetryWithDelay())
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .compose(RxHelper.<T>bindToLifecycle(provider));
     }
 
     public static <T> ObservableTransformer<T, T> applySchedulers(final LifecycleProvider provider, final ActivityEvent event) {
-        return new ObservableTransformer<T, T>() {
-            @Override public ObservableSource<T> apply(@NonNull Observable<T> upstream) {
-                return upstream
-                        .retryWhen(new RetryWithDelay())
-                        .subscribeOn(Schedulers.io())
-                        .observeOn(AndroidSchedulers.mainThread())
-                        .compose(RxHelper.<T>bindToLifecycle(provider, event));
-
-            }
-        };
+        return upstream -> upstream
+                .retryWhen(new RetryWithDelay())
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .compose(RxHelper.<T>bindToLifecycle(provider, event));
     }
 
     public static <T> ObservableTransformer<T, T> applySchedulers(final LifecycleProvider provider, final FragmentEvent event) {
-        return new ObservableTransformer<T, T>() {
-            @Override public ObservableSource<T> apply(@NonNull Observable<T> upstream) {
-                return upstream
-                        .retryWhen(new RetryWithDelay())
-                        .subscribeOn(Schedulers.io())
-                        .observeOn(AndroidSchedulers.mainThread())
-                        .compose(RxHelper.<T>bindToLifecycle(provider, event));
-
-            }
-        };
+        return upstream -> upstream
+                .retryWhen(new RetryWithDelay())
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .compose(RxHelper.<T>bindToLifecycle(provider, event));
     }
 
     public static <T> ObservableTransformer<T, T> applySchedulers(final LifecycleProvider provider, @NonNull final Dialog dialog) {
-        return new ObservableTransformer<T, T>() {
-            @Override public ObservableSource<T> apply(@NonNull Observable<T> upstream) {
-                return upstream
-                        .delay(1, TimeUnit.SECONDS)
-                        .retryWhen(new RetryWithDelay())
-                        .subscribeOn(Schedulers.io())
-                        .doOnSubscribe(new Consumer<Disposable>() {
-                            @Override
-                            public void accept(@NonNull final Disposable disposable) throws Exception {
-                                dialog.setOnCancelListener(new DialogInterface.OnCancelListener() {
-                                    @Override public void onCancel(DialogInterface dialog) {
-                                        disposable.dispose();
-                                    }
-                                });
-                                dialog.show();
-                            }
-                        })
-                        .observeOn(AndroidSchedulers.mainThread())
-                        .doOnTerminate(new Action() {
-                            @Override public void run() throws Exception {
-                                dialog.dismiss();
-                            }
-                        })
-                        .compose(RxHelper.<T>bindToLifecycle(provider));
-            }
-        };
+        return upstream -> upstream
+                .delay(1, TimeUnit.SECONDS)
+                .retryWhen(new RetryWithDelay())
+                .subscribeOn(Schedulers.io())
+                .doOnSubscribe(disposable -> {
+                    dialog.setOnCancelListener(dialog1 -> disposable.dispose());
+                    dialog.show();
+                })
+                .observeOn(AndroidSchedulers.mainThread())
+                .doOnTerminate(() -> dialog.dismiss())
+                .compose(RxHelper.<T>bindToLifecycle(provider));
     }
 
     public static <T> ObservableTransformer<T, T> applySchedulers(final LifecycleProvider provider, final ActivityEvent event, @NonNull final Dialog dialog) {
-        return new ObservableTransformer<T, T>() {
-            @Override public ObservableSource<T> apply(@NonNull Observable<T> upstream) {
-                return upstream
-                        .delay(1, TimeUnit.SECONDS)
-                        .retryWhen(new RetryWithDelay())
-                        .subscribeOn(Schedulers.io())
-                        .doOnSubscribe(new Consumer<Disposable>() {
-                            @Override
-                            public void accept(@NonNull final Disposable disposable) throws Exception {
-                                dialog.setOnCancelListener(new DialogInterface.OnCancelListener() {
-                                    @Override public void onCancel(DialogInterface dialog) {
-                                        disposable.dispose();
-                                    }
-                                });
-                                dialog.show();
-                            }
-                        })
-                        .observeOn(AndroidSchedulers.mainThread())
-                        .doOnTerminate(new Action() {
-                            @Override public void run() throws Exception {
-                                dialog.dismiss();
-                            }
-                        })
-                        .compose(RxHelper.<T>bindToLifecycle(provider, event));
-            }
-        };
+        return upstream -> upstream
+                .delay(1, TimeUnit.SECONDS)
+                .retryWhen(new RetryWithDelay())
+                .subscribeOn(Schedulers.io())
+                .doOnSubscribe(disposable -> {
+                    dialog.setOnCancelListener(dialog1 -> disposable.dispose());
+                    dialog.show();
+                })
+                .observeOn(AndroidSchedulers.mainThread())
+                .doOnTerminate(() -> dialog.dismiss())
+                .compose(RxHelper.<T>bindToLifecycle(provider, event));
     }
 
     public static <T> ObservableTransformer<T, T> applySchedulers(final LifecycleProvider provider, final FragmentEvent event, @NonNull final Dialog dialog) {
-        return new ObservableTransformer<T, T>() {
-            @Override public ObservableSource<T> apply(@NonNull Observable<T> upstream) {
-                return upstream
-                        .delay(1, TimeUnit.SECONDS)
-                        .retryWhen(new RetryWithDelay(2,5000))
-                        .subscribeOn(Schedulers.io())
-                        .doOnSubscribe(new Consumer<Disposable>() {
-                            @Override
-                            public void accept(@NonNull final Disposable disposable) throws Exception {
-                                dialog.setOnCancelListener(new DialogInterface.OnCancelListener() {
-                                    @Override public void onCancel(DialogInterface dialog) {
-                                        disposable.dispose();
-                                    }
-                                });
-                                dialog.show();
-                            }
-                        })
-                        .observeOn(AndroidSchedulers.mainThread())
-                        .doOnTerminate(new Action() {
-                            @Override public void run() throws Exception {
-                                dialog.dismiss();
-                            }
-                        })
-                        .compose(RxHelper.<T>bindToLifecycle(provider, event));
-            }
-        };
+        return upstream -> upstream
+                .delay(1, TimeUnit.SECONDS)
+                .retryWhen(new RetryWithDelay(2,5000))
+                .subscribeOn(Schedulers.io())
+                .doOnSubscribe(disposable -> {
+                    dialog.setOnCancelListener(dialog1 -> disposable.dispose());
+                    dialog.show();
+                })
+                .observeOn(AndroidSchedulers.mainThread())
+                .doOnTerminate(() -> dialog.dismiss())
+                .compose(RxHelper.<T>bindToLifecycle(provider, event));
     }}

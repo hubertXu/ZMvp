@@ -33,6 +33,8 @@ public class CommunityFragmentFactory {
                 case 3:
                     fragment = new BookReviewFragment();
                     break;
+                default:
+                    break;
             }
             fragmentMaps.put(position, fragment);
         }

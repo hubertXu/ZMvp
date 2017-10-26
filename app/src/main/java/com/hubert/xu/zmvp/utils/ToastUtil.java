@@ -50,9 +50,6 @@ public class ToastUtil {
             mToast.setText(text);
             mToast.setDuration(duration);
         }
-//        自定义Toast布局，按需设置
-//        View view = LayoutInflater.from(mContext).inflate(R.layout.toast_view,null);
-//        mToast.setView(view);
         mToast.show();
     }
 
@@ -147,7 +144,7 @@ public class ToastUtil {
     /**
      * 自定义显示Toast时间
      *
-     * @param message  文本
+     * @param message 文本
      */
     public static void show(CharSequence message) {
         showToast(message, Toast.LENGTH_SHORT);

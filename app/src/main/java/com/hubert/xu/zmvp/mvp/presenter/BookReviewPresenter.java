@@ -26,7 +26,7 @@ public class BookReviewPresenter implements BookReviewContract.Presenter {
 
     @Override
     public void getData(int start,String type) {
-        HashMap<String, String> parmasMap = new HashMap<>();
+        HashMap<String, String> parmasMap = new HashMap<>(6);
         parmasMap.put("duration", "all");
         parmasMap.put("sort", Constants.TYPE_SORT_DEFAULT);
         parmasMap.put("type", type);

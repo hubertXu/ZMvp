@@ -26,7 +26,7 @@ public class CommentDetailPresenter implements CommentDetailContract.Presenter {
 
     @Override
     public void getRefreshData(String rankingId) {
-        HashMap<String, String> map = new HashMap<>();
+        HashMap<String, String> map = new HashMap<>(2);
         map.put("start", "0");
         map.put("limit", "20");
         RemoteDataManager.getInstance().getDicussDetailRefresh(rankingId, map, new BaseObserver<CommentDetailBean>() {
@@ -54,7 +54,7 @@ public class CommentDetailPresenter implements CommentDetailContract.Presenter {
 
     @Override
     public void getMoreData(String rankingId, int start) {
-        HashMap<String, String> map = new HashMap<>();
+        HashMap<String, String> map = new HashMap<>(2);
         map.put("start", start + "");
         map.put("limit", "20");
         RemoteDataManager.getInstance().getDiscussMore(rankingId, map, new BaseObserver<CommentListBean>() {

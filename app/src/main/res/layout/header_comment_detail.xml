@@ -2,7 +2,6 @@
 <android.support.v7.widget.CardView
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     style="@style/CardViewStyle"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
@@ -30,7 +29,6 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="8dp"
             android:layout_marginStart="8dp"
-            android:text="TextView"
             android:textColor="@color/colorPrimaryLight"
             android:textSize="@dimen/subhead_16sp"
             app:layout_constraintLeft_toRightOf="@+id/iv_user_avatar"
@@ -40,7 +38,6 @@
             android:id="@+id/tv_comment_time"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="TextView"
             android:textColor="@color/halfBlack"
             android:textSize="@dimen/body_14sp"
             app:layout_constraintBottom_toBottomOf="@+id/iv_user_avatar"
@@ -51,7 +48,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
-            android:text="TextView"
             android:textColor="@color/colorPrimaryLight"
             android:textSize="@dimen/subhead_16sp"
             app:layout_constraintLeft_toLeftOf="@+id/iv_user_avatar"
@@ -62,7 +58,6 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
-            android:text="TextView"
             android:textColor="@color/halfBlack"
             android:textSize="@dimen/body_14sp"
             app:layout_constraintLeft_toLeftOf="@+id/tv_comment_title"
@@ -130,8 +125,9 @@
             android:background="@color/gray"
             android:paddingBottom="4dp"
             android:paddingLeft="16dp"
+            android:paddingRight="0dp"
             android:paddingTop="4dp"
-            android:text="评分"
+            android:text="@string/score"
             android:textSize="@dimen/subhead_16sp"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
@@ -158,7 +154,6 @@
                 android:layout_height="wrap_content"
                 android:gravity="center"
                 android:padding="8dp"
-                android:text="TextView"
                 />
 
             <TextView
@@ -167,7 +162,7 @@
                 android:layout_height="wrap_content"
                 android:drawableLeft="@drawable/ic_action_helpful"
                 android:gravity="center_vertical"
-                android:text="赞同"
+                android:text="@string/approval"
                 android:textSize="@dimen/body_14sp"
                 />
         </LinearLayout>
@@ -204,7 +199,6 @@
                 android:layout_height="wrap_content"
                 android:gravity="center"
                 android:padding="8dp"
-                android:text="TextView"
                 />
 
             <TextView
@@ -212,7 +206,7 @@
                 android:layout_height="wrap_content"
                 android:drawableLeft="@drawable/ic_action_helpless"
                 android:gravity="center_vertical"
-                android:text="反对"
+                android:text="@string/opposition"
                 android:textSize="@dimen/body_14sp"
                 />
         </LinearLayout>

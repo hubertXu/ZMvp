@@ -51,6 +51,8 @@ public class FindFragment extends BaseFragment {
             case R.id.card_assort:
                 startActivity(new Intent(mContext, BookClassifyActivity.class));
                 break;
+            default:
+                break;
         }
     }
 }

@@ -60,7 +60,7 @@ public class BookListSubActivity extends BaseActivity implements SwipeRefreshLay
         mPresenter = new BookClassifyListPresenter(this);
         mAdapter = new BookClassifyListAdapter(R.layout.item_book, mBooks);
         mRvBookListSub.setAdapter(mAdapter);
-        mAdapter.setOnLoadMoreListener(this);
+        mAdapter.setOnLoadMoreListener(this, mRvBookListSub);
         mSwipeLayout.setOnRefreshListener(this);
         mAdapter.setOnItemClickListener((adapter, view, position) -> BookDetailActivity.startActivity(BookListSubActivity.this, mBooks.get(position).getTitle(), mBooks.get(position).get_id()));
         onRefresh();
@@ -83,21 +83,15 @@ public class BookListSubActivity extends BaseActivity implements SwipeRefreshLay
     @Override
     public void setData(BookClassifyListBean data, boolean isRefresh) {
         mSwipeLayout.setRefreshing(false);
-        if (data == null || data.getBooks() == null || data.getBooks().size() == 0) {
-            mAdapter.loadMoreComplete();
+        mAdapter.loadMoreComplete();
+        if (isRefresh) {
+            mBooks = data.getBooks();
         } else {
-            if (isRefresh) {
-                if (mBooks != null) {
-                    mBooks.clear();
-                }
-                mBooks = data.getBooks();
-            } else {
-                mBooks.addAll(data.getBooks());
-            }
-            mAdapter.setNewData(mBooks);
-            mAdapter.setEnableLoadMore(true);
-            start = start + data.getBooks().size();
+            mBooks.addAll(data.getBooks());
         }
+        mAdapter.setNewData(mBooks);
+        start = start + data.getBooks().size();
+        mAdapter.setEnableLoadMore(data.getBooks() != null && data.getBooks().size() >= 20);
     }
 
     @Override

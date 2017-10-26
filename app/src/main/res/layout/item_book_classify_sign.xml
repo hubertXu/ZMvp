@@ -10,8 +10,9 @@
         android:layout_height="wrap_content"
         android:paddingBottom="4dp"
         android:paddingLeft="12dp"
+        android:paddingRight="0dp"
         android:paddingTop="8dp"
-        android:text="男生"
+        android:text="@string/male"
         android:textSize="@dimen/subhead_16sp"
         />
 </LinearLayout>

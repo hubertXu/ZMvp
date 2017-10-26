@@ -51,7 +51,7 @@ public abstract class BaseObserver<T extends BookBaseBean> implements Observer<T
 
     @Override
     public void onError(@NonNull Throwable e) {
-        StringBuffer sb = new StringBuffer();
+        StringBuilder sb = new StringBuilder();
         if (e instanceof NetworkErrorException || e instanceof UnknownHostException || e instanceof ConnectException) {
             sb.append("网络异常");
         } else if (e instanceof SocketTimeoutException || e instanceof InterruptedIOException || e instanceof TimeoutException) {

@@ -2,7 +2,6 @@
 <android.support.v7.widget.CardView
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     style="@style/CardViewStyle"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
@@ -20,7 +19,7 @@
             android:layout_marginStart="8dp"
             android:paddingBottom="8dp"
             android:layout_marginTop="8dp"
-            android:text="推荐书单"
+            android:text="@string/recommend_book_list"
             android:textColor="@color/colorPrimaryDark"
             android:textSize="@dimen/subhead_18sp"
             app:layout_constraintLeft_toLeftOf="parent"

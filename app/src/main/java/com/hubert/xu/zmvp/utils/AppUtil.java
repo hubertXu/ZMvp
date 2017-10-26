@@ -68,14 +68,14 @@ public class AppUtil {
      * @return 返回true则表示处于开发模式，否则非开发模式
      */
     public static boolean isDev(){
-        return BuildConfig.BUILD_TYPE.equalsIgnoreCase("debug");
+        return "debug".equalsIgnoreCase(BuildConfig.BUILD_TYPE);
     }
 
     /**
      * 获取网络状态信息
      * @return NetworkInfo
      */
-    public static NetworkInfo getNetworkInfo(){
+     static NetworkInfo getNetworkInfo(){
         ConnectivityManager connectivityManager= (ConnectivityManager) getContext().getSystemService(Context.CONNECTIVITY_SERVICE);
         return connectivityManager.getActiveNetworkInfo();
     }

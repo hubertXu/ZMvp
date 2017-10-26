@@ -46,7 +46,7 @@ public class BookHelpFragment extends BaseFragment implements BookHelpContract.V
         mBookHelpAdapter = new BookHelpAdapter(R.layout.item_complex_discuss, mData);
         mRvBookHelp.setAdapter(mBookHelpAdapter);
         mSwipeLayout.setOnRefreshListener(this);
-        mBookHelpAdapter.setOnLoadMoreListener(this);
+        mBookHelpAdapter.setOnLoadMoreListener(this,mRvBookHelp);
         ((CommunityFragment) getParentFragment()).setDiscussSortLisenter(sortType -> {
             mSortType = sortType;
             onRefresh();
@@ -64,29 +64,25 @@ public class BookHelpFragment extends BaseFragment implements BookHelpContract.V
 
     @Override
     public void onLoadMoreRequested() {
-        mSwipeLayout.setEnabled(false);
         mBookHelpPresenter.getData(start, mSortType);
     }
 
     @Override
     public void setData(BookHelpListBean data, boolean isRefresh) {
         mSwipeLayout.setRefreshing(false);
-        if (data == null || data.getHelps() == null || data.getHelps().size() == 0) {
-            mBookHelpAdapter.loadMoreComplete();
-        } else {
-            if (isRefresh) {
-                if (mData != null){
-                    mData.clear();
-                }
-                mData = data.getHelps();
-            } else {
-                mData.addAll(data.getHelps());
+        mBookHelpAdapter.loadMoreComplete();
+        if (isRefresh) {
+            if (mData != null) {
+                mData.clear();
             }
-            mSwipeLayout.setEnabled(true);
-            mBookHelpAdapter.setEnableLoadMore(true);
-            mBookHelpAdapter.setNewData(mData);
-            start = start + data.getHelps().size();
+            mData = data.getHelps();
+        } else {
+            mData.addAll(data.getHelps());
         }
+        mSwipeLayout.setEnabled(true);
+        mBookHelpAdapter.setNewData(mData);
+        start = start + data.getHelps().size();
+        mBookHelpAdapter.setEnableLoadMore( data.getHelps() != null && data.getHelps().size() >= 20);
     }
 
     @Override

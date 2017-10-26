@@ -25,7 +25,7 @@ public class BookHelpPresenter implements BookHelpContract.Presenter {
 
     @Override
     public void getData(int start, String sortType) {
-        HashMap<String, String> parmasMap = new HashMap<>();
+        HashMap<String, String> parmasMap = new HashMap<>(6);
         parmasMap.put("duration", "all");
         parmasMap.put("sort", sortType);
         parmasMap.put("start", start + "");

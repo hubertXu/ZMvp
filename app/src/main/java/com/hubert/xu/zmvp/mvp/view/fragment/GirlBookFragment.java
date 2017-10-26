@@ -48,7 +48,7 @@ public class GirlBookFragment extends BaseFragment implements GirlBookContract.V
         mGirBookAdapter = new GirBookAdapter(R.layout.item_complex_discuss, mData);
         mRvBookGirl.setAdapter(mGirBookAdapter);
         mSwipeLayout.setOnRefreshListener(this);
-        mGirBookAdapter.setOnLoadMoreListener(this);
+        mGirBookAdapter.setOnLoadMoreListener(this, mRvBookGirl);
         ((CommunityFragment) getParentFragment()).setDiscussSortLisenter(sortType -> {
             this.sortType = sortType;
             onRefresh();
@@ -65,31 +65,21 @@ public class GirlBookFragment extends BaseFragment implements GirlBookContract.V
 
     @Override
     public void onLoadMoreRequested() {
-        mSwipeLayout.setEnabled(false);
         mGirlBookPresenter.getData(start, sortType);
     }
 
     @Override
     public void setData(GirlBookListBean data, boolean isRefresh) {
         mSwipeLayout.setRefreshing(false);
-        if (data==null||data.getPosts()==null||data.getPosts().size()==0){
-            mGirBookAdapter.loadMoreComplete();
-        }else {
-            if (isRefresh) {
-                if (mData != null) {
-                    mData.clear();
-                }
-                mData = data.getPosts();
-                mRvBookGirl.scrollToPosition(0);
-            } else {
-                mData.addAll(data.getPosts());
-            }
-            mSwipeLayout.setEnabled(true);
-            mGirBookAdapter.setEnableLoadMore(true);
-            mGirBookAdapter.setNewData(mData);
-            start = start + data.getPosts().size();
+        mGirBookAdapter.loadMoreComplete();
+        if (isRefresh) {
+            mData = data.getPosts();
+        } else {
+            mData.addAll(data.getPosts());
         }
-
+        mGirBookAdapter.setNewData(mData);
+        start = start + data.getPosts().size();
+        mGirBookAdapter.setEnableLoadMore(data.getPosts() != null && data.getPosts().size() >= 20);
     }
 
     @Override

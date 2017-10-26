@@ -47,7 +47,7 @@ public class ComplexDiscussFragment extends BaseFragment implements ComplexDiscu
         mComplexDiscussAdapter = new ComplexDiscussAdapter(R.layout.item_complex_discuss, mData);
         mRvComplexDiscuss.setAdapter(mComplexDiscussAdapter);
         mSwipeLayout.setOnRefreshListener(this);
-        mComplexDiscussAdapter.setOnLoadMoreListener(this);
+        mComplexDiscussAdapter.setOnLoadMoreListener(this, mRvComplexDiscuss);
         ((CommunityFragment) getParentFragment()).setDiscussSortLisenter(sortType -> {
             mSortType = sortType;
             onRefresh();
@@ -65,29 +65,21 @@ public class ComplexDiscussFragment extends BaseFragment implements ComplexDiscu
 
     @Override
     public void setData(DiscussListBean data, boolean isRefresh) {
-        if (data == null || data.getPosts() == null || data.getPosts().size() == 0) {
-            mComplexDiscussAdapter.loadMoreComplete();
+        mSwipeLayout.setRefreshing(false);
+        mComplexDiscussAdapter.loadMoreComplete();
+        if (isRefresh) {
+            mData = data.getPosts();
         } else {
-            if (isRefresh) {
-                if (mData != null) {
-                    mData.clear();
-                }
-                mData = data.getPosts();
-            } else {
-                mData.addAll(data.getPosts());
-            }
-            mComplexDiscussAdapter.setNewData(mData);
-            mSwipeLayout.setRefreshing(false);
-            mSwipeLayout.setEnabled(true);
-            mComplexDiscussAdapter.setEnableLoadMore(true);
-            start = start + data.getPosts().size();
+            mData.addAll(data.getPosts());
         }
-
+        mComplexDiscussAdapter.setNewData(mData);
+        start = start + data.getPosts().size();
+        mComplexDiscussAdapter.setEnableLoadMore(data.getPosts() != null && data.getPosts() != null && data.getPosts().size() >= 20);
     }
 
     @Override
     public void showError() {
-        mSwipeLayout.setEnabled(false);
+        mSwipeLayout.setRefreshing(false);
         mComplexDiscussAdapter.loadMoreFail();
     }
 
@@ -98,7 +90,6 @@ public class ComplexDiscussFragment extends BaseFragment implements ComplexDiscu
 
     @Override
     public void onLoadMoreRequested() {
-        mSwipeLayout.setEnabled(false);
         mComplexDiscussPresenter.getData(start, mSortType);
     }
 }

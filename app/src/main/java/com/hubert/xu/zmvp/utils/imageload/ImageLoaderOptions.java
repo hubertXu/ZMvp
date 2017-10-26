@@ -13,19 +13,30 @@ import com.bumptech.glide.request.target.BaseTarget;
  */
 
 public class ImageLoaderOptions {
-
-    private View viewContainer;  // 图片容器
-    private String url;  // 图片地址
-    private Integer resource;  // 图片地址
-    private int holderDrawable;  // 设置展位图
-    private ImageSize imageSize;  //设置图片的大小
-    private int errorDrawable;  //是否展示加载错误的图片
-    private boolean asGif = false;   //是否作为gif展示
-    private boolean isCrossFade = true; //是否渐变平滑的显示图片,默认为true
-    private boolean isSkipMemoryCache = false; //是否跳过内存缓存
-    private DiskCacheStrategy mDiskCacheStrategy = DiskCacheStrategy.DEFAULT; //磁盘缓存策略
-    private boolean blurImage = false; //是否使用高斯模糊
-    private BaseTarget target = null; //target
+    // 图片容器
+    private View viewContainer;
+    // 图片地址
+    private String url;
+    // 图片地址
+    private Integer resource;
+    // 设置展位图
+    private int holderDrawable;
+    // 设置图片的大小
+    private ImageSize imageSize;
+    // 是否展示加载错误的图片
+    private int errorDrawable;
+    // 是否作为gif展示
+    private boolean asGif = false;
+    // 是否渐变平滑的显示图片,默认为true
+    private boolean isCrossFade = true;
+    // 是否跳过内存缓存
+    private boolean isSkipMemoryCache = false;
+    // 磁盘缓存策略
+    private DiskCacheStrategy mDiskCacheStrategy = DiskCacheStrategy.DEFAULT;
+    // 是否使用高斯模糊
+    private boolean blurImage = false;
+    // target
+    private BaseTarget target = null;
 
     private ImageLoaderOptions(Builder builder) {
         this.asGif = builder.asGif;
@@ -99,19 +110,30 @@ public class ImageLoaderOptions {
 
 
     public final static class Builder {
-
-        private int holderDrawable = -1;  // 设置展位图
-        private View mViewContainer;  // 图片容器
-        private String url;  // 图片地址
-        private Integer resource;  // 图片地址
-        private ImageSize mImageSize;  //设置图片的大小
-        private int errorDrawable = -1;  //是否展示加载错误的图片
-        private boolean asGif = false;   //是否作为gif展示
-        private boolean isCrossFade = false; //是否渐变平滑的显示图片
-        private boolean isSkipMemoryCache = false; //是否跳过内存缓存
-        private boolean blurImage = false; //是否使用高斯模糊
-        private DiskCacheStrategy mDiskCacheStrategy = DiskCacheStrategy.DEFAULT; //磁盘缓存策略
-        private BaseTarget target = null; //target
+        // 设置展位图
+        private int holderDrawable = -1;
+        // 图片容器
+        private View mViewContainer;
+        // 图片地址
+        private String url;
+        // 图片地址
+        private Integer resource;
+        // 设置图片的大小
+        private ImageSize mImageSize;
+        // 是否展示加载错误的图片
+        private int errorDrawable = -1;
+        // 是否作为gif展示
+        private boolean asGif = false;
+        // 是否渐变平滑的显示图片
+        private boolean isCrossFade = false;
+        // 是否跳过内存缓存
+        private boolean isSkipMemoryCache = false;
+        // 是否使用高斯模糊
+        private boolean blurImage = false;
+        // 磁盘缓存策略
+        private DiskCacheStrategy mDiskCacheStrategy = DiskCacheStrategy.DEFAULT;
+        // target
+        private BaseTarget target = null;
 
         public Builder(@NonNull View v, @NonNull String url) {
             this.url = url;
@@ -177,8 +199,9 @@ public class ImageLoaderOptions {
 
     }
 
-
-    //对应重写图片size
+    /**
+     * 对应重写图片size
+     */
     public final static class ImageSize {
         private int width = 0;
         private int height = 0;
@@ -197,8 +220,9 @@ public class ImageLoaderOptions {
         }
     }
 
-
-    //对应磁盘缓存策略
+    /**
+     * 对应磁盘缓存策略
+     */
     public enum DiskCacheStrategy {
         All, NONE, SOURCE, RESULT, DEFAULT
     }

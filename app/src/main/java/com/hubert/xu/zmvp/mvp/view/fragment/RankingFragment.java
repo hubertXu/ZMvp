@@ -83,9 +83,7 @@ public class RankingFragment extends BaseFragment implements SwipeRefreshLayout.
     @Override
     public void setData(RankingBean data) {
         mSwipeLayout.setRefreshing(false);
-        if (data == null || data.getRanking() == null) {
-            mRankingAdapter.loadMoreComplete();
-        }
+        mRankingAdapter.loadMoreComplete();
         mBooks = data.getRanking().getBooks();
         mRankingAdapter.setNewData(mBooks);
     }

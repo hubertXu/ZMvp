@@ -34,8 +34,8 @@ public class HotReviewAdapter extends BaseQuickAdapter<HotReviewBean.ReviewsBean
         helper.setText(R.id.tv_user_name, item.getAuthor().getNickname() + "  Lv" + item.getAuthor().getLv());
         helper.setText(R.id.tv_review, item.getContent());
         helper.setText(R.id.tv_review_time, TimeFormatUtil.formatTime(item.getUpdated()));
-        helper.setText(R.id.tv_praise_count, item.getLikeCount()+"");
-        RatingBar ratingBar = (RatingBar) helper.getView(R.id.ratingBar_frome_user);
+        helper.setText(R.id.tv_praise_count, item.getLikeCount() + "");
+        RatingBar ratingBar = helper.getView(R.id.ratingBar_frome_user);
         ratingBar.setMax(5);
         ratingBar.setRating(item.getRating());
         new GlideImageLoader().getRequestManager(mContext).load(Constants.IMG_BASE_URL + item.getAuthor().getAvatar())

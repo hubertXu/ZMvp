@@ -59,11 +59,9 @@ public class CommentDetailActivity extends BaseActivity implements SwipeRefreshL
     private ImageView mIvBookCover;
     private RatingBar mRatBook;
     private TextView mTvCommentTitle;
-    private CardView mCardBook;
     private ReviewDetailBean.PostBean mReviewDetail;
     private TextView mTvAgreeCount;
     private TextView mTvDisagreeCount;
-    private RecyclerView mRvBestComment;
     private List<CommentListBean.CommentsBean> mBestComments;
     private BaseCommentAdapter mBaseCommentAdapter;
     private View mHeaderBestComment;
@@ -107,22 +105,22 @@ public class CommentDetailActivity extends BaseActivity implements SwipeRefreshL
         mTvCommentTitle = (TextView) headerCommentDetail.findViewById(R.id.tv_comment_title);
         mIvBookCover = (ImageView) headerCommentDetail.findViewById(R.id.iv_book_cover);
         mRatBook = (RatingBar) headerCommentDetail.findViewById(R.id.ratingBar_book);
-        mCardBook = (CardView) headerCommentDetail.findViewById(R.id.card_book);
+        CardView cardBook = (CardView) headerCommentDetail.findViewById(R.id.card_book);
         mTvAgreeCount = (TextView) headerCommentDetail.findViewById(R.id.tv_agree_count);
         mTvDisagreeCount = (TextView) headerCommentDetail.findViewById(R.id.tv_disagree_count);
-        mCardBook.setOnClickListener(this);
+        cardBook.setOnClickListener(this);
         mRatBook.setMax(5);
         // 神评
-        mRvBestComment = (RecyclerView) mHeaderBestComment.findViewById(R.id.rv_best_comment);
-        mRvBestComment.setLayoutManager(new LinearLayoutManager(this));
+        RecyclerView rvBestComment = (RecyclerView) mHeaderBestComment.findViewById(R.id.rv_best_comment);
+        rvBestComment.setLayoutManager(new LinearLayoutManager(this));
         mBaseCommentAdapter = new BaseCommentAdapter(R.layout.item_best_cooment, mBestComments);
-        mRvBestComment.setAdapter(mBaseCommentAdapter);
+        rvBestComment.setAdapter(mBaseCommentAdapter);
         // 评论
         mTvCommentCount = (TextView) headerCommentCount.findViewById(R.id.tv_comment_count);
         mAdapter.addHeaderView(headerCommentDetail);
         mAdapter.addHeaderView(mHeaderBestComment);
         mAdapter.addHeaderView(headerCommentCount);
-        mAdapter.setOnLoadMoreListener(this,mRvCommentDetail);
+        mAdapter.setOnLoadMoreListener(this, mRvCommentDetail);
         mSwipeLayout.setOnRefreshListener(this);
         onRefresh();
     }
@@ -136,7 +134,7 @@ public class CommentDetailActivity extends BaseActivity implements SwipeRefreshL
 
     @Override
     public void onLoadMoreRequested() {
-        mPresenter.getMoreData(mDiscussId,start);
+        mPresenter.getMoreData(mDiscussId, start);
     }
 
     @Override
@@ -155,13 +153,13 @@ public class CommentDetailActivity extends BaseActivity implements SwipeRefreshL
         mTvCommentTime.setText(TimeFormatUtil.formatTime(mReviewDetail.getCreated()));
         mTvUserName.setText(mReviewDetail.getAuthor().getNickname() + mReviewDetail.getAuthor().getLv());
         mTvCommentContent.setText(mReviewDetail.getContent());
-        mTvAgreeCount.setText(mReviewDetail.getLikeCount() + "");
-        mTvDisagreeCount.setText(mReviewDetail.getVoteCount() + "");
+        mTvAgreeCount.setText(String.valueOf(mReviewDetail.getLikeCount()));
+        mTvDisagreeCount.setText(String.valueOf(mReviewDetail.getVoteCount()));
         // 神评
         mHeaderBestComment.setVisibility(mBestComments == null || mBestComments.size() == 0 ? View.GONE : View.VISIBLE);
         mBaseCommentAdapter.setNewData(mBestComments);
         // 评论
-        mTvCommentCount.setText("共" + mReviewDetail.getCommentCount() + "评论");
+        mTvCommentCount.setText(String.format(getResources().getString(R.string.str_total_comment), mReviewDetail.getCommentCount()));
         mAdapter.setNewData(mComments);
         mAdapter.setEnableLoadMore(!(mComments == null || mComments.size() < 20));
         mRvCommentDetail.setVisibility(View.VISIBLE);
@@ -191,6 +189,8 @@ public class CommentDetailActivity extends BaseActivity implements SwipeRefreshL
         switch (v.getId()) {
             case R.id.card_book:
                 BookDetailActivity.startActivity(this, mReviewDetail.getBook().getTitle(), mReviewDetail.getBook().get_id());
+                break;
+            default:
                 break;
         }
     }

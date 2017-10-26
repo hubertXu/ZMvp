@@ -17,7 +17,6 @@ import io.reactivex.disposables.Disposable;
 
 public class ComplexDiscussPresenter implements ComplexDiscussContract.Presenter {
 
-    private int mLimit = 20;
     private ComplexDiscussContract.View view;
     private boolean mIsRefresh;
 
@@ -29,13 +28,13 @@ public class ComplexDiscussPresenter implements ComplexDiscussContract.Presenter
     @Override
     public void getData(int start, String sortype) {
         // 最新创建
-        HashMap<String, String> defaultParamsMap = new HashMap<>();
+        HashMap<String, String> defaultParamsMap = new HashMap<>(7);
         defaultParamsMap.put("block", "ramble");
         defaultParamsMap.put("duration", "all");
         defaultParamsMap.put("sort", sortype);
         defaultParamsMap.put("type", "all");
-        defaultParamsMap.put("start", start + "");
-        defaultParamsMap.put("limit", mLimit + "");
+        defaultParamsMap.put("start", String.valueOf(start));
+        defaultParamsMap.put("limit", String.valueOf(20));
         defaultParamsMap.put("distillate", "");
         RemoteDataManager.getInstance().getDiscussList(defaultParamsMap, new BaseObserver<DiscussListBean>() {
             @Override

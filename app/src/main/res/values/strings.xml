@@ -55,9 +55,29 @@
     <string name="ranking">排行榜</string>
     <string name="book_list">书单</string>
     <string name="assort">分类</string>
-    <string name="classify">分类</string>
     <string name="book_list_detail">书单详情</string>
-
+    <string name="best_comment">神评</string>
+    <string name="ntroduction">简介</string>
+    <string name="tag">标签</string>
+    <string name="score">评分</string>
+    <string name="approval">赞同</string>
+    <string name="opposition">反对</string>
+    <string name="hot_comment">热门书评</string>
+    <string name="more">更多</string>
+    <string name="recommend_book">推荐书籍</string>
+    <string name="recommend_book_list">推荐书单</string>
+    <string name="male">男生</string>
+    <string name="fine">精品</string>
+    <string name="hot">热门</string>
+    <string name="filter">筛选</string>
+    <string name="sort">排序</string>
+    <string name="str_fraction">%1$s分</string>
+    <string name="str_evaluation">%1$d人评</string>
+    <string name="follower_count">追书人气\n</string>
+    <string name="retention_tatio">读者留存\n</string>
+    <string name="community_discuss">社区帖子\n</string>
+    <string name="seriallize_word">日更新字\n</string>
+    <string name="str_total_comment">共%1$d评论</string>
     <array name="book_list_tab">
         <item>本周最热</item>
         <item>最新发布</item>

@@ -26,7 +26,7 @@ public class BookClassifyListPresenter implements BookClassifyListContract.Prese
 
     @Override
     public void getData(int start, String sign, String type, String major, String minor) {
-        HashMap<String, String> params = new HashMap<>();
+        HashMap<String, String> params = new HashMap<>(6);
         params.put("type", type);
         params.put("major", major);
         params.put("limit", 20 + "");

@@ -833,7 +833,7 @@ public class FileUtil {
         OutputStream os = null;
         try {
             os = new BufferedOutputStream(new FileOutputStream(file, append));
-            byte data[] = new byte[1024];
+            byte[] data = new byte[1024];
             int len;
             while ((len = is.read(data, 0, 1024)) != -1) {
                 os.write(data, 0, len);
@@ -999,7 +999,8 @@ public class FileUtil {
             }
             String line;
             while ((line = reader.readLine()) != null) {
-                sb.append(line).append("\r\n");// windows系统换行为\r\n，Linux为\n
+                // windows系统换行为\r\n，Linux为\n
+                sb.append(line).append("\r\n");
             }
             // 要去除最后的换行符
             return sb.delete(sb.length() - 2, sb.length()).toString();
@@ -1289,7 +1290,6 @@ public class FileUtil {
             while (dis.read(buffer) > 0) {
                 md = dis.getMessageDigest();
             }
-            ;
             return md.digest();
         } catch (NoSuchAlgorithmException | IOException e) {
             e.printStackTrace();

@@ -18,13 +18,13 @@ import java.util.List;
  * Desc  :
  */
 
-public class ALlRankingTypeAdapter extends BaseQuickAdapter<LocalAllRankingTypeBean.RankingBean, BaseViewHolder> {
+public class AllRankingTypeAdapter extends BaseQuickAdapter<LocalAllRankingTypeBean.RankingBean, BaseViewHolder> {
 
-    public ALlRankingTypeAdapter(@LayoutRes int layoutResId, @Nullable List<LocalAllRankingTypeBean.RankingBean> data) {
+    public AllRankingTypeAdapter(@LayoutRes int layoutResId, @Nullable List<LocalAllRankingTypeBean.RankingBean> data) {
         super(layoutResId, data);
     }
 
-    public ALlRankingTypeAdapter(List<LocalAllRankingTypeBean.RankingBean> ranking) {
+    public AllRankingTypeAdapter(List<LocalAllRankingTypeBean.RankingBean> ranking) {
         super(ranking);
         setMultiTypeDelegate(new MultiTypeDelegate<LocalAllRankingTypeBean.RankingBean>() {
             @Override
@@ -43,6 +43,8 @@ public class ALlRankingTypeAdapter extends BaseQuickAdapter<LocalAllRankingTypeB
                 break;
             case Constants.BOOK_TYPE_SIGN:
                 helper.setText(R.id.tv_book_sign, item.getTitle());
+                break;
+            default:
                 break;
         }
     }

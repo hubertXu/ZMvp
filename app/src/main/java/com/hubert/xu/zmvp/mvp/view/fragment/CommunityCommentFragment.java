@@ -60,7 +60,7 @@ public class CommunityCommentFragment extends BaseFragment implements SwipeRefre
         mRvCommunityComment.setLayoutManager(new LinearLayoutManager(mContext));
         mAdapter = new CommunityCommentAdapter(R.layout.item_community_comment, mReviews);
         mRvCommunityComment.setAdapter(mAdapter);
-        mAdapter.setOnLoadMoreListener(this);
+        mAdapter.setOnLoadMoreListener(this,mRvCommunityComment);
         mSwipeLayout.setOnRefreshListener(this);
         BookCommunityActivity activity = (BookCommunityActivity) getActivity();
         activity.addDiscussSortLisenter(this);
@@ -79,27 +79,21 @@ public class CommunityCommentFragment extends BaseFragment implements SwipeRefre
     @Override
     public void setData(HotReviewBean data) {
         mSwipeLayout.setRefreshing(false);
-        if (data.getReviews() == null || data.getReviews().size() == 0) {
-            mAdapter.loadMoreComplete();
-            mAdapter.setEnableLoadMore(false);
-        } else {
-            if (mStart == 0) {
-                mReviews = data.getReviews();
-            } else {
-                mReviews.addAll(data.getReviews());
-            }
-            if (data.getReviews().size() < 20) {
-                mAdapter.setEnableLoadMore(false);
-            }
-            mAdapter.setNewData(mReviews);
-            mStart = mStart + data.getReviews().size();
-        }
         mAdapter.loadMoreComplete();
+        if (mStart == 0) {
+            mReviews = data.getReviews();
+        } else {
+            mReviews.addAll(data.getReviews());
+        }
+        mAdapter.setNewData(mReviews);
+        mStart = mStart + data.getReviews().size();
+        mAdapter.setEnableLoadMore(data.getReviews() != null && data.getReviews().size() >= 20);
     }
 
     @Override
     public void showError() {
         mSwipeLayout.setRefreshing(false);
+        mAdapter.loadMoreFail();
     }
 
     @Override
@@ -109,9 +103,7 @@ public class CommunityCommentFragment extends BaseFragment implements SwipeRefre
 
     @Override
     public void onLoadMoreRequested() {
-        if (mAdapter.isLoadMoreEnable()) {
-            mPresenter.getData(mBookId, mSort, mStart);
-        }
+        mPresenter.getData(mBookId, mSort, mStart);
     }
 
     @Override

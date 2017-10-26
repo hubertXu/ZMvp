@@ -79,14 +79,12 @@ public class BookDetailActivity extends BaseActivity implements BookDetailContra
     private RecyclerView mRvBookTag;
     private List<String> mTags;
     private BookDetailTagAdapter mDetailTagAdapter;
-    private RecyclerView mRvHotReview;
     private List<HotReviewBean.ReviewsBean> mHotReviews;
     private HotReviewAdapter mHotReviewAdapter;
     private List<RecommendBookBean.BooksBean> mBooks;
     private RecommendBookAdapter mRecommendBookAdapter;
     private RecommendBookListAdapter mRecommendBookListAdapter;
     private TextView mTvTag;
-    private float mRating;
     private BookDetailBean mBookDetail;
     private String mBookName;
 
@@ -154,11 +152,11 @@ public class BookDetailActivity extends BaseActivity implements BookDetailContra
         mColorSpan = new ForegroundColorSpan(ContextCompat.getColor(BookDetailActivity.this, R.color.normalGray));
         mSizeSpan = new RelativeSizeSpan(0.8f);
         // 热评
-        mRvHotReview = (RecyclerView) headerHotReview.findViewById(R.id.rv_hot_review);
+        RecyclerView rvHotReview = (RecyclerView) headerHotReview.findViewById(R.id.rv_hot_review);
         TextView tvMoreHotReview = (TextView) headerHotReview.findViewById(R.id.tv_more_hot_review);
-        mRvHotReview.setLayoutManager(new LinearLayoutManager(this));
+        rvHotReview.setLayoutManager(new LinearLayoutManager(this));
         mHotReviewAdapter = new HotReviewAdapter(R.layout.item_hot_review, mHotReviews);
-        mRvHotReview.setAdapter(mHotReviewAdapter);
+        rvHotReview.setAdapter(mHotReviewAdapter);
         mDetailTagAdapter.setOnItemClickListener(this);
         // 推荐的书
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
@@ -199,22 +197,21 @@ public class BookDetailActivity extends BaseActivity implements BookDetailContra
         mTvBookAuthor.setText(mBookDetail.getAuthor());
         mTvBookClassify.setText(mBookDetail.getMajorCate());
         mRatingBarBook.setMax(5);
-        mRating = (float) (mBookDetail.getRating().getScore() / 2);
-        mRatingBarBook.setRating(mRating);
-        mTvBookScore.setText(new DecimalFormat("0.00").format(mBookDetail.getRating().getScore()) + "分");
-        mTvScorerCount.setText(mBookDetail.getRating().getCount() + "人评");
+        mRatingBarBook.setRating((float) (mBookDetail.getRating().getScore() / 2));
+        mTvBookScore.setText(String.format(getResources().getString(R.string.str_fraction), new DecimalFormat("0.00").format(mBookDetail.getRating().getScore())));
+        mTvScorerCount.setText(String.format(getResources().getString(R.string.str_evaluation), mBookDetail.getRating().getCount()));
         mTvBookWordCount.setText(StringUtil.formatWordCount(mBookDetail.getWordCount()));
         mTvBookUpdateTime.setText(TimeFormatUtil.formatTime(mBookDetail.getUpdated()));
-        SpannableString strReaderCounts = new SpannableString("追书人气\n" + mBookDetail.getLatelyFollower());
+        SpannableString strReaderCounts = new SpannableString(getString(R.string.follower_count) + mBookDetail.getLatelyFollower());
         strReaderCounts.setSpan(mColorSpan, 0, 4, Spanned.SPAN_INCLUSIVE_EXCLUSIVE);
         strReaderCounts.setSpan(mSizeSpan, 0, 4, Spanned.SPAN_INCLUSIVE_EXCLUSIVE);
-        SpannableString strReaderTetained = new SpannableString("读者留存\n" + mBookDetail.getRetentionRatio() + "%");
+        SpannableString strReaderTetained = new SpannableString(getString(R.string.retention_tatio) + mBookDetail.getRetentionRatio() + "%");
         strReaderTetained.setSpan(mColorSpan, 0, 4, Spanned.SPAN_INCLUSIVE_EXCLUSIVE);
         strReaderTetained.setSpan(mSizeSpan, 0, 4, Spanned.SPAN_INCLUSIVE_EXCLUSIVE);
-        SpannableString strPostCounts = new SpannableString("社区帖子\n" + mBookDetail.getPostCount());
+        SpannableString strPostCounts = new SpannableString(getString(R.string.community_discuss) + mBookDetail.getPostCount());
         strPostCounts.setSpan(mColorSpan, 0, 4, Spanned.SPAN_INCLUSIVE_EXCLUSIVE);
         strPostCounts.setSpan(mSizeSpan, 0, 4, Spanned.SPAN_INCLUSIVE_EXCLUSIVE);
-        SpannableString strDalyUpdateWords = new SpannableString("日更新字\n" + mBookDetail.getSerializeWordCount());
+        SpannableString strDalyUpdateWords = new SpannableString(getString(R.string.seriallize_word) + mBookDetail.getSerializeWordCount());
         strDalyUpdateWords.setSpan(mColorSpan, 0, 5, Spanned.SPAN_INCLUSIVE_EXCLUSIVE);
         strDalyUpdateWords.setSpan(mSizeSpan, 0, 5, Spanned.SPAN_INCLUSIVE_EXCLUSIVE);
         mTvReaderCounts.setText(strReaderCounts);
@@ -266,9 +263,12 @@ public class BookDetailActivity extends BaseActivity implements BookDetailContra
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.tv_discuss_counts:
+                BookCommunityActivity.startActivity(this, mBookName, mBookId);
                 break;
             case R.id.tv_more_hot_review:
                 BookCommunityActivity.startActivity(this, mBookName, mBookId);
+                break;
+            default:
                 break;
         }
     }

@@ -7,6 +7,7 @@ import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.util.SparseArray;
 import android.view.Menu;
 import android.view.MenuItem;
 
@@ -14,7 +15,7 @@ import com.afollestad.materialdialogs.MaterialDialog;
 import com.hubert.xu.zmvp.R;
 import com.hubert.xu.zmvp.base.BaseActivity;
 import com.hubert.xu.zmvp.mvp.model.entity.BookclassifyLocalBean;
-import com.hubert.xu.zmvp.mvp.view.fragment.BookLClassifyListFragment;
+import com.hubert.xu.zmvp.mvp.view.fragment.BookClassifyListFragment;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -46,7 +47,7 @@ public class BookClassifyListActivity extends BaseActivity {
             put(3, 0);
         }
     };
-    HashMap<Integer, GetLv2BookListDataLisenter> getLv2BookListDataLisenters = new HashMap<>();
+    SparseArray<GetLv2BookListDataLisenter> getLv2BookListDataLisenters = new SparseArray<>();
     private boolean mMenuVisible = true;
 
 
@@ -74,15 +75,15 @@ public class BookClassifyListActivity extends BaseActivity {
     @Override
     protected void initView() {
         mData = (BookclassifyLocalBean.LocalBookClassifyBean) getIntent().getBundleExtra(INTENT_BOOK_LIST_BUNDLE).get(INTENT_BOOK_LIST_DATA);
-        if (mData.getLv2ClassifyNames().size() == 0) {
+        if (mData != null && mData.getLv2ClassifyNames() != null && mData.getLv2ClassifyNames().size() == 0) {
             mMenuVisible = false;
             supportInvalidateOptionsMenu();
+            mTvTitle.setText(mData.getName());
         }
-        mTvTitle.setText(mData.getName());
         String[] bookClassifys = getResources().getStringArray(R.array.book_classify);
-        List<BookLClassifyListFragment> fragments = new ArrayList<>();
+        List<BookClassifyListFragment> fragments = new ArrayList<>();
         for (int i = 0; i < bookClassifys.length; i++) {
-            fragments.add(BookLClassifyListFragment.newInstance(mData.getName(), mData.getType(), mData.getLv2ClassifyNames().size() == 0 ? "" : mData.getLv2ClassifyNames().get(0), getResources().getStringArray(R.array.book_classify_type)[i]));
+            fragments.add(BookClassifyListFragment.newInstance(mData.getName(), mData.getType(), mData.getLv2ClassifyNames().size() == 0 ? "" : mData.getLv2ClassifyNames().get(0), getResources().getStringArray(R.array.book_classify_type)[i]));
         }
         mVpBookList.setOffscreenPageLimit(3);
         mVpBookList.setAdapter(new FragmentPagerAdapter(getSupportFragmentManager()) {

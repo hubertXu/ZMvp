@@ -18,7 +18,7 @@
             android:layout_height="wrap_content"
             android:background="@color/gray"
             android:padding="8dp"
-            android:text="神评"
+            android:text="@string/best_comment"
             android:textSize="@dimen/subhead_16sp"
             />
 

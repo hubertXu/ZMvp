@@ -10,7 +10,7 @@ import com.hubert.xu.zmvp.constant.Constants;
 import com.hubert.xu.zmvp.mvp.model.entity.LocalAllRankingTypeBean;
 import com.hubert.xu.zmvp.mvp.contract.AllRankTypeContract;
 import com.hubert.xu.zmvp.mvp.presenter.AllRankTypePresenter;
-import com.hubert.xu.zmvp.mvp.view.adapter.ALlRankingTypeAdapter;
+import com.hubert.xu.zmvp.mvp.view.adapter.AllRankingTypeAdapter;
 
 import butterknife.BindView;
 
@@ -22,7 +22,7 @@ public class AllRankingTypeActivity extends BaseActivity implements SwipeRefresh
     @BindView(R.id.rv_all_ranking)
     RecyclerView mRvAllRanking;
     private AllRankTypePresenter mAllRankTypePresenter;
-    private ALlRankingTypeAdapter mAdapter;
+    private AllRankingTypeAdapter mAdapter;
 
 
     @Override
@@ -50,7 +50,7 @@ public class AllRankingTypeActivity extends BaseActivity implements SwipeRefresh
             mAdapter.loadMoreComplete();
         } else {
             if (mAdapter == null) {
-                mAdapter = new ALlRankingTypeAdapter(data.getRanking());
+                mAdapter = new AllRankingTypeAdapter(data.getRanking());
                 mAdapter.setSpanSizeLookup((gridLayoutManager, position) -> data.getRanking().get(position).getSign() == Constants.BOOK_TYPE_SIGN ? 3 : 1);
                 mRvAllRanking.setAdapter(mAdapter);
                 mAdapter.setOnItemClickListener((adapter, view, position) -> {

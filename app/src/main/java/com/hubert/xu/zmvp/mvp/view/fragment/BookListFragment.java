@@ -35,7 +35,6 @@ public class BookListFragment extends BaseFragment implements SwipeRefreshLayout
     RecyclerView mRvBookList;
     @BindView(R.id.swipe_layout)
     SwipeRefreshLayout mSwipeLayout;
-    private int mTabPosition;
     private BookListActivity mBookListActivity;
     private BookListPresenter mPresenter;
     private BookListAdapter mAdapter;
@@ -45,7 +44,6 @@ public class BookListFragment extends BaseFragment implements SwipeRefreshLayout
     private String mDuration;
     private String mSort;
     private List<BookListBean.BookListsBean> mBookLists = new ArrayList<>();
-    private LinearLayoutManager mLayoutManager;
 
     public static BookListFragment newInstance(int tabPostion) {
 
@@ -69,8 +67,7 @@ public class BookListFragment extends BaseFragment implements SwipeRefreshLayout
 
     @Override
     public void initView() {
-        mTabPosition = getArguments().getInt(ARGS_TAB_KEY);
-        switch (mTabPosition) {
+        switch (getArguments().getInt(ARGS_TAB_KEY)) {
             case 0:
                 mSort = "collectorCount";
                 mDuration = "last-seven-days";
@@ -83,16 +80,19 @@ public class BookListFragment extends BaseFragment implements SwipeRefreshLayout
                 mSort = "collectorCount";
                 mDuration = "all";
                 break;
+            default:
+                break;
         }
         mPresenter = new BookListPresenter(this);
-        mLayoutManager = new LinearLayoutManager(mContext);
-        mRvBookList.setLayoutManager(mLayoutManager);
+        LinearLayoutManager layoutManager = new LinearLayoutManager(mContext);
+        mRvBookList.setLayoutManager(layoutManager);
         mAdapter = new BookListAdapter(R.layout.item_book_list, mBookLists);
         mRvBookList.setAdapter(mAdapter);
-        mAdapter.setOnLoadMoreListener(this);
+        mAdapter.setOnLoadMoreListener(this, mRvBookList);
         mSwipeLayout.setOnRefreshListener(this);
         mBookListActivity.setTagChangeLisenters(this);
         mAdapter.setOnItemClickListener((adapter, view, position) -> BookListDetailActivity.startActivity(mContext, mBookLists.get(position).get_id()));
+        mAdapter.disableLoadMoreIfNotFullPage(mRvBookList);
         onRefresh();
     }
 
@@ -115,23 +115,19 @@ public class BookListFragment extends BaseFragment implements SwipeRefreshLayout
     @Override
     public void setData(BookListBean data, boolean isRefresh) {
         mSwipeLayout.setRefreshing(false);
-        if (data == null || data.getBookLists() == null || data.getBookLists().size() == 0) {
-            mAdapter.loadMoreComplete();
+        mAdapter.loadMoreComplete();
+        if (isRefresh) {
+            if (mBookLists != null) {
+                mBookLists.clear();
+            }
+            mBookLists = data.getBookLists();
         } else {
-            if (isRefresh) {
-                if (mBookLists != null) {
-                    mBookLists.clear();
-                }
-            }
             mBookLists.addAll(data.getBookLists());
-            mAdapter.setNewData(mBookLists);
-            if (data.getBookLists().size() < 20) {
-                mAdapter.disableLoadMoreIfNotFullPage(mRvBookList);
-            } else {
-                mAdapter.setEnableLoadMore(true);
-            }
-            mStart = mStart + data.getBookLists().size();
+
         }
+        mAdapter.setNewData(mBookLists);
+        mStart = mStart + data.getBookLists().size();
+        mAdapter.setEnableLoadMore(data.getBookLists() != null && data.getBookLists().size() >= 20);
     }
 
     @Override

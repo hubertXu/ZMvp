@@ -29,6 +29,8 @@ public class MainFragmentFactory {
                 case 2:
                     fragment = new FindFragment();
                     break;
+                default:
+                    break;
             }
             fragmentMaps.put(position, fragment);
         }

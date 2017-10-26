@@ -29,13 +29,13 @@ public class GirlBookPresenter implements GirlBookContract.Presenter {
     @Override
     public void getData(int start, String type) {
         // 最新创建
-        HashMap<String, String> defaultParamsMap = new HashMap<>();
+        HashMap<String, String> defaultParamsMap = new HashMap<>(7);
         defaultParamsMap.put("block", "ramble");
         defaultParamsMap.put("duration", "girl");
         defaultParamsMap.put("sort", type);
         defaultParamsMap.put("type", "all");
-        defaultParamsMap.put("start", start + "");
-        defaultParamsMap.put("limit", mLimit + "");
+        defaultParamsMap.put("start", String.valueOf(start));
+        defaultParamsMap.put("limit", String.valueOf(20));
         defaultParamsMap.put("distillate", "");
         RemoteDataManager.getInstance().getGirlBookList(defaultParamsMap, new BaseObserver<GirlBookListBean>() {
             @Override

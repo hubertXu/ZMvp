@@ -5,6 +5,7 @@ import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.util.SparseArray;
 
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.hubert.xu.zmvp.R;
@@ -42,7 +43,7 @@ public class CommunityFragment extends BaseFragment {
         }
     };
 
-    HashMap<Integer, DiscussSortLisenter> discussSortLisenters = new HashMap<>();
+    SparseArray<DiscussSortLisenter> discussSortLisenters = new SparseArray<>();
 
 
     @Override

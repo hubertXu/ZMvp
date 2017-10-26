@@ -6,9 +6,9 @@ import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.util.SparseArray;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
 
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.hubert.xu.zmvp.R;
@@ -16,8 +16,6 @@ import com.hubert.xu.zmvp.base.BaseActivity;
 import com.hubert.xu.zmvp.mvp.view.fragment.CommunityCommentFragment;
 import com.hubert.xu.zmvp.mvp.view.fragment.CommunityDiscussFragment;
 import com.hubert.xu.zmvp.mvp.view.lisenter.DiscussSortLisenter;
-
-import java.util.HashMap;
 
 import butterknife.BindView;
 
@@ -65,6 +63,8 @@ public class BookCommunityActivity extends BaseActivity {
                         return CommunityDiscussFragment.newInstance(getIntent().getStringExtra(INTENT_BOOK_ID));
                     case 1:
                         return CommunityCommentFragment.newInstance(getIntent().getStringExtra(INTENT_BOOK_ID));
+                    default:
+                        break;
                 }
                 return CommunityDiscussFragment.newInstance(getIntent().getStringExtra(INTENT_BOOK_ID));
             }
@@ -93,18 +93,13 @@ public class BookCommunityActivity extends BaseActivity {
         if (item.getItemId() == R.id.action_sort) {
             new MaterialDialog.Builder(this).items(getResources()
                     .getStringArray(R.array.discuss_sort))
-                    .itemsCallback(new MaterialDialog.ListCallback() {
-                        @Override
-                        public void onSelection(MaterialDialog dialog, View itemView, int position, CharSequence text) {
-                            discussSortLisenters.get(mTablayoutBookCommunity.getSelectedTabPosition()).refreshDiscussData(position == 0 ? "updated" : position == 1 ? "created" : "comment-count");
-                        }
-                    }).show();
+                    .itemsCallback((dialog, itemView, position, text) -> discussSortLisenters.get(mTablayoutBookCommunity.getSelectedTabPosition()).refreshDiscussData(position == 0 ? "updated" : position == 1 ? "created" : "comment-count")).show();
 
         }
         return super.onOptionsItemSelected(item);
     }
 
-    HashMap<Integer, DiscussSortLisenter> discussSortLisenters = new HashMap<>();
+    SparseArray<DiscussSortLisenter> discussSortLisenters = new SparseArray<>();
 
 
     public void addDiscussSortLisenter(DiscussSortLisenter discussSortLisenter) {

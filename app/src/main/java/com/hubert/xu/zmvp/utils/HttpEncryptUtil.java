@@ -100,7 +100,7 @@ public class HttpEncryptUtil {
             Cipher c = Cipher.getInstance("AES/CBC/PKCS5Padding");
             c.init(Cipher.ENCRYPT_MODE, symmKey);
             byte[] encodedBytes = c.doFinal(toBeCiphred);
-            System.out.println("BYTE STRING (ASYMM): " + encodedBytes);
+            System.out.println("BYTE STRING (ASYMM): " + encodedBytes.toString());
             encryptedData = Base64.encodeToString(encodedBytes, Base64.DEFAULT);
         } catch (Exception e) {
             Log.e("encryptDataException", "AES encryption error");

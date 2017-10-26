@@ -26,7 +26,7 @@ public class BookListByTagPresenter implements BookListByTagContract.Presenter {
 
     @Override
     public void getData(String tag, int start) {
-        HashMap<String, String> map = new HashMap<>();
+        HashMap<String, String> map = new HashMap<>(3);
         map.put("tags", tag);
         map.put("start", start+"");
         map.put("limit", 20 + "");

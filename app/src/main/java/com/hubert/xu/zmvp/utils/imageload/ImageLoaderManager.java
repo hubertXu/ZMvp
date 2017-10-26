@@ -25,10 +25,10 @@ public class ImageLoaderManager implements ImageLoaderStrategy {
         loaderstrategy = strategy;
     }
 
-    /*
-     *   可创建默认的Options设置，假如不需要使用ImageView ，
-     *    请自行new一个Imageview传入即可
-     *  内部只需要获取Context
+    /**
+     * 可创建默认的Options设置，假如不需要使用ImageView ，
+     * 请自行new一个Imageview传入即可
+     * 内部只需要获取Context
      */
     public static ImageLoaderOptions getDefaultOptions(@NonNull View container, @NonNull String url) {
         return new ImageLoaderOptions.Builder(container, url).isCrossFade(true).build();

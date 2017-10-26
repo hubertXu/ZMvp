@@ -5,6 +5,6 @@
     <item
         android:id="@+id/action_filter"
         android:icon="@null"
-        android:title="筛选"
+        android:title="@string/filter"
         app:showAsAction="always"/>
 </menu>

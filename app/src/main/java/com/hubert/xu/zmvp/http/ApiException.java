@@ -28,11 +28,11 @@ public class ApiException {
     private static final int SERVICE_UNAVAILABLE = 503;
     private static final int GATEWAY_TIMEOUT = 504;
 
-    public static ResponeThrowable handleException(Throwable e) {
-        ResponeThrowable ex;
+    public static ResponeThrowableExceptio handleException(Throwable e) {
+        ResponeThrowableExceptio ex;
         if (e instanceof HttpException) {
             HttpException httpException = (HttpException) e;
-            ex = new ResponeThrowable(e, ERROR.HTTP_ERROR);
+            ex = new ResponeThrowableExceptio(e, ERROR.HTTP_ERROR);
             switch (httpException.code()) {
                 case UNAUTHORIZED:
                 case FORBIDDEN:
@@ -49,33 +49,33 @@ public class ApiException {
             return ex;
         } else if (e instanceof ServerException) {
             ServerException resultException = (ServerException) e;
-            ex = new ResponeThrowable(resultException, resultException.code);
+            ex = new ResponeThrowableExceptio(resultException, resultException.code);
             ex.message = resultException.message;
             return ex;
         } else if (e instanceof JsonParseException
                 || e instanceof JSONException
                 || e instanceof ParseException) {
-            ex = new ResponeThrowable(e, ERROR.PARSE_ERROR);
+            ex = new ResponeThrowableExceptio(e, ERROR.PARSE_ERROR);
             ex.message = "解析错误";
             return ex;
         } else if (e instanceof ConnectException) {
-            ex = new ResponeThrowable(e, ERROR.NETWORD_ERROR);
+            ex = new ResponeThrowableExceptio(e, ERROR.NETWORK_ERROR);
             ex.message = "连接失败";
             return ex;
         } else if (e instanceof javax.net.ssl.SSLHandshakeException) {
-            ex = new ResponeThrowable(e, ERROR.SSL_ERROR);
+            ex = new ResponeThrowableExceptio(e, ERROR.SSL_ERROR);
             ex.message = "证书验证失败";
             return ex;
         } else if (e instanceof ConnectTimeoutException) {
-            ex = new ResponeThrowable(e, ERROR.TIMEOUT_ERROR);
+            ex = new ResponeThrowableExceptio(e, ERROR.TIMEOUT_ERROR);
             ex.message = "连接超时";
             return ex;
         } else if (e instanceof java.net.SocketTimeoutException) {
-            ex = new ResponeThrowable(e, ERROR.TIMEOUT_ERROR);
+            ex = new ResponeThrowableExceptio(e, ERROR.TIMEOUT_ERROR);
             ex.message = "连接超时";
             return ex;
         } else {
-            ex = new ResponeThrowable(e, ERROR.UNKNOWN);
+            ex = new ResponeThrowableExceptio(e, ERROR.UNKNOWN);
             ex.message = "未知错误";
             return ex;
         }
@@ -97,7 +97,8 @@ public class ApiException {
         /**
          * 网络错误
          */
-        public static final int NETWORD_ERROR = 1002;
+        public static final int NETWORK_ERROR = 1002;
+
         /**
          * 协议出错
          */
@@ -115,11 +116,11 @@ public class ApiException {
     }
 
 
-    public static class ResponeThrowable extends Exception {
+    public static class ResponeThrowableExceptio extends Exception {
         public int code;
         public String message;
 
-        public ResponeThrowable(Throwable throwable, int code) {
+        public ResponeThrowableExceptio(Throwable throwable, int code) {
             super(throwable);
             this.code = code;
         }

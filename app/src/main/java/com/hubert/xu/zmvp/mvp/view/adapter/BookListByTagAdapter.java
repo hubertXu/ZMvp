@@ -27,15 +27,11 @@ public class BookListByTagAdapter extends BaseQuickAdapter<BookListTagBean.Books
 
     @Override
     protected void convert(BaseViewHolder helper, BookListTagBean.BooksBean item) {
-        String sbTag = "";
+        StringBuilder sbTag = new StringBuilder();
         List<String> tags = item.getTags();
         int size = tags.size();
         for (int i = 0; i < size; i++) {
-            if (i == size - 1) {
-                sbTag = sbTag + tags.get(i);
-            } else {
-                sbTag = sbTag + tags.get(i) + "|";
-            }
+            sbTag.append(i == size - 1 ? tags.get(i) : tags.get(i) + "|");
         }
         helper.setText(R.id.tv_book_name, item.getTitle())
                 .setText(R.id.tv_book_author, item.getAuthor())

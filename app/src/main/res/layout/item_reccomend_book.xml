@@ -21,7 +21,6 @@
         android:layout_height="wrap_content"
         android:gravity="center"
         android:paddingTop="4dp"
-        android:text="书名"
         android:textColor="@color/colorPrimaryLight"
         android:textSize="@dimen/body_14sp"
         />

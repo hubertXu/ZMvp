@@ -10,7 +10,6 @@
         android:layout_height="wrap_content"
         android:background="@color/gray"
         android:padding="8dp"
-        android:text="共1条评论"
         android:textSize="@dimen/subhead_16sp"
         />
 </LinearLayout>

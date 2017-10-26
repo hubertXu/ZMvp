@@ -1,7 +1,5 @@
 package com.hubert.xu.zmvp.http;
 
-import com.orhanobut.logger.Logger;
-
 import java.net.ConnectException;
 import java.net.SocketTimeoutException;
 import java.util.concurrent.TimeUnit;
@@ -42,25 +40,11 @@ public class RetryWithDelay implements Function<Observable<? extends Throwable>,
     @Override
     public Observable<?> apply(@NonNull Observable<? extends Throwable> observable) throws Exception {
         return observable
-                .zipWith(Observable.range(1, maxRetries + 1), new BiFunction<Throwable, Integer, Wrapper>() {
-                    @Override
-                    public Wrapper apply(Throwable throwable, Integer integer) {
-                        return new Wrapper(throwable, integer);
-                    }
-                }).flatMap(new Function<Wrapper, ObservableSource<?>>() {
-                    @Override
-                    public ObservableSource<?> apply(Wrapper wrapper) throws Exception {
-                        if ((wrapper.throwable instanceof ConnectException
-                                || wrapper.throwable instanceof SocketTimeoutException
-                                || wrapper.throwable instanceof TimeoutException
-                                || wrapper.throwable instanceof HttpException)
-                                && wrapper.index < maxRetries + 1) { //如果超出重试次数也抛出错误，否则默认是会进入onCompleted
-                            Logger.d("request retry at " + wrapper.index);
-                            return Observable.timer(retryDelayMillis + (wrapper.index - 1) * increaseDelay, TimeUnit.MILLISECONDS);
-                        }
-                        return Observable.error(wrapper.throwable);
-                    }
-                });
+                .zipWith(Observable.range(1, maxRetries + 1), (BiFunction<Throwable, Integer, Wrapper>) (throwable, integer) -> new Wrapper(throwable, integer))
+                .flatMap((Function<Wrapper, ObservableSource<?>>) wrapper -> wrapper.throwable instanceof ConnectException
+                        || wrapper.throwable instanceof SocketTimeoutException
+                        || wrapper.throwable instanceof TimeoutException
+                        || wrapper.throwable instanceof HttpException ? Observable.timer(retryDelayMillis + (wrapper.index - 1) * increaseDelay, TimeUnit.MILLISECONDS) : Observable.error(wrapper.throwable));
     }
 
     private class Wrapper {

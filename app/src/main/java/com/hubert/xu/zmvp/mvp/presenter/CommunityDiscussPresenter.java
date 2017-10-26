@@ -25,7 +25,7 @@ public class CommunityDiscussPresenter implements CommunityDiscussContract.Prese
 
     @Override
     public void getData(String bookId, String sort, int start) {
-        HashMap<String, String> map = new HashMap<>();
+        HashMap<String, String> map = new HashMap<>(5);
         map.put("book", bookId);
         map.put("start", start + "");
         map.put("limit", 20 + "");

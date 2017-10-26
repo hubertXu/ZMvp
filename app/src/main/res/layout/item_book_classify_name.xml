@@ -4,7 +4,6 @@
                                     style="@style/CardViewStyle"
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
-                                    android:background="?android:attr/selectableItemBackground"
                                     android:layout_margin="2dp"
                                     app:cardCornerRadius="8dp">
 

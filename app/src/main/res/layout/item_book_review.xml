@@ -5,7 +5,6 @@
     style="@style/CardViewStyle"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:clickable="true"
     app:cardCornerRadius="4dp">
 
     <RelativeLayout
@@ -27,7 +26,6 @@
             android:layout_height="wrap_content"
             android:layout_alignTop="@id/iv_book_cover"
             android:layout_toRightOf="@id/iv_book_cover"
-            android:text="名&amp;类型"
             android:textColor="@color/colorPrimaryDark"
             android:textSize="@dimen/sp_12"
             />
@@ -41,7 +39,7 @@
             android:paddingBottom="4dp"
             android:paddingRight="8dp"
             android:paddingTop="8dp"
-            android:text="啊啊啊啊啊啊啊"
+            android:paddingLeft="0dp"
             android:textColor="@color/colorPrimary"
             android:textSize="@dimen/body_14sp"
             />
@@ -55,7 +53,7 @@
             android:layout_marginRight="8dp"
             android:background="@drawable/bg_2radius_gray"
             android:clickable="false"
-            android:text="精品"
+            android:text="@string/fine"
             android:textColor="@color/white"
             android:textSize="@dimen/capition_10sp"
             android:visibility="gone"
@@ -70,7 +68,7 @@
             android:layout_marginRight="8dp"
             android:background="@drawable/bg_2radius_red"
             android:clickable="false"
-            android:text="热门"
+            android:text="@string/hot"
             android:textColor="@color/white"
             android:textSize="@dimen/capition_10sp"
             android:visibility="gone"
@@ -83,7 +81,7 @@
             android:layout_alignParentRight="true"
             android:layout_alignTop="@id/iv_book_cover"
             android:paddingRight="8dp"
-            android:text="一小时前"
+            android:paddingLeft="0dp"
             android:textColor="@color/colorPrimary"
             android:textSize="@dimen/sp_12"
             />
@@ -99,7 +97,6 @@
             android:paddingLeft="4dp"
             android:paddingRight="8dp"
             android:paddingTop="4dp"
-            android:text="0"
             android:textColor="@color/colorPrimary"
             android:textSize="@dimen/sp_12"/>
 
@@ -121,7 +118,6 @@
             android:layout_toLeftOf="@id/iv_helpfuless"
             android:gravity="center"
             android:padding="4dp"
-            android:text="0"
             android:textColor="@color/colorPrimary"
             android:textSize="@dimen/sp_12"/>
 

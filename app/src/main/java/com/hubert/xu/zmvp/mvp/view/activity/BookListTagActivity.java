@@ -57,7 +57,7 @@ public class BookListTagActivity extends BaseActivity implements SwipeRefreshLay
         mAdapter = new BookListByTagAdapter(R.layout.item_book_by_tag, mBooks);
         mRvBookListTag.setAdapter(mAdapter);
         mSwipeLayout.setOnRefreshListener(this);
-        mAdapter.setOnLoadMoreListener(this);
+        mAdapter.setOnLoadMoreListener(this,mRvBookListTag);
         mAdapter.setOnItemClickListener(this);
         onRefresh();
     }

@@ -25,11 +25,17 @@ import java.util.Enumeration;
 public class NetworkUtils {
 
     public enum NetworkType {
+        // wifi
         NETWORK_WIFI,
+        // 4G
         NETWORK_4G,
+        // 3G
         NETWORK_3G,
+        // 2G
         NETWORK_2G,
+        // unknown
         NETWORK_UNKNOWN,
+        //
         NETWORK_NO
     }
 
@@ -83,7 +89,8 @@ public class NetworkUtils {
      */
     public static boolean isAvailableByPing(String ip) {
         if (ip == null || ip.length() <= 0) {
-            ip = "223.5.5.5";// 阿里巴巴公共ip
+            // 阿里巴巴公共ip
+            ip = "223.5.5.5";
         }
         ShellUtil.CommandResult result = ShellUtil.execCmd(String.format("ping -c 1 %s", ip), false);
         boolean ret = result.result == 0;
@@ -267,9 +274,9 @@ public class NetworkUtils {
                     default:
 
                         String subtypeName = info.getSubtypeName();
-                        if (subtypeName.equalsIgnoreCase("TD-SCDMA")
-                                || subtypeName.equalsIgnoreCase("WCDMA")
-                                || subtypeName.equalsIgnoreCase("CDMA2000")) {
+                        if ("TD-SCDMA".equalsIgnoreCase(subtypeName)
+                                || "WCDMA".equalsIgnoreCase(subtypeName)
+                                || "CDMA2000".equalsIgnoreCase(subtypeName)) {
                             netType = NetworkType.NETWORK_3G;
                         } else {
                             netType = NetworkType.NETWORK_UNKNOWN;

@@ -60,7 +60,7 @@ public class CommunityDiscussFragment extends BaseFragment implements SwipeRefre
         mRvCommunityDiscuss.setLayoutManager(new LinearLayoutManager(mContext));
         mAdapter = new ComplexDiscussAdapter(R.layout.item_complex_discuss, mDiscussList);
         mRvCommunityDiscuss.setAdapter(mAdapter);
-        mAdapter.setOnLoadMoreListener(this);
+        mAdapter.setOnLoadMoreListener(this, mRvCommunityDiscuss);
         mSwipeLayout.setOnRefreshListener(this);
         BookCommunityActivity activity = (BookCommunityActivity) getActivity();
         activity.addDiscussSortLisenter(this);
@@ -79,27 +79,21 @@ public class CommunityDiscussFragment extends BaseFragment implements SwipeRefre
     @Override
     public void setData(DiscussListBean data) {
         mSwipeLayout.setRefreshing(false);
-        if (data.getPosts() == null || data.getPosts().size() == 0) {
-            mAdapter.loadMoreComplete();
-            mAdapter.setEnableLoadMore(false);
-        } else {
-            if (mStart == 0) {
-                mDiscussList = data.getPosts();
-            } else {
-                mDiscussList.addAll(data.getPosts());
-            }
-            if (data.getPosts().size() < 20) {
-                mAdapter.setEnableLoadMore(false);
-            }
-            mAdapter.setNewData(mDiscussList);
-            mStart = mStart + data.getPosts().size();
-        }
         mAdapter.loadMoreComplete();
+        if (mStart == 0) {
+            mDiscussList = data.getPosts();
+        } else {
+            mDiscussList.addAll(data.getPosts());
+        }
+        mAdapter.setNewData(mDiscussList);
+        mStart = mStart + data.getPosts().size();
+        mAdapter.setEnableLoadMore(data.getPosts() != null && data.getPosts().size() >= 20);
     }
 
     @Override
     public void showError() {
         mSwipeLayout.setRefreshing(false);
+        mAdapter.loadMoreFail();
     }
 
     @Override
