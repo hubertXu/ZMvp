@@ -72,6 +72,7 @@ public class CommunityDiscussFragment extends BaseFragment implements SwipeRefre
     public void onRefresh() {
         mSwipeLayout.setRefreshing(true);
         mStart = 0;
+        mRvCommunityDiscuss.scrollToPosition(0);
         mPresenter.getData(mBookId, mSort, mStart);
     }
 

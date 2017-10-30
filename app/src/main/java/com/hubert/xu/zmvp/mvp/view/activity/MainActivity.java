@@ -23,6 +23,7 @@ import com.hubert.xu.zmvp.utils.ToastUtil;
 import butterknife.BindView;
 
 public class MainActivity extends BaseActivity implements NavigationView.OnNavigationItemSelectedListener {
+
     @BindView(R.id.vp_main)
     ViewPager mVpMain;
     @BindView(R.id.tablayout_main)

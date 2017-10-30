@@ -35,6 +35,7 @@ public class CommunityCommentAdapter extends BaseQuickAdapter<HotReviewBean.Revi
                 .setText(R.id.tv_comment_time, TimeFormatUtil.formatTime(item.getCreated()))
                 .setText(R.id.tv_comment_time, item.getHelpful().getYes() + "有用");
         helper.setVisible(R.id.tv_fine, item.getState().toString().endsWith("distillate"));
+        helper.setRating(R.id.ratingBar_book, Float.valueOf(String.valueOf(item.getRating())));
         new GlideImageLoader().getRequestManager(mContext).load(Constants.IMG_BASE_URL + item.getAuthor().getAvatar()).into((CircleImageView) helper.getView(R.id.iv_user_avatar));
     }
 }

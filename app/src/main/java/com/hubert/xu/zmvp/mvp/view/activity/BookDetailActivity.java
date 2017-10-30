@@ -145,7 +145,6 @@ public class BookDetailActivity extends BaseActivity implements BookDetailContra
         mTvBookDesc = (TextView) headerBookDetail.findViewById(R.id.tv_book_desc);
         mTvTag = (TextView) headerBookDetail.findViewById(R.id.tv_tag);
         mRvBookTag = (RecyclerView) headerBookDetail.findViewById(R.id.rv_book_tag);
-
         mRvBookTag.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
         mDetailTagAdapter = new BookDetailTagAdapter(R.layout.item_tag, mTags);
         mRvBookTag.setAdapter(mDetailTagAdapter);

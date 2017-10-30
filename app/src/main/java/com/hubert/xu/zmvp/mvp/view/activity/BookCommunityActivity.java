@@ -99,6 +99,7 @@ public class BookCommunityActivity extends BaseActivity {
         return super.onOptionsItemSelected(item);
     }
 
+
     SparseArray<DiscussSortLisenter> discussSortLisenters = new SparseArray<>();
 
 

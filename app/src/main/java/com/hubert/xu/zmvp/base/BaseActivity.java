@@ -49,7 +49,6 @@ public abstract class BaseActivity extends RxAppCompatActivity {
     protected abstract void initView();
 
 
-
     private void setToolbar() {
         mToolbar = (Toolbar) findViewById(R.id.toolbar);
         if (mToolbar != null) {

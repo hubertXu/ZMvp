@@ -3,6 +3,7 @@ package com.hubert.xu.zmvp.base;
 import android.app.Application;
 import android.content.Context;
 
+import com.github.moduth.blockcanary.BlockCanary;
 import com.hubert.xu.zmvp.utils.ToastUtil;
 import com.hubert.xu.zmvp.utils.Util;
 import com.hubert.xu.zmvp.utils.imageload.ImageLoaderManager;
@@ -40,6 +41,7 @@ public class MApplication extends Application {
 
 
     private void initComplie() {
+        BlockCanary.install(this, new AppBlockCanaryContext()).start();
         // LeakCanary
         if (LeakCanary.isInAnalyzerProcess(this)) {
             // This process is dedicated to LeakCanary for heap analysis.

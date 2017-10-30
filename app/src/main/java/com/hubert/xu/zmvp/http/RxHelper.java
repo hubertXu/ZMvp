@@ -22,7 +22,7 @@ import io.reactivex.schedulers.Schedulers;
  * Desc  : RxLifecycle绑定工具类
  */
 
-public class RxHelper {
+public class  RxHelper {
 
 
     private static <T> LifecycleTransformer<T> bindToLifecycle(LifecycleProvider provider) {

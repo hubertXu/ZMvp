@@ -58,6 +58,7 @@ public class GirlBookFragment extends BaseFragment implements GirlBookContract.V
 
     @Override
     public void onRefresh() {
+        mRvBookGirl.scrollToPosition(0);
         mSwipeLayout.setRefreshing(true);
         start = 0;
         mGirlBookPresenter.getData(start, sortType);
