@@ -1,4 +1,5 @@
 apply plugin: 'com.android.application'
+apply plugin: 'realm-android'
 
 android {
     compileSdkVersion 25
@@ -29,26 +30,6 @@ dependencies {
     androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
-    // ui
-    // dialog
-    // butterknife
-    // leakcanary
-    // java8
-    // banner
-    // retrofit
-    // okhttp
-    // rx
-    // rxpermissions
-    // rxlifecycle
-    // Glide
-    // fresco
-    // If you want to use the GPU Filters
-    // gson
-    // circleimageview
-    // logger
-    // BaseRecyclerViewAdapterHelper
-
-
     compile 'de.hdodenhof:circleimageview:2.1.0'
     annotationProcessor 'com.github.bumptech.glide:compiler:4.0.0-RC1'
     compile 'de.hdodenhof:circleimageview:2.1.0'
@@ -89,5 +70,4 @@ dependencies {
     releaseCompile 'com.squareup.leakcanary:leakcanary-android-no-op:1.5.1'
     debugCompile 'com.github.markzhai:blockcanary-android:1.5.0'
     releaseCompile 'com.github.markzhai:blockcanary-no-op:1.5.0'
-//    retrolambdaConfig 'net.orfjackal.retrolambda:retrolambda:+'
 }

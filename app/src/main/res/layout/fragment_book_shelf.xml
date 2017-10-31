@@ -4,8 +4,15 @@
              android:layout_height="match_parent"
              tools:context=".mvp.view.fragment.BookShelfFragment">
 
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/rl_book_shelf"
+
+    <android.support.v4.widget.SwipeRefreshLayout
+        android:id="@+id/swipe_layout"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+        android:layout_height="match_parent">
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/rv_book_shelf"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+
+    </android.support.v4.widget.SwipeRefreshLayout>
 </LinearLayout>

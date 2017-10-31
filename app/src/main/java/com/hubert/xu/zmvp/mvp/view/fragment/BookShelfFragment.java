@@ -1,5 +1,6 @@
 package com.hubert.xu.zmvp.mvp.view.fragment;
 
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.RecyclerView;
 
 import com.hubert.xu.zmvp.R;
@@ -15,8 +16,10 @@ import butterknife.BindView;
 
 public class BookShelfFragment extends BaseFragment {
 
-    @BindView(R.id.rl_book_shelf)
-    RecyclerView mRlBookShelf;
+    @BindView(R.id.rv_book_shelf)
+    RecyclerView mRvBookShelf;
+    @BindView(R.id.swipe_layout)
+    SwipeRefreshLayout mSwipeRefreshLayout;
 
     @Override
     protected int attachLayoutRes() {

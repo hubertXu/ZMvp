@@ -11,6 +11,8 @@ import com.orhanobut.logger.AndroidLogAdapter;
 import com.orhanobut.logger.Logger;
 import com.squareup.leakcanary.LeakCanary;
 
+import io.realm.Realm;
+
 
 /**
  * author: XQ
@@ -52,9 +54,11 @@ public class MApplication extends Application {
         // Logger
         Logger.addLogAdapter(new AndroidLogAdapter());
         ImageLoaderManager.getInstance().init(this);
+        Realm.init(this);
     }
 
 
     private void initData() {
+
     }
 }
